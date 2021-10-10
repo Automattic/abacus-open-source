@@ -459,7 +459,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -502,7 +504,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -538,7 +542,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -574,7 +580,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -617,7 +625,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -843,7 +853,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Not analyzed yet
+                      <span>
+                        Not analyzed yet
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -975,7 +987,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -1018,7 +1032,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -1061,7 +1077,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -1104,7 +1122,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
@@ -1147,7 +1167,9 @@ exports[`renders the full tables with some analyses in debug mode 2`] = `
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
                       style="box-sizing: border-box;"
                     >
-                      Deploy either variation
+                      <span>
+                        Deploy either variation
+                      </span>
                     </td>
                     <td
                       class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"

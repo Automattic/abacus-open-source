@@ -19,7 +19,9 @@ test('renders MissingAnalysis correctly', () => {
   )
   expect(container).toMatchInlineSnapshot(`
     <div>
-      Not analyzed yet
+      <span>
+        Not analyzed yet
+      </span>
     </div>
   `)
 })
@@ -58,7 +60,9 @@ test('renders Inconclusive correctly', () => {
   )
   expect(container).toMatchInlineSnapshot(`
     <div>
-      Inconclusive
+      <span>
+        Inconclusive
+      </span>
     </div>
   `)
 })
@@ -75,7 +79,9 @@ test('renders DeployAnyVariation correctly', () => {
   )
   expect(container).toMatchInlineSnapshot(`
     <div>
-      Deploy either variation
+      <span>
+        Deploy either variation
+      </span>
     </div>
   `)
 })
@@ -102,8 +108,10 @@ test('renders DeployChosenVariation correctly', () => {
   )
   expect(container).toMatchInlineSnapshot(`
     <div>
-      Deploy 
-      variation_name_123
+      <span>
+        Deploy 
+        variation_name_123
+      </span>
     </div>
   `)
 })
