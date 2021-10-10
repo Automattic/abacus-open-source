@@ -1,4 +1,5 @@
 import { createStyles, makeStyles, Theme, Tooltip } from '@material-ui/core'
+import clsx from 'clsx'
 import React from 'react'
 
 import { Decision, Recommendation } from 'src/lib/recommendations'
@@ -18,9 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
  * Displays a Recommendation.
  */
 export default function RecommendationDisplay({
+  className,
   recommendation,
   experiment,
 }: {
+  className?: string
   recommendation: Recommendation
   experiment: ExperimentFull
 }): JSX.Element {
@@ -29,15 +32,15 @@ export default function RecommendationDisplay({
     case Decision.ManualAnalysisRequired:
       return (
         <Tooltip title='Contact @experimentation-review on #a8c-experiments'>
-          <span className={classes.tooltipped}>Manual analysis required</span>
+          <span className={clsx(className, classes.tooltipped)}>Manual analysis required</span>
         </Tooltip>
       )
     case Decision.MissingAnalysis:
-      return <>Not analyzed yet</>
+      return <span className={className}>Not analyzed yet</span>
     case Decision.Inconclusive:
-      return <>Inconclusive</>
+      return <span className={className}>Inconclusive</span>
     case Decision.DeployAnyVariation:
-      return <>Deploy either variation</>
+      return <span className={className}>Deploy either variation</span>
     case Decision.DeployChosenVariation: {
       const chosenVariation = experiment.variations.find(
         (variation) => variation.variationId === recommendation.chosenVariationId,
@@ -46,7 +49,7 @@ export default function RecommendationDisplay({
         throw new Error('No match for chosenVariationId among variations in experiment.')
       }
 
-      return <>Deploy {chosenVariation.name}</>
+      return <span className={className}>Deploy {chosenVariation.name}</span>
     }
     default:
       throw new Error('Missing Decision.')

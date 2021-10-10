@@ -16,7 +16,7 @@ import {
   Typography,
   useTheme,
 } from '@material-ui/core'
-import { ExpandMore as ExpandMoreIcon, InfoOutlined as InfoOutlinedIcon } from '@material-ui/icons'
+import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import clsx from 'clsx'
 import _ from 'lodash'
 import MaterialTable from 'material-table'
@@ -49,17 +49,12 @@ import MetricAssignmentResults from './MetricAssignmentResults'
 import RecommendationDisplay from './RecommendationDisplay'
 
 const indicationSeverityClassSymbol = (severity: Analyses.HealthIndicationSeverity) => `indicationSeverity${severity}`
-const significanceStatusClassSymbol = (recommendation: Recommendations.Recommendation) => {
-  if (
+
+const isPracticallySignificant = (recommendation: Recommendations.Recommendation) => {
+  return (
     typeof recommendation.practicallySignificant !== 'undefined' &&
-    typeof recommendation.statisticallySignificant !== 'undefined' &&
-    recommendation.practicallySignificant === Recommendations.PracticalSignificanceStatus.Yes &&
-    recommendation.statisticallySignificant
-  ) {
-    return `significanceStatus${Recommendations.PracticalSignificanceStatus.Yes}`
-  } else {
-    return `significanceStatus${Recommendations.PracticalSignificanceStatus.No}`
-  }
+    recommendation.practicallySignificant === Recommendations.PracticalSignificanceStatus.Yes
+  )
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -132,8 +127,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     tableTitle: {
       margin: theme.spacing(4, 2, 2),
-      display: 'flex',
-      alignItems: 'center',
     },
     accordions: {
       margin: theme.spacing(2, 0),
@@ -157,12 +150,9 @@ const useStyles = makeStyles((theme: Theme) =>
     metricAssignmentNameLine: {
       whiteSpace: 'nowrap',
     },
-    [`significanceStatus${Recommendations.PracticalSignificanceStatus.Yes}`]: {
+    isSignificant: {
       color: 'rgba(0, 0, 0, 0.87)',
       fontWeight: 600,
-    },
-    [`significanceStatus${Recommendations.PracticalSignificanceStatus.No}`]: {
-      color: theme.palette.grey[600],
     },
     infoIcon: {
       color: theme.palette.info.main,
@@ -343,17 +333,18 @@ export default function ActualExperimentResults({
           return null
         }
 
+        const className = isPracticallySignificant(recommendation) ? classes.isSignificant : ''
+
         return (
-          <div className={classes[significanceStatusClassSymbol(recommendation)]}>
-            <MetricValueInterval
-              intervalName={'the absolute change between variations'}
-              isDifference={true}
-              metricParameterType={metric.parameterType}
-              bottomValue={latestEstimates.diff.bottom}
-              topValue={latestEstimates.diff.top}
-              displayTooltipHint={false}
-            />
-          </div>
+          <MetricValueInterval
+            className={className}
+            intervalName={'the absolute change between variations'}
+            isDifference={true}
+            metricParameterType={metric.parameterType}
+            bottomValue={latestEstimates.diff.bottom}
+            topValue={latestEstimates.diff.top}
+            displayTooltipHint={false}
+          />
         )
       },
       cellStyle: {
@@ -382,16 +373,17 @@ export default function ActualExperimentResults({
           return null
         }
 
+        const className = isPracticallySignificant(recommendation) ? classes.isSignificant : ''
+
         return (
-          <div className={classes[significanceStatusClassSymbol(recommendation)]}>
-            <MetricValueInterval
-              intervalName={'the relative change between variations'}
-              metricParameterType={MetricParameterType.Conversion}
-              bottomValue={Analyses.ratioToDifferenceRatio(latestEstimates.ratio.bottom)}
-              topValue={Analyses.ratioToDifferenceRatio(latestEstimates.ratio.top)}
-              displayTooltipHint={false}
-            />
-          </div>
+          <MetricValueInterval
+            className={className}
+            intervalName={'the relative change between variations'}
+            metricParameterType={MetricParameterType.Conversion}
+            bottomValue={Analyses.ratioToDifferenceRatio(latestEstimates.ratio.bottom)}
+            topValue={Analyses.ratioToDifferenceRatio(latestEstimates.ratio.top)}
+            displayTooltipHint={false}
+          />
         )
       },
       cellStyle: {
@@ -407,11 +399,9 @@ export default function ActualExperimentResults({
         experiment: ExperimentFull
         recommendation: Recommendations.Recommendation
       }) => {
-        return (
-          <div className={classes[significanceStatusClassSymbol(recommendation)]}>
-            <RecommendationDisplay {...{ experiment, recommendation }} />
-          </div>
-        )
+        const className = isPracticallySignificant(recommendation) ? classes.isSignificant : ''
+
+        return <RecommendationDisplay className={className} {...{ experiment, recommendation }} />
       },
       cellStyle: {
         fontFamily: theme.custom.fonts.monospace,
@@ -515,14 +505,7 @@ export default function ActualExperimentResults({
             </div>
           </div>
           <Typography variant='h3' className={classes.tableTitle}>
-            <span>Metric Assignment Results</span>
-            &nbsp;
-            <Tooltip
-              title='Results that are both practically and statistically significant are indicated in bold. 
-            Insignificant results are indicated by a lighter grey.'
-            >
-              <InfoOutlinedIcon className={classes.infoIcon} />
-            </Tooltip>
+            Metric Assignment Results
           </Typography>
           <MaterialTable
             columns={tableColumns}

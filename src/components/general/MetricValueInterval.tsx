@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
  * Displays a metric value interval.
  */
 export default function MetricValueInterval({
+  className,
   intervalName,
   metricParameterType,
   isDifference = false,
@@ -28,6 +29,7 @@ export default function MetricValueInterval({
   displayTooltipHint = true,
   displayPositiveSign = true,
 }: {
+  className?: string
   intervalName: string
   metricParameterType: MetricParameterType
   isDifference?: boolean
@@ -62,7 +64,7 @@ export default function MetricValueInterval({
         </>
       }
     >
-      <span className={clsx(displayTooltipHint && classes.tooltipped)}>
+      <span className={clsx(displayTooltipHint && classes.tooltipped, className)}>
         <MetricValue
           value={bottomValue}
           metricParameterType={metricParameterType}
