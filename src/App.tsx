@@ -10,6 +10,7 @@ import { config } from 'src/config'
 import ThemeProvider from 'src/styles/ThemeProvider'
 import { getExperimentsAuthInfo } from 'src/utils/auth'
 
+import { UserContextProvider } from './contexts/UserContext'
 import Routes from './Routes'
 
 const debug = debugFactory('abacus:pages/_app.tsx')
@@ -24,14 +25,6 @@ const useStyles = makeStyles({
 function App(): JSX.Element {
   debug('App#render')
   const classes = useStyles()
-
-  React.useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles) {
-      jssStyles.parentElement?.removeChild(jssStyles)
-    }
-  }, [])
 
   if (config.experimentApi.needsAuth && window.location.pathname !== '/auth') {
     // Prompt user for authorization if we don't have auth info.
@@ -58,7 +51,9 @@ function App(): JSX.Element {
           ) : (
             <SnackbarProvider preventDuplicate>
               <div className={classes.app}>
-                <Routes />
+                <UserContextProvider>
+                  <Routes />
+                </UserContextProvider>
               </div>
             </SnackbarProvider>
           )}

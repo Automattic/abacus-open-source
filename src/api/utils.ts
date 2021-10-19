@@ -66,7 +66,14 @@ export const exPlatWretcher = wretch()
   })
 
 /**
- * Wrapper for the ExPlat Wretcher
+ * WP Rest 1.1 Wretcher (FetchWrapper)
+ *
+ * See exPlatWretcher for more info.
+ */
+export const wpRestV1Wretcher = exPlatWretcher.url('https://public-api.wordpress.com/rest/v1.1', true)
+
+/**
+ * Wrapper for the ExPlat Wretcher, so that is fits with existing well tested code.
  */
 export async function fetchApi(
   method: 'GET' | 'PUT' | 'POST' | 'PATCH' | 'DELETE',
