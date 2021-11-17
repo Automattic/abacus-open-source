@@ -57,12 +57,13 @@ describe('Metrics', () => {
     it('should show metric details on row click', async () => {
       await page.goto('http://a8c-abacus-local:3001/metrics')
 
-      await page.waitForSelector('.MuiTableHead-root')
+      await page.waitForSelector('.ag-center-cols-container')
 
-      const $tableRows = await page.$$('.MuiTableBody-root tr')
+      const $tableRows = await page.$$('.ag-center-cols-container div.ag-row')
       expect($tableRows.length).toBeGreaterThan(0)
-      await $tableRows[0].click()
-      await page.waitForSelector('.MuiTableBody-root .MuiTableBody-root')
+      const $tableCells = await $tableRows[0].$$('.ag-cell')
+      await $tableCells[0].click()
+      await page.waitForSelector('.ag-full-width-container div')
       expect(await page.content()).toMatch(/Higher is Better/)
     })
   })
