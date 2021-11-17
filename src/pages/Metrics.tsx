@@ -19,7 +19,7 @@ import { serverErrorMessage } from 'src/api/HttpResponseError'
 import MetricsApi from 'src/api/MetricsApi'
 import LoadingButtonContainer from 'src/components/general/LoadingButtonContainer'
 import MetricFormFields from 'src/components/metrics/MetricFormFields'
-import MetricsTable from 'src/components/metrics/MetricsTable'
+import MetricsTableAgGrid from 'src/components/metrics/MetricsTableAgGrid'
 import Layout from 'src/components/page-parts/Layout'
 import { MetricFormData, metricToFormData } from 'src/lib/form-data'
 import { MetricNew, metricNewSchema } from 'src/lib/schemas'
@@ -77,9 +77,12 @@ const MetricsIndexPage = (): JSX.Element => {
       setEditMetricMetricId(null)
     } catch (e) /* istanbul ignore next; Shouldn't happen */ {
       console.error(e)
-      enqueueSnackbar(`Oops! Something went wrong while trying to update your metric. ${serverErrorMessage(e)}`, {
-        variant: 'error',
-      })
+      enqueueSnackbar(
+        `Oops! Something went wrong while trying to update your metric. ${serverErrorMessage(e as Error)}`,
+        {
+          variant: 'error',
+        },
+      )
     }
   }
 
@@ -97,18 +100,18 @@ const MetricsIndexPage = (): JSX.Element => {
       setIsAddingMetric(false)
     } catch (e) /* istanbul ignore next; Shouldn't happen */ {
       console.error(e)
-      enqueueSnackbar(`Oops! Something went wrong while trying to add your metric. ${serverErrorMessage(e)}`, {
+      enqueueSnackbar(`Oops! Something went wrong while trying to add your metric. ${serverErrorMessage(e as Error)}`, {
         variant: 'error',
       })
     }
   }
 
   return (
-    <Layout title='Metrics'>
+    <Layout headTitle='Metrics' flexContent>
       {isLoading && <LinearProgress />}
       {metrics && (
         <>
-          <MetricsTable metrics={metrics || []} onEditMetric={debugMode ? onEditMetric : undefined} />
+          <MetricsTableAgGrid metrics={metrics || []} onEditMetric={debugMode ? onEditMetric : undefined} />
           {debugMode && (
             <div className={classes.actions}>
               <Button variant='contained' color='secondary' onClick={onAddMetric}>

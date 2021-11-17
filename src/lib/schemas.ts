@@ -214,6 +214,10 @@ export const metricNewOutboundSchema = metricNewSchema.snakeCase().transform(
       : undefined,
   }),
 )
+export const metricDetail = metricSchema.shape({
+  isDetail: yup.boolean().notRequired(),
+})
+export interface MetricDetail extends yup.InferType<typeof metricDetail> {}
 
 export enum AttributionWindowSeconds {
   OneHour = 3600,
