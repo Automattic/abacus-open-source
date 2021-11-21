@@ -276,7 +276,6 @@ const MetricsTableAgGrid = ({
     columnDefs: [
       {
         headerName: '',
-        field: 'metricId', // dummy column for displaying the button
         sortable: false,
         filter: false,
         resizable: false,

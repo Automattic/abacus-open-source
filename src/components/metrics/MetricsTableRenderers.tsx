@@ -97,7 +97,7 @@ export const MetricDetailToggleButtonRenderer = ({
       <IconButton
         id={data.name}
         style={{ transition: 'all 200ms ease 0s', transform: transform }}
-        aria-label='toggle metric details'
+        aria-label='Toggle Metric Details'
       >
         <ChevronRightRoundedIcon />
       </IconButton>
@@ -130,7 +130,7 @@ export const MetricEditButtonRenderer = ({
       onClick={() => {
         onEditMetric(data.metricId)
       }}
-      aria-label='edit metric'
+      aria-label='Edit Metric'
     >
       <EditIcon />
     </IconButton>
