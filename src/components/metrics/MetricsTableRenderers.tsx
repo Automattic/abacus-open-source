@@ -14,7 +14,7 @@ import { ChevronRightRounded as ChevronRightRoundedIcon, Edit as EditIcon } from
 import debugFactory from 'debug'
 import React from 'react'
 
-import { MetricDetail } from 'src/lib/schemas'
+import { MetricDetail } from 'src/components/metrics/MetricsTableAgGrid'
 import { formatBoolean } from 'src/utils/formatters'
 
 const debug = debugFactory('abacus:components/MetricDetailRenderer.tsx')

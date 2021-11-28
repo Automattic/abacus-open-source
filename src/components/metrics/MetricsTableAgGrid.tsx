@@ -4,13 +4,21 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
 import { Button, createStyles, fade, InputBase, makeStyles, Theme, Typography, useTheme } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
-import { CellClickedEvent, ColumnApi, GridApi, GridOptions, GridReadyEvent, RowNode } from 'ag-grid-community'
+import {
+  CellClickedEvent,
+  ColumnApi,
+  GetQuickFilterTextParams,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+  RowNode,
+} from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import debugFactory from 'debug'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { Metric, MetricDetail } from 'src/lib/schemas'
+import { Metric } from 'src/lib/schemas'
 
 import {
   MetricDetailRenderer,
@@ -20,6 +28,10 @@ import {
 } from './MetricsTableRenderers'
 
 const debug = debugFactory('abacus:components/MetricsTableAgGrid.tsx')
+
+export interface MetricDetail extends Metric {
+  isDetail?: boolean
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -163,6 +175,10 @@ const MetricsTableAgGrid = ({
       defaultState: { sort: null },
     })
     gridApiRef.current.sizeColumnsToFit()
+  }
+
+  const paramsGetQuickFilterText = (params: GetQuickFilterTextParams) => {
+    return JSON.stringify(params.value, null, 4)
   }
 
   // Dynamically adjust the height of a detail row to fit.
@@ -309,6 +325,22 @@ const MetricsTableAgGrid = ({
         headerName: 'Parameter Type',
         field: 'parameterType',
         width: 200,
+      },
+      {
+        // hidden field to allow searching
+        headerName: 'EventParams',
+        field: 'eventParams',
+        hide: true,
+        suppressToolPanel: true,
+        getQuickFilterText: paramsGetQuickFilterText,
+      },
+      {
+        // hidden field to allow searching
+        headerName: 'RevenueParams',
+        field: 'revenueParams',
+        hide: true,
+        suppressToolPanel: true,
+        getQuickFilterText: paramsGetQuickFilterText,
       },
       // trick for conditionally including this element
       ...(onEditMetric
