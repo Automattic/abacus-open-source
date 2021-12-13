@@ -22,9 +22,10 @@ import _ from 'lodash'
 import MaterialTable from 'material-table'
 import { PlotData } from 'plotly.js'
 import React, { useState } from 'react'
-import Plot from 'react-plotly.js'
 
 import Attribute from 'src/components/general/Attribute'
+//import Plot from 'react-plotly.js'
+import LazyPlot from 'src/components/general/LazyPlot'
 import * as Analyses from 'src/lib/analyses'
 import * as Experiments from 'src/lib/experiments'
 import { AttributionWindowSecondsToHuman } from 'src/lib/metric-assignments'
@@ -424,7 +425,7 @@ export default function ActualExperimentResults({
               <Typography variant='h3' gutterBottom>
                 Participants by Variation
               </Typography>
-              <Plot
+              <LazyPlot
                 layout={{
                   ...Visualizations.plotlyLayoutDefault,
                   margin: {
