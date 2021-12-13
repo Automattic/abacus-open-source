@@ -1,13 +1,13 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.0.1
+  node: circleci/node@4.9.0
 
 jobs:
   static-checks:
     executor:
       name: node/default
-      tag: '12.18.4'
+      tag: '14.18'
     steps:
       - checkout
       - node/install-packages
@@ -21,7 +21,7 @@ jobs:
   unit-tests:
     executor:
       name: node/default
-      tag: '12.18.4'
+      tag: '14.18'
     steps:
       - checkout
       - node/install-packages
@@ -32,7 +32,7 @@ jobs:
   integration:
     executor:
       name: node/default
-      tag: '12.18.4'
+      tag: '14.18'
     steps:
       - checkout
       - node/install-packages
@@ -43,7 +43,7 @@ jobs:
   e2e:
     executor:
       name: node/default
-      tag: '12.18.4'
+      tag: '14.18'
     steps:
       - checkout
       - node/install-packages
