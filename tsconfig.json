@@ -17,11 +17,8 @@
     "target": "esnext",
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "typeRoots": ["node_modules/@types", "src/local-types"],
-    "paths": {
-      "plotly.js-cartesian-dist": ["./src/local-types/plotly.js-cartesian-dist"]
-    }
+    "typeRoots": ["node_modules/@types"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "src/local-types/**"]
+  "exclude": ["node_modules"]
 }
