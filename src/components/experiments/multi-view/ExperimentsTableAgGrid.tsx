@@ -5,12 +5,12 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 import { Button, createStyles, fade, InputBase, Link, makeStyles, Theme, Typography, useTheme } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
 import { ColumnApi, GridApi, GridReadyEvent } from 'ag-grid-community'
-import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
 import DatetimeText from 'src/components/general/DatetimeText'
+import LazyAgGrid from 'src/components/general/LazyAgGrid'
 import { ExperimentBare, Status } from 'src/lib/schemas'
 import { createIdSlug } from 'src/utils/general'
 
@@ -174,7 +174,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
         </div>
       </div>
       <div className={clsx('ag-theme-alpine', classes.gridContainer)}>
-        <AgGridReact
+        <LazyAgGrid
           columnDefs={[
             {
               headerName: 'Name',
