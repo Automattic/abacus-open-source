@@ -15,11 +15,10 @@ import {
 import { ChevronRight, ExpandMore } from '@material-ui/icons'
 import clsx from 'clsx'
 import _, { identity } from 'lodash'
-import { PlotData } from 'plotly.js-cartesian-dist'
+import { PlotData } from 'plotly.js'
 import React, { useState } from 'react'
 
 import DatetimeText from 'src/components/general/DatetimeText'
-//import Plot from 'react-plotly.js'
 import LazyPlot from 'src/components/general/LazyPlot'
 import MetricValue from 'src/components/general/MetricValue'
 import * as Analyses from 'src/lib/analyses'
