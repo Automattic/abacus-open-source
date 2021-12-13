@@ -20,7 +20,7 @@ import { ExpandMore as ExpandMoreIcon } from '@material-ui/icons'
 import clsx from 'clsx'
 import _ from 'lodash'
 import MaterialTable from 'material-table'
-import { PlotData } from 'plotly.js'
+import { PlotData } from 'plotly.js-cartesian-dist'
 import React, { useState } from 'react'
 
 import Attribute from 'src/components/general/Attribute'

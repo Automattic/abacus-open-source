@@ -10,14 +10,14 @@ import createPlotlyComponent from 'react-plotly.js/factory'
  * @returns A Plotly Plot component.
  */
 export default function LazyPlot(props: PlotParams): JSX.Element {
-  const Plot = useRef<React.ComponentType<PlotParams> | null>(null)
+  const plotRef = useRef<React.ComponentType<PlotParams> | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
     import('plotly.js-cartesian-dist')
       .then(({ default: plotly }) => {
-        Plot.current = createPlotlyComponent(plotly)
+        plotRef.current = createPlotlyComponent(plotly)
         setLoading(false)
         return false
       })
@@ -27,6 +27,8 @@ export default function LazyPlot(props: PlotParams): JSX.Element {
       })
   }, [loading])
 
+  const Plot = plotRef.current
+
   return (
     <>
       {loading ? (
@@ -34,8 +36,7 @@ export default function LazyPlot(props: PlotParams): JSX.Element {
       ) : error ? (
         <Alert severity='error'>Chart could not be loaded.</Alert>
       ) : (
-        // eslint-disable-next-line
-        <Plot.current {...props} />
+        Plot && <Plot {...props} />
       )}
     </>
   )

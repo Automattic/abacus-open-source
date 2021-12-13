@@ -15,7 +15,7 @@ import {
 import { ChevronRight, ExpandMore } from '@material-ui/icons'
 import clsx from 'clsx'
 import _, { identity } from 'lodash'
-import { PlotData } from 'plotly.js'
+import { PlotData } from 'plotly.js-cartesian-dist'
 import React, { useState } from 'react'
 
 import DatetimeText from 'src/components/general/DatetimeText'
