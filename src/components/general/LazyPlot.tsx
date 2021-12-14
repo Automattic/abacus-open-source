@@ -4,18 +4,28 @@ import React, { useEffect, useRef, useState } from 'react'
 import { PlotParams } from 'react-plotly.js'
 import createPlotlyComponent from 'react-plotly.js/factory'
 
+interface LazyPlotParams extends PlotParams {
+  importFunc?: (name: string) => Promise<{ default: React.ComponentType<any> }>
+}
+
 /**
  * A code-split version of a React Plotly plot in order to reduce memory usage. Displays a loading bar while it lazily loads react-plotly.
  * @param props PlotParams as defined in https://www.npmjs.com/package/@types/react-plotly.js
  * @returns A Plotly Plot component.
  */
-export default function LazyPlot(props: PlotParams): JSX.Element {
+export default function LazyPlot(props: LazyPlotParams): JSX.Element {
   const plotRef = useRef<React.ComponentType<PlotParams> | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<boolean>(false)
 
   useEffect(() => {
-    import('plotly.js-cartesian-dist')
+    let importPromise
+    if (props.importFunc) {
+      importPromise = props.importFunc('plotly.js-cartesian-dist')
+    } else {
+      importPromise = import('plotly.js-cartesian-dist')
+    }
+    importPromise
       .then(({ default: plotly }) => {
         plotRef.current = createPlotlyComponent(plotly)
         setLoading(false)
@@ -25,7 +35,7 @@ export default function LazyPlot(props: PlotParams): JSX.Element {
         setLoading(false)
         setError(true)
       })
-  }, [loading])
+  }, [props])
 
   const Plot = plotRef.current
 

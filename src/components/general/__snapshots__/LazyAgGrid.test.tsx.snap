@@ -1,0 +1,538 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a grid 1`] = `
+<div>
+  <div
+    style="height: 100%;"
+  >
+    <div
+      class="ag-root-wrapper ag-layout-normal ag-ltr"
+      ref="eRootWrapper"
+    >
+      
+                
+                
+      <div
+        class="ag-root-wrapper-body ag-layout-normal ag-focus-managed"
+        ref="rootWrapperBody"
+      >
+        <div
+          class="ag-tab-guard ag-tab-guard-top"
+          role="presentation"
+          tabindex="0"
+        />
+        
+                    
+        <!--AG-GRID-COMP-->
+        <div
+          aria-colcount="0"
+          aria-rowcount="1"
+          class="ag-root ag-unselectable ag-layout-normal"
+          ref="gridPanel"
+          role="grid"
+          unselectable="on"
+        >
+          
+        
+          <!--AG-HEADER-ROOT-->
+          <div
+            class="ag-header ag-focus-managed ag-pivot-off"
+            ref="headerRoot"
+            role="presentation"
+            style="height: 26px; min-height: 26px;"
+            unselectable="on"
+          >
+            
+            
+            <div
+              class="ag-pinned-left-header ag-hidden"
+              ref="ePinnedLeftHeader"
+              role="presentation"
+              style="width: 0px; max-width: 0px; min-width: 0px;"
+            >
+              <div
+                aria-rowindex="1"
+                class="ag-header-row ag-header-row-column"
+                role="row"
+                style="top: 0px; height: 25px; width: 0px;"
+              />
+            </div>
+            
+            
+            <div
+              class="ag-header-viewport"
+              ref="eHeaderViewport"
+              role="presentation"
+            >
+              
+                
+              <div
+                class="ag-header-container"
+                ref="eHeaderContainer"
+                role="rowgroup"
+                style="width: 0px;"
+              >
+                <div
+                  aria-rowindex="1"
+                  class="ag-header-row ag-header-row-column"
+                  role="row"
+                  style="top: 0px; height: 25px; width: 0px;"
+                />
+              </div>
+              
+            
+            </div>
+            
+            
+            <div
+              class="ag-pinned-right-header ag-hidden"
+              ref="ePinnedRightHeader"
+              role="presentation"
+              style="width: 0px; max-width: 0px; min-width: 0px;"
+            >
+              <div
+                aria-rowindex="1"
+                class="ag-header-row ag-header-row-column"
+                role="row"
+                style="top: 0px; height: 25px; width: 0px;"
+              />
+            </div>
+            
+        
+          </div>
+          
+        
+          <div
+            class="ag-floating-top"
+            ref="eTop"
+            role="presentation"
+            style="min-height: 0px; height: 0px; display: none; overflow-y: hidden;"
+            unselectable="on"
+          >
+            
+            
+            <div
+              class="ag-pinned-left-floating-top ag-hidden"
+              ref="eLeftTop"
+              role="presentation"
+              unselectable="on"
+            />
+            
+            
+            <div
+              class="ag-floating-top-viewport"
+              ref="eTopViewport"
+              role="presentation"
+              unselectable="on"
+            >
+              
+                
+              <div
+                class="ag-floating-top-container"
+                ref="eTopContainer"
+                role="presentation"
+                style="width: 0px;"
+                unselectable="on"
+              />
+              
+            
+            </div>
+            
+            
+            <div
+              class="ag-pinned-right-floating-top ag-hidden"
+              ref="eRightTop"
+              role="presentation"
+              unselectable="on"
+            />
+            
+            
+            <div
+              class="ag-floating-top-full-width-container ag-hidden"
+              ref="eTopFullWidthContainer"
+              role="presentation"
+              unselectable="on"
+            />
+            
+        
+          </div>
+          
+        
+          <div
+            class="ag-body-viewport ag-layout-normal ag-row-no-animation"
+            ref="eBodyViewport"
+            role="presentation"
+          >
+            
+            
+            <div
+              class="ag-pinned-left-cols-container ag-hidden"
+              ref="eLeftContainer"
+              role="presentation"
+              style="height: 1px;"
+              unselectable="on"
+            />
+            
+            
+            <div
+              class="ag-center-cols-clipper"
+              ref="eCenterColsClipper"
+              role="presentation"
+              style="height: 1px;"
+              unselectable="on"
+            >
+              
+                
+              <div
+                class="ag-center-cols-viewport"
+                ref="eCenterViewport"
+                role="presentation"
+                style="height: calc(100% + 0px);"
+              >
+                
+                    
+                <div
+                  class="ag-center-cols-container"
+                  ref="eCenterContainer"
+                  role="rowgroup"
+                  style="width: 0px; height: 1px;"
+                  unselectable="on"
+                />
+                
+                
+              </div>
+              
+            
+            </div>
+            
+            
+            <div
+              class="ag-pinned-right-cols-container ag-hidden"
+              ref="eRightContainer"
+              role="presentation"
+              style="height: 1px;"
+              unselectable="on"
+            />
+            
+            
+            <div
+              class="ag-full-width-container"
+              ref="eFullWidthContainer"
+              role="presentation"
+              style="height: 1px;"
+              unselectable="on"
+            />
+            
+        
+          </div>
+          
+        
+          <div
+            class="ag-floating-bottom"
+            ref="eBottom"
+            role="presentation"
+            style="min-height: 0px; height: 0px; display: none; overflow-y: hidden;"
+            unselectable="on"
+          >
+            
+            
+            <div
+              class="ag-pinned-left-floating-bottom ag-hidden"
+              ref="eLeftBottom"
+              role="presentation"
+              unselectable="on"
+            />
+            
+            
+            <div
+              class="ag-floating-bottom-viewport"
+              ref="eBottomViewport"
+              role="presentation"
+              unselectable="on"
+            >
+              
+                
+              <div
+                class="ag-floating-bottom-container"
+                ref="eBottomContainer"
+                role="presentation"
+                style="width: 0px;"
+                unselectable="on"
+              />
+              
+            
+            </div>
+            
+            
+            <div
+              class="ag-pinned-right-floating-bottom ag-hidden"
+              ref="eRightBottom"
+              role="presentation"
+              unselectable="on"
+            />
+            
+            
+            <div
+              class="ag-floating-bottom-full-width-container ag-hidden"
+              ref="eBottomFullWidthContainer"
+              role="presentation"
+              unselectable="on"
+            />
+            
+        
+          </div>
+          
+        
+          <div
+            aria-hidden="true"
+            class="ag-body-horizontal-scroll"
+            ref="eHorizontalScrollBody"
+            style="height: 0px; max-height: 0px; min-height: 0px;"
+          >
+            
+            
+            <div
+              class="ag-horizontal-left-spacer"
+              ref="eHorizontalLeftSpacer"
+              style="width: 0px; max-width: 0px; min-width: 0px;"
+            />
+            
+            
+            <div
+              class="ag-body-horizontal-scroll-viewport"
+              ref="eBodyHorizontalScrollViewport"
+              style="height: 0px; max-height: 0px; min-height: 0px;"
+            >
+              
+                
+              <div
+                class="ag-body-horizontal-scroll-container"
+                ref="eBodyHorizontalScrollContainer"
+                style="width: 0px; height: 0px; max-height: 0px; min-height: 0px;"
+              />
+              
+            
+            </div>
+            
+            
+            <div
+              class="ag-horizontal-right-spacer"
+              ref="eHorizontalRightSpacer"
+              style="width: 0px; max-width: 0px; min-width: 0px;"
+            />
+            
+        
+          </div>
+          
+        
+          <!--AG-OVERLAY-WRAPPER-->
+          <div
+            aria-hidden="true"
+            class="ag-overlay"
+            ref="overlayWrapper"
+          >
+            
+            
+            <div
+              class="ag-overlay-panel"
+            >
+              
+                
+              <div
+                class="ag-overlay-wrapper ag-layout-normal ag-overlay-loading-wrapper"
+                ref="eOverlayWrapper"
+              >
+                <span
+                  class="ag-overlay-loading-center"
+                >
+                  Loading...
+                </span>
+              </div>
+              
+            
+            </div>
+            
+        
+          </div>
+          
+    
+        </div>
+        
+                    
+                
+        <div
+          class="ag-tab-guard ag-tab-guard-bottom"
+          role="presentation"
+          tabindex="0"
+        />
+      </div>
+      
+                
+                
+      <!--AG-PAGINATION-->
+      <div
+        aria-describedby="ag-5-start-page ag-5-start-page-number ag-5-of-page ag-5-of-page-number ag-5-first-row ag-5-to ag-5-last-row ag-5-of ag-5-row-count"
+        aria-live="polite"
+        class="ag-paging-panel ag-unselectable ag-hidden"
+        id="ag-5"
+      >
+        
+                
+        <span
+          aria-hidden="true"
+          class="ag-paging-row-summary-panel"
+        >
+          
+                    
+          <span
+            class="ag-paging-row-summary-panel-number"
+            id="ag-5-first-row"
+            ref="lbFirstRowOnPage"
+          />
+          
+                    
+          <span
+            id="ag-5-to"
+          >
+            to
+          </span>
+          
+                    
+          <span
+            class="ag-paging-row-summary-panel-number"
+            id="ag-5-last-row"
+            ref="lbLastRowOnPage"
+          />
+          
+                    
+          <span
+            id="ag-5-of"
+          >
+            of
+          </span>
+          
+                    
+          <span
+            class="ag-paging-row-summary-panel-number"
+            id="ag-5-row-count"
+            ref="lbRecordCount"
+          />
+          
+                
+        </span>
+        
+                
+        <span
+          class="ag-paging-page-summary-panel"
+          role="presentation"
+        >
+          
+                    
+          <div
+            aria-label="First Page"
+            class="ag-paging-button"
+            ref="btFirst"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="ag-icon ag-icon-first"
+              role="presentation"
+              unselectable="on"
+            />
+          </div>
+          
+                    
+          <div
+            aria-label="Previous Page"
+            class="ag-paging-button"
+            ref="btPrevious"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="ag-icon ag-icon-previous"
+              role="presentation"
+              unselectable="on"
+            />
+          </div>
+          
+                    
+          <span
+            aria-hidden="true"
+            class="ag-paging-description"
+          >
+            
+                        
+            <span
+              id="ag-5-start-page"
+            >
+              Page
+            </span>
+            
+                        
+            <span
+              class="ag-paging-number"
+              id="ag-5-start-page-number"
+              ref="lbCurrent"
+            />
+            
+                        
+            <span
+              id="ag-5-of-page"
+            >
+              of
+            </span>
+            
+                        
+            <span
+              class="ag-paging-number"
+              id="ag-5-of-page-number"
+              ref="lbTotal"
+            />
+            
+                    
+          </span>
+          
+                    
+          <div
+            aria-label="Next Page"
+            class="ag-paging-button"
+            ref="btNext"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="ag-icon ag-icon-next"
+              role="presentation"
+              unselectable="on"
+            />
+          </div>
+          
+                    
+          <div
+            aria-label="Last Page"
+            class="ag-paging-button"
+            ref="btLast"
+            role="button"
+            tabindex="0"
+          >
+            <span
+              class="ag-icon ag-icon-last"
+              role="presentation"
+              unselectable="on"
+            />
+          </div>
+          
+                
+        </span>
+        
+            
+      </div>
+      
+                
+            
+    </div>
+  </div>
+</div>
+`;

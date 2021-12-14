@@ -1,6 +1,5 @@
 import { fireEvent, getAllByText, getByText, screen, waitFor } from '@testing-library/react'
 import React from 'react'
-import Plot from 'react-plotly.js'
 
 import ExperimentResults from 'src/components/experiments/single-view/results/ExperimentResults'
 import { AnalysisStrategy, MetricParameterType } from 'src/lib/schemas'
@@ -8,12 +7,8 @@ import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'
 import { toggleDebugMode } from 'src/utils/general'
 
-// Unfortunately Plotly doesn't produce graphs with deterministic IDs so we have to mock it
-jest.mock('react-plotly.js')
-const mockedPlot = Plot as jest.MockedClass<typeof Plot>
-beforeEach(() => {
-  mockedPlot.mockClear()
-})
+// Mock LazyPlot component since we do testing for it separately
+jest.mock('src/components/general/LazyPlot')
 
 const experiment = Fixtures.createExperimentFull()
 const metrics = Fixtures.createMetrics()
@@ -90,7 +85,7 @@ test('renders correctly for 1 analysis datapoint, not statistically significant'
   await waitFor(() => getByText(container, /Last analyzed/), { container })
   expect(container.querySelector('.analysis-latest-results .analysis-detail-panel')).toMatchSnapshot()
 
-  expect(mockedPlot).toMatchSnapshot()
+  expect(container).toMatchSnapshot()
 })
 
 test('renders correctly for 1 analysis datapoint, statistically significant', async () => {
@@ -140,7 +135,7 @@ test('renders correctly for 1 analysis datapoint, statistically significant', as
   await waitFor(() => getByText(container, /Last analyzed/), { container })
   expect(container.querySelector('.analysis-latest-results .analysis-detail-panel')).toMatchSnapshot()
 
-  expect(mockedPlot).toMatchSnapshot()
+  expect(container).toMatchSnapshot()
 })
 
 test('renders correctly for conflicting analysis data', async () => {
@@ -224,7 +219,7 @@ test('renders correctly for conflicting analysis data', async () => {
   await waitFor(() => getByText(container, /Last analyzed/), { container })
   expect(container.querySelector('.analysis-latest-results .analysis-detail-panel')).toMatchSnapshot()
 
-  expect(mockedPlot).toMatchSnapshot()
+  expect(container).toMatchSnapshot()
 
   toggleDebugMode()
 })
@@ -246,7 +241,7 @@ test('renders the condensed table with some analyses in non-debug mode for a Con
   expect(container.querySelector('.analysis-latest-results .analysis-detail-panel')).toMatchSnapshot()
   fireEvent.click(screen.getAllByRole('button', { name: /Observed data/ })[0])
 
-  expect(mockedPlot).toMatchSnapshot()
+  expect(container).toMatchSnapshot()
 })
 
 test('renders the condensed table with some analyses in non-debug mode for a Revenue Metric', async () => {
@@ -271,7 +266,7 @@ test('renders the condensed table with some analyses in non-debug mode for a Rev
   expect(container.querySelector('.analysis-latest-results .analysis-detail-panel')).toMatchSnapshot()
   fireEvent.click(screen.getAllByRole('button', { name: /Observed data/ })[0])
 
-  expect(mockedPlot).toMatchSnapshot()
+  expect(container).toMatchSnapshot()
 })
 
 test('allows you to change analysis strategy', async () => {
