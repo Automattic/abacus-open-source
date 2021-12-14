@@ -72,6 +72,7 @@ test('renders error when there is an import error', async () => {
     title: 'Test Plot 3',
   }
   const importError = (_: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return new Promise<{ default: React.ComponentType<any> }>((resolve, reject) => {
       reject('Test reject')
       return

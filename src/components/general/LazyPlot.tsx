@@ -5,6 +5,7 @@ import { PlotParams } from 'react-plotly.js'
 import createPlotlyComponent from 'react-plotly.js/factory'
 
 interface LazyPlotParams extends PlotParams {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   importFunc?: (name: string) => Promise<{ default: React.ComponentType<any> }>
 }
 
