@@ -65,21 +65,3 @@ test('renders a chart', async () => {
 
   expect(removeUnstableHtmlProperties(container)).toMatchSnapshot()
 })
-
-test('renders error when there is an import error', async () => {
-  const layout = {
-    ...Visualizations.plotlyLayoutDefault,
-    title: 'Test Plot 3',
-  }
-  const importError = (_: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return new Promise<{ default: React.ComponentType<any> }>((resolve, reject) => {
-      reject('Test reject')
-      return
-    })
-  }
-
-  render(<LazyPlot layout={layout} data={createPlotData(20)} importFunc={importError} />)
-
-  expect(await screen.findByText('Chart could not be loaded.', {}))
-})
