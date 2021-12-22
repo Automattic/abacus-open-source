@@ -4,20 +4,20 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
 import { useTheme } from '@material-ui/core'
 import { GetQuickFilterTextParams } from 'ag-grid-community'
-import debugFactory from 'debug'
 import React from 'react'
 
 import { Metric } from 'src/lib/schemas'
 
-import AgGridWithDetails, { Data } from '../general/AgGridWithDetails'
+import AgGridWithDetails from '../general/AgGridWithDetails'
+import { Data } from '../general/AgGridWithDetails.utils'
 import { MetricDetailRenderer, MetricEditButtonRenderer, MetricNameRenderer } from './MetricsTableRenderers'
 
-const debug = debugFactory('abacus:components/MetricsTableAgGrid.tsx')
+export type MetricDetail = Partial<Metric & Data>
 
-export type MetricDetail = Metric | Data
+const ACTION_COLUMN_SUFFIX = '--actions'
 
 /**
- * Renders a table of metrics information.
+ * Renders a table of metrics information with a detail row component.
  */
 const MetricsTableAgGrid = ({
   metrics,
@@ -26,8 +26,6 @@ const MetricsTableAgGrid = ({
   metrics: Metric[]
   onEditMetric?: (metricId: number) => void
 }): JSX.Element => {
-  debug('MetricsTableAgGrid#render')
-
   const theme = useTheme()
 
   const paramsGetQuickFilterText = (params: GetQuickFilterTextParams) => {
@@ -44,6 +42,7 @@ const MetricsTableAgGrid = ({
     wrapText: true,
     autoHeight: true,
   }
+
   const columnDefs = [
     {
       headerName: 'Name',
@@ -70,7 +69,6 @@ const MetricsTableAgGrid = ({
       headerName: 'EventParams',
       field: 'eventParams',
       hide: true,
-      // suppressToolPanel: true,
       getQuickFilterText: paramsGetQuickFilterText,
     },
     {
@@ -78,7 +76,6 @@ const MetricsTableAgGrid = ({
       headerName: 'RevenueParams',
       field: 'revenueParams',
       hide: true,
-      // suppressToolPanel: true,
       getQuickFilterText: paramsGetQuickFilterText,
     },
     // trick for conditionally including this element
@@ -86,7 +83,7 @@ const MetricsTableAgGrid = ({
       ? [
           {
             headerName: 'Actions',
-            field: '-actions-',
+            field: `metrics${ACTION_COLUMN_SUFFIX}`,
             sortable: false,
             filter: false,
             resizable: false,
@@ -114,12 +111,13 @@ const MetricsTableAgGrid = ({
   return (
     <AgGridWithDetails
       title={'Metrics'}
+      search
       data={metrics}
       defaultColDef={defaultColDef}
       columnDefs={columnDefs}
       getDataId={getDataId}
       detailRowRenderer={MetricDetailRenderer}
-      actionColumnIdSuffix={'-actions-'}
+      actionColumnIdSuffix={ACTION_COLUMN_SUFFIX}
       defaultSearchColumnId={'name'}
     />
   )
