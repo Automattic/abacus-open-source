@@ -111,7 +111,11 @@ const MetricsIndexPage = (): JSX.Element => {
       {isLoading && <LinearProgress />}
       {metrics && (
         <>
-          <MetricsTableAgGrid metrics={metrics || []} onEditMetric={debugMode ? onEditMetric : undefined} />
+          <MetricsTableAgGrid
+            title='Metrics'
+            metrics={metrics || []}
+            onEditMetric={debugMode ? onEditMetric : undefined}
+          />
           {debugMode && (
             <div className={classes.actions}>
               <Button variant='contained' color='secondary' onClick={onAddMetric}>

@@ -16,9 +16,11 @@ const ACTION_COLUMN_SUFFIX = '--actions'
  * Renders a table of metrics information with a detail row component.
  */
 const MetricsTableAgGrid = ({
+  title,
   metrics,
   onEditMetric,
 }: {
+  title?: string
   metrics: Metric[]
   onEditMetric?: (metricId: number) => void
 }): JSX.Element => {
@@ -116,7 +118,7 @@ const MetricsTableAgGrid = ({
 
   return (
     <GridContainer
-      title='Metrics'
+      title={title}
       search
       rowData={metrics as Data[]}
       defaultColDef={defaultColDef}
