@@ -132,20 +132,20 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
                     class="ag-header-container"
                     ref="eHeaderContainer"
                     role="rowgroup"
-                    style="width: 154px;"
+                    style="width: 134px;"
                   >
                     <div
                       aria-rowindex="1"
                       class="ag-header-row ag-header-row-column"
                       role="row"
-                      style="top: 0px; height: 48px; width: 154px;"
+                      style="top: 0px; height: 48px; width: 134px;"
                     >
                       <div
                         aria-colindex="1"
                         class="ag-header-cell ag-focus-managed"
                         col-id="__detail-button-col__"
                         role="columnheader"
-                        style="width: 54px; left: 0px;"
+                        style="width: 34px; left: 0px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -250,7 +250,7 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
                         class="ag-header-cell ag-focus-managed"
                         col-id="test"
                         role="columnheader"
-                        style="width: 100px; left: 54px;"
+                        style="width: 100px; left: 34px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -406,7 +406,7 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
                     class="ag-floating-top-container"
                     ref="eTopContainer"
                     role="presentation"
-                    style="width: 154px;"
+                    style="width: 134px;"
                     unselectable="on"
                   />
                   
@@ -470,7 +470,7 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
                       class="ag-center-cols-container"
                       ref="eCenterContainer"
                       role="rowgroup"
-                      style="width: 154px; height: 1px;"
+                      style="width: 134px; height: 1px;"
                       unselectable="on"
                     />
                     
@@ -531,7 +531,7 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
                     class="ag-floating-bottom-container"
                     ref="eBottomContainer"
                     role="presentation"
-                    style="width: 154px;"
+                    style="width: 134px;"
                     unselectable="on"
                   />
                   
@@ -583,7 +583,7 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
                   <div
                     class="ag-body-horizontal-scroll-container"
                     ref="eBodyHorizontalScrollContainer"
-                    style="width: 154px; height: 0px; max-height: 0px; min-height: 0px;"
+                    style="width: 134px; height: 0px; max-height: 0px; min-height: 0px;"
                   />
                   
             
@@ -887,20 +887,20 @@ exports[`should render an empty grid 1`] = `
                     class="ag-header-container"
                     ref="eHeaderContainer"
                     role="rowgroup"
-                    style="width: 54px;"
+                    style="width: 34px;"
                   >
                     <div
                       aria-rowindex="1"
                       class="ag-header-row ag-header-row-column"
                       role="row"
-                      style="top: 0px; height: 48px; width: 54px;"
+                      style="top: 0px; height: 48px; width: 34px;"
                     >
                       <div
                         aria-colindex="1"
                         class="ag-header-cell ag-focus-managed"
                         col-id="__detail-button-col__"
                         role="columnheader"
-                        style="width: 54px; left: 0px;"
+                        style="width: 34px; left: 0px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -1054,7 +1054,7 @@ exports[`should render an empty grid 1`] = `
                     class="ag-floating-top-container"
                     ref="eTopContainer"
                     role="presentation"
-                    style="width: 54px;"
+                    style="width: 34px;"
                     unselectable="on"
                   />
                   
@@ -1118,7 +1118,7 @@ exports[`should render an empty grid 1`] = `
                       class="ag-center-cols-container"
                       ref="eCenterContainer"
                       role="rowgroup"
-                      style="width: 54px; height: 1px;"
+                      style="width: 34px; height: 1px;"
                       unselectable="on"
                     />
                     
@@ -1179,7 +1179,7 @@ exports[`should render an empty grid 1`] = `
                     class="ag-floating-bottom-container"
                     ref="eBottomContainer"
                     role="presentation"
-                    style="width: 54px;"
+                    style="width: 34px;"
                     unselectable="on"
                   />
                   
@@ -1231,7 +1231,7 @@ exports[`should render an empty grid 1`] = `
                   <div
                     class="ag-body-horizontal-scroll-container"
                     ref="eBodyHorizontalScrollContainer"
-                    style="width: 54px; height: 0px; max-height: 0px; min-height: 0px;"
+                    style="width: 34px; height: 0px; max-height: 0px; min-height: 0px;"
                   />
                   
             

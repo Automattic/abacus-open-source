@@ -70,20 +70,20 @@ exports[`renders correctly with various optional props 1`] = `
                 class="ag-header-container"
                 ref="eHeaderContainer"
                 role="rowgroup"
-                style="width: 154px;"
+                style="width: 134px;"
               >
                 <div
                   aria-rowindex="1"
                   class="ag-header-row ag-header-row-column"
                   role="row"
-                  style="top: 0px; height: 25px; width: 154px;"
+                  style="top: 0px; height: 25px; width: 134px;"
                 >
                   <div
                     aria-colindex="1"
                     class="ag-header-cell ag-focus-managed"
                     col-id="__detail-button-col__"
                     role="columnheader"
-                    style="width: 54px; left: 0px;"
+                    style="width: 34px; left: 0px;"
                     tabindex="-1"
                     unselectable="on"
                   >
@@ -188,7 +188,7 @@ exports[`renders correctly with various optional props 1`] = `
                     class="ag-header-cell ag-focus-managed"
                     col-id="test"
                     role="columnheader"
-                    style="width: 100px; left: 54px;"
+                    style="width: 100px; left: 34px;"
                     tabindex="-1"
                     unselectable="on"
                   >
@@ -344,7 +344,7 @@ exports[`renders correctly with various optional props 1`] = `
                 class="ag-floating-top-container"
                 ref="eTopContainer"
                 role="presentation"
-                style="width: 154px;"
+                style="width: 134px;"
                 unselectable="on"
               />
               
@@ -419,7 +419,7 @@ exports[`renders correctly with various optional props 1`] = `
                   class="ag-center-cols-container"
                   ref="eCenterContainer"
                   role="rowgroup"
-                  style="width: 154px; height: 25px;"
+                  style="width: 134px; height: 25px;"
                   unselectable="on"
                 >
                   <div
@@ -438,7 +438,7 @@ exports[`renders correctly with various optional props 1`] = `
                       col-id="__detail-button-col__"
                       comp-id="15"
                       role="gridcell"
-                      style="width: 54px; left: 0px; display: flex; align-items: center; color: rgba(0, 0, 0, 0.5); padding-left: 0; padding-right: 0; "
+                      style="width: 34px; left: 0px; display: flex; align-items: center; color: rgba(0, 0, 0, 0.5); padding-left: 0; padding-right: 0; "
                       tabindex="-1"
                       unselectable="on"
                     />
@@ -448,7 +448,7 @@ exports[`renders correctly with various optional props 1`] = `
                       col-id="test"
                       comp-id="16"
                       role="gridcell"
-                      style="width: 100px; left: 54px;  "
+                      style="width: 100px; left: 34px;  "
                       tabindex="-1"
                       unselectable="on"
                     >
@@ -532,7 +532,7 @@ exports[`renders correctly with various optional props 1`] = `
                 class="ag-floating-bottom-container"
                 ref="eBottomContainer"
                 role="presentation"
-                style="width: 154px;"
+                style="width: 134px;"
                 unselectable="on"
               />
               
@@ -584,7 +584,7 @@ exports[`renders correctly with various optional props 1`] = `
               <div
                 class="ag-body-horizontal-scroll-container"
                 ref="eBodyHorizontalScrollContainer"
-                style="width: 154px; height: 0px; max-height: 0px; min-height: 0px;"
+                style="width: 134px; height: 0px; max-height: 0px; min-height: 0px;"
               />
               
             

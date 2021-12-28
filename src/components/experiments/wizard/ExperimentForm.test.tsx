@@ -1,4 +1,4 @@
-import { act, fireEvent, getByRole, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, screen, waitFor } from '@testing-library/react'
 import { StatusCodes } from 'http-status-codes'
 import _ from 'lodash'
 import noop from 'lodash/noop'
@@ -134,7 +134,7 @@ test('sections should be browsable by the next and prev buttons', async () => {
   })
   screen.getByText(/Assign Metrics/)
   await act(async () => {
-    fireEvent.click(screen.getByRole('button', { name: /Next/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }))
   })
   screen.getByText(/Confirm and Submit Your Experiment/)
 })
@@ -178,17 +178,9 @@ test('sections should be browsable by the section buttons and show validation er
   // We add a metricAssignment first so it can show validation errors
   screen.getByText(/Assign Metrics/)
   expect(container).toMatchSnapshot()
-  const metricSearchField = screen.getByRole('combobox', { name: /Select a metric/ })
-  const metricSearchFieldMoreButton = getByRole(metricSearchField, 'button', { name: 'Open' })
-  const metricAddButton = screen.getByRole('button', { name: 'Add metric' })
-
-  fireEvent.click(metricSearchFieldMoreButton)
-  const metricOption = await screen.findByRole('option', { name: /metric_10/ })
+  const metricAssignButtons = await screen.findAllByRole('button', { name: 'Assign metric' })
   await act(async () => {
-    fireEvent.click(metricOption)
-  })
-  await act(async () => {
-    fireEvent.click(metricAddButton)
+    fireEvent.click(metricAssignButtons[0])
   })
 
   await act(async () => {
@@ -434,17 +426,14 @@ test('form submits with valid fields', async () => {
 
   // ### Metrics
   screen.getByText(/Assign Metrics/)
-  const metricSearchField = screen.getByRole('combobox', { name: /Select a metric/ })
-  const metricSearchFieldMoreButton = getByRole(metricSearchField, 'button', { name: 'Open' })
-  const metricAddButton = screen.getByRole('button', { name: 'Add metric' })
-
-  fireEvent.click(metricSearchFieldMoreButton)
-  const metricOption = await screen.findByRole('option', { name: /metric_10/ })
-  await act(async () => {
-    fireEvent.click(metricOption)
+  let metricAssignButtons: HTMLElement[] = []
+  await screen.findByText(/metric_1/)
+  await waitFor(() => {
+    metricAssignButtons = screen.getAllByRole('button', { name: /Assign metric/i })
+    expect(metricAssignButtons.length).toBeGreaterThanOrEqual(2)
   })
   await act(async () => {
-    fireEvent.click(metricAddButton)
+    fireEvent.click(metricAssignButtons[1])
   })
 
   const attributionWindowField = await screen.findByLabelText('Attribution Window')
@@ -495,7 +484,7 @@ test('form submits with valid fields', async () => {
   await changeFieldByRole('textbox', /Property Value/, 'value')
 
   await act(async () => {
-    fireEvent.click(screen.getByRole('button', { name: /Next/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }))
   })
 
   // ### Submit
@@ -610,7 +599,7 @@ test('form submits an edited experiment without any changes', async () => {
     fireEvent.click(screen.getByRole('button', { name: /Next/ }))
   })
   await act(async () => {
-    fireEvent.click(screen.getByRole('button', { name: /Next/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Next' }))
   })
 
   // ### Submit
