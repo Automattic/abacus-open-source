@@ -8,7 +8,13 @@ import React from 'react'
 import { Metric } from 'src/lib/schemas'
 
 import GridContainer from '../general/GridContainer'
-import { Data, MetricDetailRenderer, MetricEditButtonRenderer, MetricNameRenderer } from './MetricsTableAgGrid.utils'
+import {
+  AssignMetricButtonRenderer,
+  Data,
+  MetricDetailRenderer,
+  MetricEditButtonRenderer,
+  MetricNameRenderer,
+} from './MetricsTableAgGrid.utils'
 
 const ACTION_COLUMN_SUFFIX = '--actions'
 
@@ -19,10 +25,12 @@ const MetricsTableAgGrid = ({
   title,
   metrics,
   onEditMetric,
+  onAssignMetric,
 }: {
   title?: string
   metrics: Metric[]
   onEditMetric?: (metricId: number) => void
+  onAssignMetric?: (data: Metric) => void
 }): JSX.Element => {
   const theme = useTheme()
 
@@ -70,6 +78,7 @@ const MetricsTableAgGrid = ({
     {
       headerName: 'Parameter Type',
       field: 'parameterType',
+      hide: !!onAssignMetric,
       width: 200,
     },
     {
@@ -91,7 +100,7 @@ const MetricsTableAgGrid = ({
       ? [
           {
             headerName: 'Actions',
-            field: `metrics${ACTION_COLUMN_SUFFIX}`,
+            field: `metrics-edit${ACTION_COLUMN_SUFFIX}`,
             sortable: false,
             filter: false,
             resizable: false,
@@ -107,6 +116,26 @@ const MetricsTableAgGrid = ({
             ),
             width: 100,
             minWidth: 54,
+          },
+        ]
+      : []),
+    ...(onAssignMetric
+      ? [
+          {
+            headerName: 'Actions',
+            field: `metrics-assign${ACTION_COLUMN_SUFFIX}`,
+            sortable: false,
+            filter: false,
+            resizable: false,
+            cellStyle: {
+              justifyContent: 'center',
+              padding: '10px 4px',
+            },
+            cellRendererFramework: ({ data }: { data: Metric }) => (
+              <AssignMetricButtonRenderer data={data} onAssignMetric={onAssignMetric} />
+            ),
+            width: 150,
+            minWidth: 150,
           },
         ]
       : []),
