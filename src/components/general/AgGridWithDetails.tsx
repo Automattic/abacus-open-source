@@ -1,6 +1,7 @@
 import {
   CellClickedEvent,
   ColumnApi,
+  ColumnResizedEvent,
   GetRowNodeIdFunc,
   GridApi,
   GridReadyEvent,
@@ -213,6 +214,16 @@ const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGri
     gridApiRef.current.sizeColumnsToFit()
   }
 
+  // istanbul ignore next; difficult to test through unit testing, better to test visually
+  const onColumnResized = (event: ColumnResizedEvent) => {
+    if (!gridApiRef.current || !event.finished) {
+      return
+    }
+
+    gridApiRef.current.resetRowHeights()
+    gridApiRef.current.redrawRows()
+  }
+
   const onCellClicked = (event: CellClickedEvent) => {
     // Ignore clicks on cells with 'actions'
     if (actionColumnIdSuffix && event.column.getColId().endsWith(actionColumnIdSuffix)) {
@@ -254,6 +265,7 @@ const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGri
       onCellClicked={onCellClicked}
       onGridReady={onGridReady}
       onGridSizeChanged={onGridSizeChanged}
+      onColumnResized={onColumnResized}
       immutableData={true}
       {...gridOptions}
     />
