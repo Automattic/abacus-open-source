@@ -28,7 +28,12 @@ const ChevronToggleButton = ({
   const toggleClass = isOpen ? classes.rotated : classes.notRotated
 
   return (
-    <IconButton className={clsx(classes.root, toggleClass, className)} aria-label={'Toggle Button'} onClick={onClick}>
+    <IconButton
+      size='small'
+      className={clsx(classes.root, toggleClass, className)}
+      aria-label={'Toggle Button'}
+      onClick={onClick}
+    >
       <ChevronRightRoundedIcon />
     </IconButton>
   )
