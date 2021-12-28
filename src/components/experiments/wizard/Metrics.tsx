@@ -1,6 +1,5 @@
 import {
   Button,
-  FormControl,
   FormHelperText,
   IconButton,
   Link,
@@ -22,15 +21,15 @@ import clsx from 'clsx'
 import { Field, FieldArray, FormikProps, useField } from 'formik'
 import { Select, Switch, TextField } from 'formik-material-ui'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 
 import { getPropNameCompletions } from 'src/api/AutocompleteApi'
 import Attribute from 'src/components/general/Attribute'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
 import CollapsibleAlert from 'src/components/general/CollapsibleAlert'
-import MetricAutocomplete from 'src/components/general/MetricAutocomplete'
 import MetricDifferenceField from 'src/components/general/MetricDifferenceField'
 import MoreMenu from 'src/components/general/MoreMenu'
+import MetricsTableAgGrid from 'src/components/metrics/MetricsTableAgGrid'
 import { ExperimentFormData } from 'src/lib/form-data'
 import { AttributionWindowSecondsToHuman } from 'src/lib/metric-assignments'
 import { EventNew, Metric, MetricAssignment } from 'src/lib/schemas'
@@ -115,6 +114,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const useMetricEditorStyles = makeStyles((theme) =>
   createStyles({
     root: {},
+    tableContainer: {
+      display: 'flex',
+      height: 475,
+    },
     addMetric: {
       display: 'flex',
       justifyContent: 'center',
@@ -328,8 +331,6 @@ const Metrics = ({
   const [metricAssignmentsField, _metricAssignmentsFieldMetaProps, metricAssignmentsFieldHelperProps] = useField<
     MetricAssignment[]
   >('experiment.metricAssignments')
-  const [selectedMetric, setSelectedMetric] = useState<Metric | null>(null)
-  const onChangeSelectedMetricOption = (_event: unknown, value: Metric | null) => setSelectedMetric(value)
 
   const makeMetricAssignmentPrimary = (indexToSet: number) => {
     metricAssignmentsFieldHelperProps.setValue(
@@ -340,17 +341,12 @@ const Metrics = ({
     )
   }
 
-  // This picks up the no metric assignments validation error
-  const metricAssignmentsError =
-    formikProps.touched.experiment?.metricAssignments &&
-    _.isString(formikProps.errors.experiment?.metricAssignments) &&
-    formikProps.errors.experiment?.metricAssignments
+  const metricAssignmentsCount = useRef<number>(0)
 
   // ### Exposure Events
   const [exposureEventsField, _exposureEventsFieldMetaProps, _exposureEventsFieldHelperProps] = useField<EventNew[]>(
     'experiment.exposureEvents',
   )
-
   return (
     <div className={classes.root}>
       <Typography variant='h4' gutterBottom>
@@ -360,15 +356,14 @@ const Metrics = ({
       <FieldArray
         name='experiment.metricAssignments'
         render={(arrayHelpers) => {
-          const onAddMetric = () => {
-            if (selectedMetric) {
-              const metricAssignment = createMetricAssignment(selectedMetric)
-              arrayHelpers.push({
-                ...metricAssignment,
-                isPrimary: metricAssignmentsField.value.length === 0,
-              })
-            }
-            setSelectedMetric(null)
+          const onAssignMetric = (data: Metric) => {
+            const metricAssignment = createMetricAssignment(data)
+            arrayHelpers.push({
+              ...metricAssignment,
+              isPrimary: metricAssignmentsCount.current === 0,
+            })
+
+            metricAssignmentsCount.current++
           }
 
           return (
@@ -388,6 +383,7 @@ const Metrics = ({
                     {metricAssignmentsField.value.map((metricAssignment, index) => {
                       const onRemoveMetricAssignment = () => {
                         arrayHelpers.remove(index)
+                        metricAssignmentsCount.current--
                       }
 
                       const onMakePrimary = () => {
@@ -482,21 +478,8 @@ const Metrics = ({
                   </TableBody>
                 </Table>
               </TableContainer>
-              <div className={metricEditorClasses.addMetric}>
-                <Add className={metricEditorClasses.addMetricAddSymbol} />
-                <FormControl className={classes.addMetricSelect}>
-                  <MetricAutocomplete
-                    id='add-metric-select'
-                    value={selectedMetric}
-                    onChange={onChangeSelectedMetricOption}
-                    options={Object.values(indexedMetrics)}
-                    error={metricAssignmentsError}
-                    fullWidth
-                  />
-                </FormControl>
-                <Button variant='contained' disableElevation size='small' onClick={onAddMetric} aria-label='Add metric'>
-                  Assign
-                </Button>
+              <div className={metricEditorClasses.tableContainer}>
+                <MetricsTableAgGrid metrics={Object.values(indexedMetrics)} onAssignMetric={onAssignMetric} />
               </div>
             </>
           )
