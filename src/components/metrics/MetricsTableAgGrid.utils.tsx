@@ -1,4 +1,5 @@
 import {
+  Button,
   createStyles,
   IconButton,
   makeStyles,
@@ -9,9 +10,9 @@ import {
   TableRow,
   Theme,
   Tooltip,
+  withStyles,
 } from '@material-ui/core'
-import { Edit as EditIcon } from '@material-ui/icons'
-import debugFactory from 'debug'
+import { Add as AddIcon, Edit as EditIcon } from '@material-ui/icons'
 import React from 'react'
 
 import { Metric } from 'src/lib/schemas'
@@ -19,9 +20,7 @@ import { formatBoolean } from 'src/utils/formatters'
 
 export type Data = Partial<Metric & Record<string, unknown>>
 
-const debug = debugFactory('abacus:components/MetricTableRenderers.tsx')
-
-const useStyles = makeStyles((theme: Theme) =>
+const useMetricDetailStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing(2, 8),
@@ -46,20 +45,45 @@ const useStyles = makeStyles((theme: Theme) =>
       borderStyle: 'solid',
       background: '#fff',
     },
-    metricName: {
-      minWidth: 0,
-      flex: 1,
-      justifyContent: 'flex-start',
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    },
   }),
 )
 
+const useMetricNameStyles = makeStyles({
+  metricName: {
+    minWidth: 0,
+    flex: 1,
+    justifyContent: 'flex-start',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+})
+
+const useAssignMetricButtonStyles = makeStyles({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    '& .MuiButton-containedSizeSmall': {
+      padding: '5px 15px',
+      fontSize: '14px',
+      lineHeight: 1.75,
+    },
+    '& .MuiButton-label': {
+      fontSize: '0.875rem',
+      marginRight: 4,
+    },
+    '& .MuiButton-startIcon': {
+      marginLeft: 0,
+      marginRight: 2,
+    },
+  },
+  noWrap: {
+    whiteSpace: 'nowrap',
+  },
+})
+
 export const MetricDetailRenderer = ({ data }: { data: Data }): JSX.Element => {
-  debug('MetricDetailRenderer#render')
-  const classes = useStyles()
+  const classes = useMetricDetailStyles()
 
   return (
     <TableContainer className={classes.root}>
@@ -84,8 +108,7 @@ export const MetricDetailRenderer = ({ data }: { data: Data }): JSX.Element => {
 }
 
 export const MetricNameRenderer = ({ name }: { name: string }): JSX.Element => {
-  debug('MetricNameRenderer#render')
-  const classes = useStyles()
+  const classes = useMetricNameStyles()
 
   return (
     <Tooltip title={name}>
@@ -101,8 +124,6 @@ export const MetricEditButtonRenderer = ({
   data: Metric
   onEditMetric: (metricId: number) => void
 }): JSX.Element => {
-  debug('MetricEditButtonRenderer#render')
-
   return (
     <IconButton
       onClick={() => {
@@ -112,5 +133,42 @@ export const MetricEditButtonRenderer = ({
     >
       <EditIcon />
     </IconButton>
+  )
+}
+
+export const AssignMetricButtonRenderer = ({
+  data,
+  onAssignMetric,
+}: {
+  data: Metric
+  onAssignMetric: (data: Metric) => void
+}): JSX.Element => {
+  const classes = useAssignMetricButtonStyles()
+
+  const ColorButton = withStyles((theme: Theme) => ({
+    root: {
+      color: theme.palette.primary.contrastText,
+      backgroundColor: theme.palette.primary.light,
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main,
+      },
+    },
+  }))(Button)
+
+  return (
+    <div className={classes.root}>
+      <ColorButton
+        variant='contained'
+        color='primary'
+        disableElevation
+        size='small'
+        onClick={() => onAssignMetric(data)}
+        startIcon={<AddIcon />}
+        className={classes.noWrap}
+        aria-label='Assign metric'
+      >
+        Assign Metric
+      </ColorButton>
+    </div>
   )
 }
