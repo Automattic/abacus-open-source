@@ -37,6 +37,7 @@ const ChevronToggleButton = ({
 
   return (
     <IconButton
+      size='small'
       className={clsx(classes.root, toggleClass, className)}
       aria-label={'Toggle Button'}
       onClick={handleClick}
