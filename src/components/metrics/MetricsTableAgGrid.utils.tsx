@@ -107,6 +107,39 @@ export const MetricDetailRenderer = ({ data }: { data: Data }): JSX.Element => {
   )
 }
 
+export const WizardMetricDetailRenderer = ({ data }: { data: Data }): JSX.Element => {
+  const classes = useMetricDetailStyles()
+
+  return (
+    <TableContainer className={classes.root}>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell className={classes.headerCell}>Name:</TableCell>
+            <TableCell className={classes.dataCell}>{data.name}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className={classes.headerCell}>Parameter Type:</TableCell>
+            <TableCell className={classes.dataCell}>{data.parameterType}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className={classes.headerCell}>Higher is Better:</TableCell>
+            <TableCell className={classes.dataCell}>{formatBoolean(data.higherIsBetter as boolean)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className={classes.headerCell}>Parameters:</TableCell>
+            <TableCell className={classes.dataCell}>
+              <div className={classes.pre}>
+                {JSON.stringify(data.parameterType === 'conversion' ? data.eventParams : data.revenueParams, null, 4)}
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
+  )
+}
+
 export const MetricNameRenderer = ({ name }: { name: string }): JSX.Element => {
   const classes = useMetricNameStyles()
 

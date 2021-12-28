@@ -1,7 +1,7 @@
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
-import { useTheme } from '@material-ui/core'
+import { makeStyles, useTheme } from '@material-ui/core'
 import { GetQuickFilterTextParams } from 'ag-grid-community'
 import React from 'react'
 
@@ -14,7 +14,14 @@ import {
   MetricDetailRenderer,
   MetricEditButtonRenderer,
   MetricNameRenderer,
+  WizardMetricDetailRenderer,
 } from './MetricsTableAgGrid.utils'
+
+const useStyles = makeStyles({
+  noLeftPadding: {
+    paddingLeft: '0 !important',
+  },
+})
 
 const ACTION_COLUMN_SUFFIX = '--actions'
 
@@ -33,6 +40,7 @@ const MetricsTableAgGrid = ({
   onAssignMetric?: (data: Metric) => void
 }): JSX.Element => {
   const theme = useTheme()
+  const classes = useStyles()
 
   const paramsGetQuickFilterText = (params: GetQuickFilterTextParams) => {
     return JSON.stringify(params.value, null, 4)
@@ -57,13 +65,15 @@ const MetricsTableAgGrid = ({
   const columnDefs = [
     {
       headerName: 'Name',
+      headerClass: classes.noLeftPadding,
       field: 'name',
       cellStyle: {
         fontFamily: theme.custom.fonts.monospace,
         fontWeight: theme.custom.fontWeights.monospaceBold,
+        paddingLeft: 0,
       },
       cellRendererFramework: ({ value: name }: { value: string }) => <MetricNameRenderer name={name} />,
-      width: 430,
+      width: 465,
     },
     {
       headerName: 'Description',
@@ -73,7 +83,7 @@ const MetricsTableAgGrid = ({
         lineHeight: '15px',
         wordBreak: 'normal',
       },
-      width: 590,
+      width: 550,
     },
     {
       headerName: 'Parameter Type',
@@ -153,7 +163,7 @@ const MetricsTableAgGrid = ({
       defaultColDef={defaultColDef}
       columnDefs={columnDefs}
       getRowNodeId={getRowNodeId}
-      detailRowRenderer={MetricDetailRenderer}
+      detailRowRenderer={onAssignMetric ? WizardMetricDetailRenderer : MetricDetailRenderer}
       actionColumnIdSuffix={ACTION_COLUMN_SUFFIX}
       defaultSortColumnId='name'
     />
