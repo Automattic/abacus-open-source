@@ -60,8 +60,8 @@ const detailButtonColumnDef = {
     paddingRight: 0,
   },
   cellRenderer: 'detailButtonRenderer',
-  width: 54,
-  minWidth: 54,
+  width: 34,
+  minWidth: 34,
 }
 
 /**
