@@ -35,5 +35,5 @@ module.exports = {
   // Adds special extended assertions to Jest, thus simplifying the tests.
   setupFilesAfterEnv: ['@testing-library/jest-dom/extend-expect', '<rootDir>/src/test-helpers/unit-test-setup.ts'],
   testPathIgnorePatterns: ['/src/__tests__/', '/e2e/', '/node_modules/'],
-  testTimeout: 180000,
+  testTimeout: 360000,
 }
