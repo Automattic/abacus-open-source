@@ -23,6 +23,11 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 0,
       width: '100%',
     },
+    searchBorder: {
+      borderWidth: 1,
+      borderStyle: 'solid',
+      borderColor: theme.palette.divider,
+    },
     searchIcon: {
       padding: theme.spacing(0, 2),
       height: '100%',
@@ -79,7 +84,7 @@ const GridControls = ({
 
   return (
     <div className={clsx(fullWidth ? classes.rootFullWidth : classes.root, className)}>
-      <div className={classes.search}>
+      <div className={clsx(classes.search, fullWidth && classes.searchBorder)}>
         <div className={classes.searchIcon}>
           <SearchIcon />
         </div>
