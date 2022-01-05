@@ -4,7 +4,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
 import { Button, createStyles, fade, InputBase, Link, makeStyles, Theme, Typography, useTheme } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
-import { ColumnApi, GridApi, GridReadyEvent } from 'ag-grid-community'
+import { ColumnApi, GridApi, GridReadyEvent, SortChangedEvent } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import _ from 'lodash'
@@ -16,7 +16,15 @@ import { ExperimentBare, Status } from 'src/lib/schemas'
 import { createIdSlug } from 'src/utils/general'
 
 import ExperimentStatus from '../ExperimentStatus'
-import { getParamsObjFromSearchString, getParamsStringFromObj, UrlParams } from './ExperimentsTableAgGrid.utils'
+import {
+  defaultSortParams,
+  getParamsObjFromSearchString,
+  getParamsStringFromObj,
+  getSortParamsFromGrid,
+  getSortParamsFromUrlParams,
+  setGridSort,
+  UrlParams,
+} from './ExperimentsTableAgGrid.utils'
 
 const statusOrder = {
   [Status.Completed]: 0,
@@ -97,6 +105,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
   const location = useLocation()
 
   const [urlSearchParams, setUrlSearchParams] = useState<UrlParams>(getParamsObjFromSearchString(location.search))
+  const sortParams = useRef<UrlParams>(getSortParamsFromUrlParams(urlSearchParams))
   const gridApiRef = useRef<GridApi | null>(null)
   const gridColumnApiRef = useRef<ColumnApi | null>(null)
 
@@ -111,13 +120,14 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     [urlSearchParams],
   )
 
-  const setSearch = useCallback((params: UrlParams) => {
+  const setSearchAndSort = useCallback((params: UrlParams) => {
     // istanbul ignore next; trivial and shouldn't occur
     if (!gridApiRef.current || !gridColumnApiRef.current) {
       return
     }
 
     gridApiRef.current.setQuickFilter(params.search || '')
+    setGridSort(params, gridColumnApiRef.current)
   }, [])
 
   const updateHistory = useCallback(
@@ -126,47 +136,18 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
         return
       }
 
-      if (_.isEmpty(params)) {
-        history.push({
-          pathname: '/experiments',
-        })
-      } else {
-        history.push({
-          pathname: '/experiments',
-          search: `?${getParamsStringFromObj(params)}`,
-        })
-      }
+      history.push({
+        pathname: '/experiments',
+        search: `?${getParamsStringFromObj(params)}`,
+      })
     },
     [history, location],
   )
 
-  const setDefaultSortAndFilter = () => {
-    // istanbul ignore next; trivial and shouldn't occur
-    if (!gridApiRef.current || !gridColumnApiRef.current) {
-      return
-    }
-
-    gridApiRef.current.setFilterModel(null)
-    gridColumnApiRef.current.applyColumnState({
-      state: [
-        {
-          colId: 'status',
-          sort: 'asc',
-          sortIndex: 0,
-        },
-        {
-          colId: 'startDatetime',
-          sort: 'desc',
-          sortIndex: 1,
-        },
-      ],
-      defaultState: { sort: null },
-    })
-  }
-
   const onReset = useCallback(() => {
-    setDefaultSortAndFilter()
-    updateHistory({})
+    gridApiRef.current?.setFilterModel(null)
+    sortParams.current = defaultSortParams
+    updateHistory(defaultSortParams)
   }, [updateHistory])
 
   const onGridReady = (event: GridReadyEvent) => {
@@ -191,12 +172,31 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
 
     let newParams = {}
     if (event.target.value === '') {
-      newParams = {}
+      newParams = {
+        ...sortParams.current,
+      }
     } else {
       newParams = {
+        ...sortParams.current,
         search: event.target.value,
       }
     }
+    updateHistory(newParams)
+  }
+
+  const onSortChanged = (event: SortChangedEvent) => {
+    const colState = event.columnApi.getColumnState()
+    const newSortParams = getSortParamsFromGrid(colState)
+
+    if (_.isEqual(newSortParams, sortParams.current)) {
+      return
+    }
+
+    const newParams = {
+      ...newSortParams,
+      ...(urlSearchParams.search ? { search: urlSearchParams.search } : {}),
+    }
+    sortParams.current = newSortParams
     updateHistory(newParams)
   }
 
@@ -207,11 +207,10 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     }
 
     if (Object.keys(urlSearchParams).length === 0) {
-      setSearch({})
+      setSearchAndSort(defaultSortParams)
     } else {
-      setSearch(getParamsObjFromSearchString(location.search))
+      setSearchAndSort(getParamsObjFromSearchString(location.search))
     }
-    setDefaultSortAndFilter()
     gridColumnApiRef.current.autoSizeAllColumns()
   }
 
@@ -221,17 +220,17 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
       return
     }
 
-    setSearch(urlSearchParams)
-  }, [urlSearchParams, setSearch])
+    setSearchAndSort(urlSearchParams)
+  }, [urlSearchParams, setSearchAndSort])
 
   useEffect(() => {
     if (location.search === '') {
-      updateParamsIfNotEqual({})
+      onReset()
     } else {
       const newParams = getParamsObjFromSearchString(location.search)
       updateParamsIfNotEqual(newParams)
     }
-  }, [location, updateParamsIfNotEqual])
+  }, [location, updateParamsIfNotEqual, onReset])
 
   return (
     <div className={clsx('ag-theme-alpine', classes.root)}>
@@ -331,6 +330,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
           onFirstDataRendered={onFirstDataRendered}
           onGridReady={onGridReady}
           onGridSizeChanged={onGridResize}
+          onSortChanged={onSortChanged}
         />
       </div>
     </div>
