@@ -34,7 +34,7 @@ it('should render a table with experiments', async () => {
   expect(container).toMatchSnapshot()
 })
 
-it('should allow searching, sorting, and resetting by changing url params', async () => {
+it('should allow searching, filtering, sorting, and resetting by changing url params', async () => {
   const history = createMemoryHistory()
   const experiments: ExperimentBare[] = [
     {
@@ -91,16 +91,149 @@ it('should allow searching, sorting, and resetting by changing url params', asyn
   expect(history.length).toBe(4)
   expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
 
+  // Test text filters
+  const filterText = 'experiment'
+  expectedParamsObj = {
+    nameS: 'asc',
+    nameSi: '0',
+    nameF: filterText,
+    nameT: 'contains',
+    search: searchString,
+  }
+  const cellLabels = container.querySelectorAll('.ag-cell-label-container')
+  cellLabels.forEach((value, _key, _parent) => {
+    const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
+    if (headerText === 'Name') {
+      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
+      userEvent.click(filterMenu)
+    }
+  })
+  const inputField = container.querySelector('input[aria-label="Filter Value"]') as HTMLElement
+  userEvent.type(inputField, filterText)
+  await waitFor(() => {
+    container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
+      const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
+      if (headerText === 'Name') {
+        expect(value.querySelector('.ag-icon-filter')).toBeInTheDocument()
+      }
+    })
+  })
+  await waitFor(() => {
+    expect(history.length).toBe(5)
+  })
+  expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
+
+  // Test compound text filters
+  const filterText2 = 'test'
+  expectedParamsObj = {
+    nameS: 'asc',
+    nameSi: '0',
+    nameOp: 'AND',
+    nameC1f: filterText,
+    nameC1t: 'contains',
+    nameC2f: filterText2,
+    nameC2t: 'contains',
+    search: searchString,
+  }
+  cellLabels.forEach((value, _key, _parent) => {
+    const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
+    if (headerText === 'Name') {
+      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
+      userEvent.click(filterMenu)
+    }
+  })
+  const inputFields = container.querySelectorAll('input[aria-label="Filter Value"]')
+  userEvent.type(inputFields[1], filterText2)
+  await waitFor(() => {
+    expect(history.length).toBe(6)
+  })
+  expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
+
+  // Test date filters
+  const filterDate = '2020-01-01'
+  expectedParamsObj = {
+    nameS: 'asc',
+    nameSi: '0',
+    nameOp: 'AND',
+    nameC1f: filterText,
+    nameC1t: 'contains',
+    nameC2f: filterText2,
+    nameC2t: 'contains',
+    startDatetimeDf: `${filterDate} 00:00:00`,
+    startDatetimeT: 'equals',
+    search: searchString,
+  }
+  cellLabels.forEach((value, _key, _parent) => {
+    const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
+    if (headerText === 'Start') {
+      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
+      userEvent.click(filterMenu)
+    }
+  })
+  const dateInputField = container.querySelector('input[placeholder="yyyy-mm-dd"]') as HTMLElement
+  userEvent.type(dateInputField, filterDate)
+  await waitFor(() => {
+    container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
+      const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
+      if (headerText === 'Start') {
+        expect(value.querySelector('.ag-icon-filter')).toBeInTheDocument()
+      }
+    })
+  })
+  await waitFor(() => {
+    expect(history.length).toBe(7)
+  })
+  expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
+
+  // Test compound date filters
+  const filterDate2 = '2020-06-01'
+  expectedParamsObj = {
+    nameS: 'asc',
+    nameSi: '0',
+    nameOp: 'AND',
+    nameC1f: filterText,
+    nameC1t: 'contains',
+    nameC2f: filterText2,
+    nameC2t: 'contains',
+    startDatetimeOp: 'AND',
+    startDatetimeC1df: `${filterDate} 00:00:00`,
+    startDatetimeC1t: 'equals',
+    startDatetimeC2df: `${filterDate2} 00:00:00`,
+    startDatetimeC2t: 'equals',
+    search: searchString,
+  }
+  cellLabels.forEach((value, _key, _parent) => {
+    const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
+    if (headerText === 'Start') {
+      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
+      userEvent.click(filterMenu)
+    }
+  })
+  const dateInputFields = container.querySelectorAll('input[placeholder="yyyy-mm-dd"]')
+  userEvent.type(dateInputFields[2], filterDate2)
+  await waitFor(() => {
+    container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
+      const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
+      if (headerText === 'Start') {
+        expect(value.querySelector('.ag-icon-filter')).toBeInTheDocument()
+      }
+    })
+  })
+  await waitFor(() => {
+    expect(history.length).toBe(8)
+  })
+  expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
+
   // Test reset
   expectedParamsObj = defaultSortParams
   const resetButton = screen.getByRole('button', { name: /Reset/ })
   userEvent.click(resetButton)
   await screen.findByText(/wpcom/)
-  expect(history.length).toBe(5)
+  expect(history.length).toBe(9)
   expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
 })
 
-it('getting rid of all sorting should result in special url params', async () => {
+it('getting rid of all sorting and filtering should result in special url params', async () => {
   const history = createMemoryHistory()
   const experiments: ExperimentBare[] = [
     {
