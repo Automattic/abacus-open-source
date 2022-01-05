@@ -4,7 +4,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
 import { Button, createStyles, fade, InputBase, Link, makeStyles, Theme, Typography, useTheme } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
-import { ColumnApi, GridApi, GridReadyEvent, SortChangedEvent } from 'ag-grid-community'
+import { ColumnApi, FilterChangedEvent, GridApi, GridReadyEvent, SortChangedEvent } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import _ from 'lodash'
@@ -18,10 +18,13 @@ import { createIdSlug } from 'src/utils/general'
 import ExperimentStatus from '../ExperimentStatus'
 import {
   defaultSortParams,
+  getFilterParamsFromGrid,
+  getFilterParamsFromUrlParams,
   getParamsObjFromSearchString,
   getParamsStringFromObj,
   getSortParamsFromGrid,
   getSortParamsFromUrlParams,
+  setGridFilter,
   setGridSort,
   UrlParams,
 } from './ExperimentsTableAgGrid.utils'
@@ -106,6 +109,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
 
   const [urlSearchParams, setUrlSearchParams] = useState<UrlParams>(getParamsObjFromSearchString(location.search))
   const sortParams = useRef<UrlParams>(getSortParamsFromUrlParams(urlSearchParams))
+  const filterParams = useRef<UrlParams>(getFilterParamsFromUrlParams(urlSearchParams))
   const gridApiRef = useRef<GridApi | null>(null)
   const gridColumnApiRef = useRef<ColumnApi | null>(null)
 
@@ -120,7 +124,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     [urlSearchParams],
   )
 
-  const setSearchAndSort = useCallback((params: UrlParams) => {
+  const setSearchSortAndFilter = useCallback((params: UrlParams) => {
     // istanbul ignore next; trivial and shouldn't occur
     if (!gridApiRef.current || !gridColumnApiRef.current) {
       return
@@ -128,6 +132,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
 
     gridApiRef.current.setQuickFilter(params.search || '')
     setGridSort(params, gridColumnApiRef.current)
+    setGridFilter(params, gridApiRef.current, gridColumnApiRef.current)
   }, [])
 
   const updateHistory = useCallback(
@@ -145,8 +150,8 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
   )
 
   const onReset = useCallback(() => {
-    gridApiRef.current?.setFilterModel(null)
     sortParams.current = defaultSortParams
+    filterParams.current = {}
     updateHistory(defaultSortParams)
   }, [updateHistory])
 
@@ -174,10 +179,12 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     if (event.target.value === '') {
       newParams = {
         ...sortParams.current,
+        ...filterParams.current,
       }
     } else {
       newParams = {
         ...sortParams.current,
+        ...filterParams.current,
         search: event.target.value,
       }
     }
@@ -194,9 +201,26 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
 
     const newParams = {
       ...newSortParams,
+      ...filterParams.current,
       ...(urlSearchParams.search ? { search: urlSearchParams.search } : {}),
     }
     sortParams.current = newSortParams
+    updateHistory(newParams)
+  }
+
+  const onFilterChanged = (event: FilterChangedEvent) => {
+    const newFilterParams = getFilterParamsFromGrid(event.api, event.columnApi.getColumnState())
+
+    if (_.isEqual(newFilterParams, filterParams.current)) {
+      return
+    }
+
+    const newParams = {
+      ...sortParams.current,
+      ...newFilterParams,
+      ...(urlSearchParams.search ? { search: urlSearchParams.search } : {}),
+    }
+    filterParams.current = newFilterParams
     updateHistory(newParams)
   }
 
@@ -207,9 +231,9 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     }
 
     if (Object.keys(urlSearchParams).length === 0) {
-      setSearchAndSort(defaultSortParams)
+      setSearchSortAndFilter(defaultSortParams)
     } else {
-      setSearchAndSort(getParamsObjFromSearchString(location.search))
+      setSearchSortAndFilter(getParamsObjFromSearchString(location.search))
     }
     gridColumnApiRef.current.autoSizeAllColumns()
   }
@@ -220,8 +244,8 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
       return
     }
 
-    setSearchAndSort(urlSearchParams)
-  }, [urlSearchParams, setSearchAndSort])
+    setSearchSortAndFilter(urlSearchParams)
+  }, [urlSearchParams, setSearchSortAndFilter])
 
   useEffect(() => {
     if (location.search === '') {
@@ -331,6 +355,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
           onGridReady={onGridReady}
           onGridSizeChanged={onGridResize}
           onSortChanged={onSortChanged}
+          onFilterChanged={onFilterChanged}
         />
       </div>
     </div>
