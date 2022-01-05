@@ -7,14 +7,16 @@ import { Search as SearchIcon } from '@material-ui/icons'
 import { ColumnApi, GridApi, GridReadyEvent } from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import _ from 'lodash'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
 import DatetimeText from 'src/components/general/DatetimeText'
 import { ExperimentBare, Status } from 'src/lib/schemas'
 import { createIdSlug } from 'src/utils/general'
 
 import ExperimentStatus from '../ExperimentStatus'
+import { getParamsObjFromSearchString, getParamsStringFromObj, UrlParams } from './ExperimentsTableAgGrid.utils'
 
 const statusOrder = {
   [Status.Completed]: 0,
@@ -91,47 +93,59 @@ const useStyles = makeStyles((theme: Theme) =>
 const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): JSX.Element => {
   const theme = useTheme()
   const classes = useStyles()
+  const history = useHistory()
+  const location = useLocation()
 
+  const [urlSearchParams, setUrlSearchParams] = useState<UrlParams>(getParamsObjFromSearchString(location.search))
   const gridApiRef = useRef<GridApi | null>(null)
   const gridColumnApiRef = useRef<ColumnApi | null>(null)
 
-  const onGridReady = (event: GridReadyEvent) => {
-    gridApiRef.current = event.api
-    gridColumnApiRef.current = gridColumnApiRef.current = event.columnApi
+  const updateParamsIfNotEqual = useCallback(
+    (newParams: UrlParams) => {
+      if (_.isEqual(newParams, urlSearchParams)) {
+        return
+      }
 
-    event.api.sizeColumnsToFit()
-  }
+      setUrlSearchParams(newParams)
+    },
+    [urlSearchParams],
+  )
 
-  const onGridResize = () => {
-    if (!gridApiRef.current) {
-      return
-    }
-
-    gridApiRef.current.sizeColumnsToFit()
-  }
-
-  const [searchState, setSearchState] = useState<string>('')
-  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchState(event.target.value)
-  }
-  useEffect(() => {
-    // istanbul ignore next; trivial and shouldn't occur
-    if (!gridApiRef.current) {
-      return
-    }
-
-    gridApiRef.current?.setQuickFilter(searchState)
-  }, [searchState])
-
-  const onReset = () => {
+  const setSearch = useCallback((params: UrlParams) => {
     // istanbul ignore next; trivial and shouldn't occur
     if (!gridApiRef.current || !gridColumnApiRef.current) {
       return
     }
 
-    setSearchState('')
-    gridColumnApiRef.current.autoSizeAllColumns()
-    gridColumnApiRef.current.resetColumnState()
+    gridApiRef.current.setQuickFilter(params.search || '')
+  }, [])
+
+  const updateHistory = useCallback(
+    (params: UrlParams) => {
+      if (_.isEqual(params, getParamsObjFromSearchString(location.search))) {
+        return
+      }
+
+      if (_.isEmpty(params)) {
+        history.push({
+          pathname: '/experiments',
+        })
+      } else {
+        history.push({
+          pathname: '/experiments',
+          search: `?${getParamsStringFromObj(params)}`,
+        })
+      }
+    },
+    [history, location],
+  )
+
+  const setDefaultSortAndFilter = () => {
+    // istanbul ignore next; trivial and shouldn't occur
+    if (!gridApiRef.current || !gridColumnApiRef.current) {
+      return
+    }
+
     gridApiRef.current.setFilterModel(null)
     gridColumnApiRef.current.applyColumnState({
       state: [
@@ -150,6 +164,75 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     })
   }
 
+  const onReset = useCallback(() => {
+    setDefaultSortAndFilter()
+    updateHistory({})
+  }, [updateHistory])
+
+  const onGridReady = (event: GridReadyEvent) => {
+    gridApiRef.current = event.api
+    gridColumnApiRef.current = gridColumnApiRef.current = event.columnApi
+
+    event.api.sizeColumnsToFit()
+  }
+
+  const onGridResize = () => {
+    if (!gridApiRef.current) {
+      return
+    }
+
+    gridApiRef.current.sizeColumnsToFit()
+  }
+
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (urlSearchParams.search === event.target.value) {
+      return
+    }
+
+    let newParams = {}
+    if (event.target.value === '') {
+      newParams = {}
+    } else {
+      newParams = {
+        search: event.target.value,
+      }
+    }
+    updateHistory(newParams)
+  }
+
+  const onFirstDataRendered = () => {
+    // istanbul ignore next; trivial and shouldn't occur
+    if (!gridApiRef.current || !gridColumnApiRef.current) {
+      return
+    }
+
+    if (Object.keys(urlSearchParams).length === 0) {
+      setSearch({})
+    } else {
+      setSearch(getParamsObjFromSearchString(location.search))
+    }
+    setDefaultSortAndFilter()
+    gridColumnApiRef.current.autoSizeAllColumns()
+  }
+
+  useEffect(() => {
+    // istanbul ignore next; trivial and shouldn't occur
+    if (!gridApiRef.current) {
+      return
+    }
+
+    setSearch(urlSearchParams)
+  }, [urlSearchParams, setSearch])
+
+  useEffect(() => {
+    if (location.search === '') {
+      updateParamsIfNotEqual({})
+    } else {
+      const newParams = getParamsObjFromSearchString(location.search)
+      updateParamsIfNotEqual(newParams)
+    }
+  }, [location, updateParamsIfNotEqual])
+
   return (
     <div className={clsx('ag-theme-alpine', classes.root)}>
       <div className={classes.toolbar}>
@@ -166,7 +249,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'Search' }}
-              value={searchState}
+              value={urlSearchParams.search || ''}
               onChange={onSearchChange}
             />
           </div>
@@ -245,7 +328,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
           ]}
           rowData={experiments}
           containerStyle={{ flex: 1, height: 'auto' }}
-          onFirstDataRendered={onReset}
+          onFirstDataRendered={onFirstDataRendered}
           onGridReady={onGridReady}
           onGridSizeChanged={onGridResize}
         />
