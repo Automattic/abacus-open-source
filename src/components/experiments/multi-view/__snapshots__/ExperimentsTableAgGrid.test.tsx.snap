@@ -132,13 +132,13 @@ exports[`should render a table with experiments, allow searching and resetting 1
                     class="ag-header-container"
                     ref="eHeaderContainer"
                     role="rowgroup"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                   >
                     <div
                       aria-rowindex="1"
                       class="ag-header-row ag-header-row-column"
                       role="row"
-                      style="top: 0px; height: 48px; width: 1200px;"
+                      style="top: 0px; height: 48px; width: 1520px;"
                     >
                       <div
                         aria-colindex="1"
@@ -146,7 +146,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="name"
                         role="columnheader"
-                        style="width: 200px; left: 0px;"
+                        style="width: 520px; left: 0px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -303,7 +303,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="status"
                         role="columnheader"
-                        style="width: 200px; left: 200px;"
+                        style="width: 200px; left: 520px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -460,7 +460,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="platform"
                         role="columnheader"
-                        style="width: 200px; left: 400px;"
+                        style="width: 200px; left: 720px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -617,7 +617,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="ownerLogin"
                         role="columnheader"
-                        style="width: 200px; left: 600px;"
+                        style="width: 200px; left: 920px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -774,7 +774,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="startDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 800px;"
+                        style="width: 200px; left: 1120px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -931,7 +931,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="endDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 1000px;"
+                        style="width: 200px; left: 1320px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -1136,7 +1136,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                     class="ag-floating-top-container"
                     ref="eTopContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -1211,7 +1211,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                       class="ag-center-cols-container"
                       ref="eCenterContainer"
                       role="rowgroup"
-                      style="width: 1200px; height: 42px;"
+                      style="width: 1520px; height: 42px;"
                       unselectable="on"
                     >
                       <div
@@ -1230,7 +1230,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                           col-id="name"
                           comp-id="54"
                           role="gridcell"
-                          style="width: 200px; left: 0px; font-family: 'Roboto Mono', monospace; font-weight: 600; "
+                          style="width: 520px; left: 0px; font-family: 'Roboto Mono', monospace; font-weight: 600; "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -1240,7 +1240,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                           col-id="status"
                           comp-id="55"
                           role="gridcell"
-                          style="width: 200px; left: 200px;  "
+                          style="width: 200px; left: 520px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -1250,7 +1250,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                           col-id="platform"
                           comp-id="56"
                           role="gridcell"
-                          style="width: 200px; left: 400px; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 720px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -1262,7 +1262,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                           col-id="ownerLogin"
                           comp-id="57"
                           role="gridcell"
-                          style="width: 200px; left: 600px; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 920px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -1274,7 +1274,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                           col-id="startDatetime"
                           comp-id="58"
                           role="gridcell"
-                          style="width: 200px; left: 800px;  "
+                          style="width: 200px; left: 1120px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -1284,7 +1284,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                           col-id="endDatetime"
                           comp-id="59"
                           role="gridcell"
-                          style="width: 200px; left: 1000px;  "
+                          style="width: 200px; left: 1320px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -1359,7 +1359,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                     class="ag-floating-bottom-container"
                     ref="eBottomContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -1411,7 +1411,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                   <div
                     class="ag-body-horizontal-scroll-container"
                     ref="eBodyHorizontalScrollContainer"
-                    style="width: 1200px; height: 0px; max-height: 0px; min-height: 0px;"
+                    style="width: 1520px; height: 0px; max-height: 0px; min-height: 0px;"
                   />
                   
             
@@ -1768,13 +1768,13 @@ exports[`should render a table with experiments, allow searching and resetting 2
                     class="ag-header-container"
                     ref="eHeaderContainer"
                     role="rowgroup"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                   >
                     <div
                       aria-rowindex="1"
                       class="ag-header-row ag-header-row-column"
                       role="row"
-                      style="top: 0px; height: 48px; width: 1200px;"
+                      style="top: 0px; height: 48px; width: 1520px;"
                     >
                       <div
                         aria-colindex="1"
@@ -1782,7 +1782,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="name"
                         role="columnheader"
-                        style="width: 200px; left: 0px;"
+                        style="width: 520px; left: 0px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -1939,7 +1939,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="status"
                         role="columnheader"
-                        style="width: 200px; left: 200px;"
+                        style="width: 200px; left: 520px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -2096,7 +2096,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="platform"
                         role="columnheader"
-                        style="width: 200px; left: 400px;"
+                        style="width: 200px; left: 720px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -2253,7 +2253,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="ownerLogin"
                         role="columnheader"
-                        style="width: 200px; left: 600px;"
+                        style="width: 200px; left: 920px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -2410,7 +2410,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="startDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 800px;"
+                        style="width: 200px; left: 1120px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -2567,7 +2567,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="endDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 1000px;"
+                        style="width: 200px; left: 1320px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -2772,7 +2772,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                     class="ag-floating-top-container"
                     ref="eTopContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -2847,7 +2847,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                       class="ag-center-cols-container"
                       ref="eCenterContainer"
                       role="rowgroup"
-                      style="width: 1200px; height: 42px;"
+                      style="width: 1520px; height: 42px;"
                       unselectable="on"
                     >
                       <div
@@ -2866,7 +2866,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                           col-id="name"
                           comp-id="54"
                           role="gridcell"
-                          style="width: 200px; left: 0px; font-family: 'Roboto Mono', monospace; font-weight: 600; "
+                          style="width: 520px; left: 0px; font-family: 'Roboto Mono', monospace; font-weight: 600; "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -2876,7 +2876,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                           col-id="status"
                           comp-id="55"
                           role="gridcell"
-                          style="width: 200px; left: 200px;  "
+                          style="width: 200px; left: 520px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -2886,7 +2886,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                           col-id="platform"
                           comp-id="56"
                           role="gridcell"
-                          style="width: 200px; left: 400px; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 720px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -2898,7 +2898,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                           col-id="ownerLogin"
                           comp-id="57"
                           role="gridcell"
-                          style="width: 200px; left: 600px; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 920px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -2910,7 +2910,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                           col-id="startDatetime"
                           comp-id="58"
                           role="gridcell"
-                          style="width: 200px; left: 800px;  "
+                          style="width: 200px; left: 1120px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -2920,7 +2920,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                           col-id="endDatetime"
                           comp-id="59"
                           role="gridcell"
-                          style="width: 200px; left: 1000px;  "
+                          style="width: 200px; left: 1320px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -2995,7 +2995,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                     class="ag-floating-bottom-container"
                     ref="eBottomContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -3047,7 +3047,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                   <div
                     class="ag-body-horizontal-scroll-container"
                     ref="eBodyHorizontalScrollContainer"
-                    style="width: 1200px; height: 0px; max-height: 0px; min-height: 0px;"
+                    style="width: 1520px; height: 0px; max-height: 0px; min-height: 0px;"
                   />
                   
             
@@ -3404,13 +3404,13 @@ exports[`should render a table with experiments, allow searching and resetting 3
                     class="ag-header-container"
                     ref="eHeaderContainer"
                     role="rowgroup"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                   >
                     <div
                       aria-rowindex="1"
                       class="ag-header-row ag-header-row-column"
                       role="row"
-                      style="top: 0px; height: 48px; width: 1200px;"
+                      style="top: 0px; height: 48px; width: 1520px;"
                     >
                       <div
                         aria-colindex="1"
@@ -3418,7 +3418,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="name"
                         role="columnheader"
-                        style="width: 200px; left: 0px;"
+                        style="width: 520px; left: 0px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -3575,7 +3575,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="status"
                         role="columnheader"
-                        style="width: 200px; left: 200px;"
+                        style="width: 200px; left: 520px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -3732,7 +3732,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="platform"
                         role="columnheader"
-                        style="width: 200px; left: 400px;"
+                        style="width: 200px; left: 720px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -3889,7 +3889,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="ownerLogin"
                         role="columnheader"
-                        style="width: 200px; left: 600px;"
+                        style="width: 200px; left: 920px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -4046,7 +4046,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="startDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 800px;"
+                        style="width: 200px; left: 1120px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -4203,7 +4203,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="endDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 1000px;"
+                        style="width: 200px; left: 1320px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -4408,7 +4408,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                     class="ag-floating-top-container"
                     ref="eTopContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -4483,7 +4483,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                       class="ag-center-cols-container"
                       ref="eCenterContainer"
                       role="rowgroup"
-                      style="width: 1200px; height: 42px;"
+                      style="width: 1520px; height: 42px;"
                       unselectable="on"
                     >
                       <div
@@ -4502,7 +4502,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                           col-id="name"
                           comp-id="54"
                           role="gridcell"
-                          style="width: 200px; left: 0px; font-family: 'Roboto Mono', monospace; font-weight: 600; "
+                          style="width: 520px; left: 0px; font-family: 'Roboto Mono', monospace; font-weight: 600; "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -4512,7 +4512,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                           col-id="status"
                           comp-id="55"
                           role="gridcell"
-                          style="width: 200px; left: 200px;  "
+                          style="width: 200px; left: 520px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -4522,7 +4522,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                           col-id="platform"
                           comp-id="56"
                           role="gridcell"
-                          style="width: 200px; left: 400px; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 720px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -4534,7 +4534,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                           col-id="ownerLogin"
                           comp-id="57"
                           role="gridcell"
-                          style="width: 200px; left: 600px; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 920px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -4546,7 +4546,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                           col-id="startDatetime"
                           comp-id="58"
                           role="gridcell"
-                          style="width: 200px; left: 800px;  "
+                          style="width: 200px; left: 1120px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -4556,7 +4556,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                           col-id="endDatetime"
                           comp-id="59"
                           role="gridcell"
-                          style="width: 200px; left: 1000px;  "
+                          style="width: 200px; left: 1320px;  "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -4631,7 +4631,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                     class="ag-floating-bottom-container"
                     ref="eBottomContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -4683,7 +4683,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                   <div
                     class="ag-body-horizontal-scroll-container"
                     ref="eBodyHorizontalScrollContainer"
-                    style="width: 1200px; height: 0px; max-height: 0px; min-height: 0px;"
+                    style="width: 1520px; height: 0px; max-height: 0px; min-height: 0px;"
                   />
                   
             
@@ -5040,13 +5040,13 @@ exports[`should render an empty table 1`] = `
                     class="ag-header-container"
                     ref="eHeaderContainer"
                     role="rowgroup"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                   >
                     <div
                       aria-rowindex="1"
                       class="ag-header-row ag-header-row-column"
                       role="row"
-                      style="top: 0px; height: 48px; width: 1200px;"
+                      style="top: 0px; height: 48px; width: 1520px;"
                     >
                       <div
                         aria-colindex="1"
@@ -5054,7 +5054,7 @@ exports[`should render an empty table 1`] = `
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="name"
                         role="columnheader"
-                        style="width: 200px; left: 0px;"
+                        style="width: 520px; left: 0px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -5211,7 +5211,7 @@ exports[`should render an empty table 1`] = `
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="status"
                         role="columnheader"
-                        style="width: 200px; left: 200px;"
+                        style="width: 200px; left: 520px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -5368,7 +5368,7 @@ exports[`should render an empty table 1`] = `
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="platform"
                         role="columnheader"
-                        style="width: 200px; left: 400px;"
+                        style="width: 200px; left: 720px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -5525,7 +5525,7 @@ exports[`should render an empty table 1`] = `
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="ownerLogin"
                         role="columnheader"
-                        style="width: 200px; left: 600px;"
+                        style="width: 200px; left: 920px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -5682,7 +5682,7 @@ exports[`should render an empty table 1`] = `
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="startDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 800px;"
+                        style="width: 200px; left: 1120px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -5839,7 +5839,7 @@ exports[`should render an empty table 1`] = `
                         class="ag-header-cell ag-focus-managed ag-header-cell-sortable"
                         col-id="endDatetime"
                         role="columnheader"
-                        style="width: 200px; left: 1000px;"
+                        style="width: 200px; left: 1320px;"
                         tabindex="-1"
                         unselectable="on"
                       >
@@ -6044,7 +6044,7 @@ exports[`should render an empty table 1`] = `
                     class="ag-floating-top-container"
                     ref="eTopContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -6108,7 +6108,7 @@ exports[`should render an empty table 1`] = `
                       class="ag-center-cols-container"
                       ref="eCenterContainer"
                       role="rowgroup"
-                      style="width: 1200px; height: 1px;"
+                      style="width: 1520px; height: 1px;"
                       unselectable="on"
                     />
                     
@@ -6169,7 +6169,7 @@ exports[`should render an empty table 1`] = `
                     class="ag-floating-bottom-container"
                     ref="eBottomContainer"
                     role="presentation"
-                    style="width: 1200px;"
+                    style="width: 1520px;"
                     unselectable="on"
                   />
                   
@@ -6221,7 +6221,7 @@ exports[`should render an empty table 1`] = `
                   <div
                     class="ag-body-horizontal-scroll-container"
                     ref="eBodyHorizontalScrollContainer"
-                    style="width: 1200px; height: 0px; max-height: 0px; min-height: 0px;"
+                    style="width: 1520px; height: 0px; max-height: 0px; min-height: 0px;"
                   />
                   
             

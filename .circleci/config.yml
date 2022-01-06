@@ -110,4 +110,4 @@ workflows:
       - static-checks
       - unit-tests
       - integration
-      - e2e
+#       - e2e

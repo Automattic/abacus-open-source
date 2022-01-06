@@ -336,6 +336,7 @@ export enum Platform {
   Jetpack = 'jetpack',
   Lohp = 'lohp',
   Pipe = 'pipe',
+  Wccom = 'wccom',
   WooCommerce = 'woocommerce',
   Wpandroid = 'wpandroid',
   Wpcom = 'wpcom',
