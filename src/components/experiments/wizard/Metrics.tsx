@@ -106,6 +106,9 @@ const useStyles = makeStyles((theme: Theme) =>
     exposureEventsInfo: {
       marginTop: theme.spacing(4),
     },
+    multipleExposureEventsInfo: {
+      marginTop: theme.spacing(1),
+    },
   }),
 )
 
@@ -633,6 +636,11 @@ const Metrics = ({
         </Link>
         <br />
         <span>Only validated events can be used as exposure events.</span>
+      </Alert>
+
+      <Alert severity='info' className={classes.multipleExposureEventsInfo}>
+        If you have multiple exposure events, then participants will be considered exposed if they trigger{' '}
+        <strong>any</strong> of the exposure events.
       </Alert>
     </div>
   )

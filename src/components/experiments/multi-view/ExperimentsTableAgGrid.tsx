@@ -274,7 +274,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
               sortable: true,
               filter: true,
               resizable: true,
-              flex: 0,
+              width: 520,
             },
             {
               headerName: 'Status',
