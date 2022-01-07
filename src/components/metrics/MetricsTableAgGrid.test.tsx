@@ -108,3 +108,20 @@ test('with some metrics can search parameters', async () => {
     expect(metric).not.toBeInTheDocument()
   })
 })
+
+test('with some metrics and onAssignMetric can click on the assign metric button', async () => {
+  const user = userEvent.setup()
+  const onAssignMetric = jest.fn()
+  const { container } = render(
+    <MetricsTableAgGrid metrics={Fixtures.createMetrics(2)} onAssignMetric={onAssignMetric} />,
+  )
+
+  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
+  await waitFor(() => getByText(containerElmt, /metric_1/), { container })
+
+  const buttons = screen.getAllByRole('button', { name: /Assign metric/i })
+
+  await user.click(buttons[0])
+
+  expect(onAssignMetric.mock.calls.length).toBe(1)
+})
