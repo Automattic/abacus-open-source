@@ -1,4 +1,4 @@
-import { fireEvent, getByText, render, screen, waitFor } from '@testing-library/react'
+import { fireEvent, getByText, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
 import React from 'react'
 
 import AgGridWithDetails from './AgGridWithDetails'
@@ -10,6 +10,10 @@ const DetailRenderer = ({ data }: { data: Data }) => {
 
 const waitForSeconds = (seconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000))
+}
+
+const getDataId = (data: Data) => {
+  return data.test as string
 }
 
 beforeEach(() => {
@@ -34,6 +38,7 @@ test('renders detail row when clicked', async () => {
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
       otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      getDataId={getDataId}
     />,
   )
 
@@ -69,6 +74,43 @@ test('renders detail row when clicked', async () => {
   })
 })
 
+test('closes detail row after opening when clicked', async () => {
+  const columnDefs = [
+    {
+      headerName: 'Test',
+      field: 'test',
+      width: 100,
+      minWidth: 100,
+      cellRendererFramework: ({ data }: { data: Data }) => <div>Click Me! {JSON.stringify(data)}</div>,
+    },
+  ]
+
+  const { container } = render(
+    <AgGridWithDetails
+      data={[{ test: 'test1' }]}
+      columnDefs={columnDefs}
+      detailRowRenderer={DetailRenderer}
+      otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      getDataId={getDataId}
+    />,
+  )
+
+  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
+  expect(containerElmt).not.toBeNull()
+  await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
+
+  const row = getByText(containerElmt, /Click Me!/)
+  fireEvent.click(row)
+
+  await waitFor(() => {
+    const detailContainer = container.querySelector('div.ag-full-width-container') as HTMLElement
+    getByText(detailContainer, /has been rendered./)
+  })
+
+  fireEvent.click(row)
+  await waitForElementToBeRemoved(() => container.querySelector('div.ag-full-width-row'))
+})
+
 test('ignores clicks on action columns but allows other actions in cell', async () => {
   const ACTION_COLUMN_SUFFIX = '-actions'
   const ACTION_COLUMN_NAME = `column-${ACTION_COLUMN_SUFFIX}`
@@ -92,6 +134,7 @@ test('ignores clicks on action columns but allows other actions in cell', async 
       detailRowRenderer={DetailRenderer}
       actionColumnIdSuffix={ACTION_COLUMN_SUFFIX}
       otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      getDataId={getDataId}
     />,
   )
 
@@ -138,6 +181,7 @@ test('ignores clicks on full width rows', async () => {
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
       otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      getDataId={getDataId}
     />,
   )
 
