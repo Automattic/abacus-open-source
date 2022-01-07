@@ -123,7 +123,7 @@ const AgGridWithDetails = ({
   defaultColDef,
   columnDefs,
   otherAgGridProps,
-  defaultSearchColumnId,
+  defaultSortColumnId,
   actionColumnIdSuffix,
   detailRowRenderer,
   getDataId = (_: Data) => '',
@@ -134,10 +134,10 @@ const AgGridWithDetails = ({
   defaultColDef?: AgGridColumnProps
   columnDefs: AgGridColumnProps[]
   otherAgGridProps?: AgGridReactProps
-  defaultSearchColumnId?: string
+  defaultSortColumnId?: string
   actionColumnIdSuffix?: string
-  detailRowRenderer?: ({ data }: { data: Data }) => JSX.Element
-  getDataId?: GetDataIdFunc
+  detailRowRenderer: ({ data }: { data: Data }) => JSX.Element
+  getDataId: GetDataIdFunc
 }): JSX.Element => {
   const classes = useStyles()
 
@@ -194,9 +194,9 @@ const AgGridWithDetails = ({
       return
     }
 
-    let defaultSearchColumn = defaultSearchColumnId
+    let sortColumn = defaultSortColumnId
     if (columnDefs) {
-      defaultSearchColumn = defaultSearchColumn || columnDefs[0].field
+      sortColumn = sortColumn || columnDefs[0].field
     }
 
     setSearchState('')
@@ -204,15 +204,11 @@ const AgGridWithDetails = ({
     gridApiRef.current.setFilterModel(null)
     gridColumnApiRef.current.applyColumnState({
       state: [
-        ...(defaultSearchColumn
-          ? [
-              {
-                colId: defaultSearchColumn,
-                sort: 'asc',
-                sortIndex: 0,
-              },
-            ]
-          : []),
+        {
+          colId: sortColumn,
+          sort: 'asc',
+          sortIndex: 0,
+        },
       ],
       defaultState: { sort: null },
     })
@@ -257,7 +253,7 @@ const AgGridWithDetails = ({
           defaultColDef: defaultColDef,
         }
       : {}),
-    columnDefs: [...(detailRowRenderer ? [detailButtonColumnDef] : []), ...columnDefs],
+    columnDefs: [detailButtonColumnDef, ...columnDefs],
     containerStyle: { flex: 1, height: 'auto' },
     onFirstDataRendered: onReset,
     onGridReady: onGridReady,
