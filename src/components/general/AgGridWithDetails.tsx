@@ -1,4 +1,3 @@
-// istanbul ignore file; demo
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
@@ -126,7 +125,7 @@ const AgGridWithDetails = ({
   defaultSortColumnId,
   actionColumnIdSuffix,
   detailRowRenderer,
-  getDataId = (_: Data) => '',
+  getDataId,
 }: {
   title?: string
   search?: boolean
