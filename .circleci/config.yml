@@ -25,9 +25,11 @@ jobs:
     steps:
       - checkout
       - node/install-packages
+      # Parallelism setup adapted from https://circleci.com/docs/2.0/collect-test-data/#javascript
+      # and https://dev.to/drazisil/test-splitting-with-jest-on-circleci-1i0c
       - run:
           name: Install JUnit coverage reporter
-          command: yarn add --dev jest-junit
+          command: npm install --dev jest-junit
       - run:
           name: Unit Testing
           command: |
