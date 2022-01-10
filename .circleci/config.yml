@@ -29,12 +29,12 @@ jobs:
       # and https://dev.to/drazisil/test-splitting-with-jest-on-circleci-1i0c
       - run:
           name: Install JUnit coverage reporter
-          command: npm install --dev jest-junit
+          command: npm install --save-dev jest-junit
       - run:
           name: Unit Testing
           command: |
             TESTFILES=$(circleci tests glob "src/**/*.test.tsx" | circleci tests split --split-by=timings)
-            npm run test:unit -- -- $TESTFILES --collectCoverageFrom='[$TESTFILES]' --ci --maxWorkers 2 --reporters=default --reporters=jest-junit
+            npm run test:unit -- -- $TESTFILES --collectCoverageFrom="[$TESTFILES]" --ci --maxWorkers 2 --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/
       - store_test_results:
