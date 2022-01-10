@@ -33,8 +33,11 @@ jobs:
       - run:
           name: Unit Testing
           command: |
+            joinByStr() { local separator="\", \""; local first="$1"; shift; printf "%s" \""$first" "${@/#/$separator}"\"; }
             TESTFILES=$(circleci tests glob "src/**/*.test.tsx" | circleci tests split --split-by=timings)
-            npm run test:unit -- -- $TESTFILES --collectCoverageFrom="[$TESTFILES]" --ci --maxWorkers 2 --reporters=default --reporters=jest-junit
+            IFS=' ' && read -a filesarr <<< "$TESTFILES"
+            FILES=$(joinByStr "${filesarr[@]}")
+            npm run test:unit -- -- $TESTFILES --collectCoverageFrom="[$FILES]" --ci --maxWorkers 2 --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/
       - store_test_results:
