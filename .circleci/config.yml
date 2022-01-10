@@ -27,7 +27,12 @@ jobs:
       - node/install-packages
       - run:
           name: Unit Testing
-          command: npm run test:unit -- -- --ci --maxWorkers 2
+          command: |
+            TESTFILES=$(circleci tests glob "src/**/*.test.tsx" | circleci tests split --split-by=timings)
+            npm run test:unit -- -- $TESTFILES --ci --maxWorkers 2
+      - store_test_results:
+          path: test_results
+    parallelism: 4
 
   integration:
     executor:
