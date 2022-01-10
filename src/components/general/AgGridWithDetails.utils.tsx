@@ -34,11 +34,9 @@ export const detailIdFromDataId = (dataId: string): string => {
 export const setHeightOfFullWidthRow = (
   rowIndex: number,
   data: Data,
-  {
-    maxRowHeightMap,
-    gridApiRef,
-    getDataId,
-  }: { maxRowHeightMap: Map<string, number>; gridApiRef: GridApi | null; getDataId: GetDataIdFunc },
+  maxRowHeightMap: Map<string, number>,
+  gridApiRef: GridApi | null,
+  getDataId: GetDataIdFunc,
 ): void => {
   // Add a timeout to ensure the grid rows are rendered
   setTimeout(() => {
@@ -78,20 +76,14 @@ export const setHeightOfFullWidthRow = (
 
 export const isFullWidth = (data: Data): boolean => data.isDetail === true
 
-export const addDetailRow = (
-  data: Data,
-  { rowData, getDataId }: { rowData: Data[]; getDataId: GetDataIdFunc },
-): Data[] => {
+export const addDetailRow = (data: Data, rowData: Data[], getDataId: GetDataIdFunc): Data[] => {
   const newMetrics = [...rowData]
   const index = newMetrics.findIndex((element) => getDataId(element) === getDataId(data))
   newMetrics.splice(index + 1, 0, { ...data, isDetail: true })
   return newMetrics
 }
 
-export const removeDetailRow = (
-  data: Data,
-  { rowData, getDataId }: { rowData: Data[]; getDataId: GetDataIdFunc },
-): Data[] => {
+export const removeDetailRow = (data: Data, rowData: Data[], getDataId: GetDataIdFunc): Data[] => {
   const newMetrics = [...rowData]
   const index = newMetrics.findIndex((element) => getDataId(element) === getDataId(data) && element.isDetail === true)
 
@@ -111,9 +103,9 @@ export const toggleDetailRow = (
   const detailRowExists = !!detailRowToggleMap.get(getDataId(data))
   let newRows
   if (detailRowExists) {
-    newRows = removeDetailRow(data, { rowData, getDataId })
+    newRows = removeDetailRow(data, rowData, getDataId)
   } else {
-    newRows = addDetailRow(data, { rowData, getDataId })
+    newRows = addDetailRow(data, rowData, getDataId)
   }
 
   detailRowToggleMap.set(getDataId(data), !detailRowExists)
@@ -179,11 +171,7 @@ export const onCellClicked = (
 
         // istanbul ignore else
         if (detailRowToggleMap.get(getDataId(event.data))) {
-          setHeightOfFullWidthRow(1 + (event.rowIndex as number), event.data, {
-            maxRowHeightMap,
-            gridApiRef,
-            getDataId,
-          })
+          setHeightOfFullWidthRow(1 + (event.rowIndex as number), event.data, maxRowHeightMap, gridApiRef, getDataId)
         }
       }
       // Trigger the detail button if anything else in the row was clicked

@@ -126,7 +126,7 @@ const AgGridWithDetails = ({
   defaultSortColumnId,
   actionColumnIdSuffix,
   detailRowRenderer,
-  getDataId = (_: Data) => '',
+  getDataId,
 }: {
   title?: string
   search?: boolean
