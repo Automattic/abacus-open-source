@@ -7,10 +7,6 @@ const DetailRenderer = ({ data }: { data: Record<string, unknown> }) => {
   return <div>Detail data {JSON.stringify(data)} has been rendered.</div>
 }
 
-const waitForSeconds = (seconds: number) => {
-  return new Promise((resolve) => setTimeout(resolve, seconds * 1000))
-}
-
 const getDataId = (data: Record<string, unknown>) => {
   return data.test as string
 }
@@ -161,10 +157,8 @@ test('ignores clicks on action columns but allows other actions in cell', async 
     fireEvent.click(actionCol.firstElementChild as HTMLElement)
   })
 
-  await waitForSeconds(0.5)
-
   const detailRow = screen.queryByText(/has been rendered./)
-  expect(detailRow).not.toBeInTheDocument()
+  await waitFor(() => expect(detailRow).not.toBeInTheDocument())
 })
 
 test('ignores clicks on full width rows', async () => {
