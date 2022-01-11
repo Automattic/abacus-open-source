@@ -3,7 +3,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
 import { Button, createStyles, fade, InputBase, makeStyles, Theme, Typography } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
-import { CellClickedEvent, ColumnApi, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community'
+import { CellClickedEvent, ColumnApi, GetRowNodeIdFunc, GridApi, GridReadyEvent, RowNode } from 'ag-grid-community'
 import { AgGridColumnProps, AgGridReact, AgGridReactProps } from 'ag-grid-react'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
@@ -12,7 +12,6 @@ import {
   DETAIL_TOGGLE_BUTTON_COLUMN_NAME,
   detailIdFromDataId,
   DetailToggleButtonRenderer,
-  GetDataIdFunc,
   getRowHeight,
   isFullWidth,
   onCellClicked,
@@ -111,7 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 /**
  * Renders an AgGrid that can display a master/detail component for each row.
- * For the detail rendering to work, at least the detailRowRenderer and getDataId must be provided.
  */
 const AgGridWithDetails = ({
   title,
@@ -123,7 +121,7 @@ const AgGridWithDetails = ({
   defaultSortColumnId,
   actionColumnIdSuffix,
   detailRowRenderer,
-  getDataId,
+  getRowNodeId,
 }: {
   title?: string
   search?: boolean
@@ -134,7 +132,7 @@ const AgGridWithDetails = ({
   defaultSortColumnId?: string
   actionColumnIdSuffix?: string
   detailRowRenderer: ({ data }: { data: Record<string, unknown> }) => JSX.Element
-  getDataId: GetDataIdFunc
+  getRowNodeId: GetRowNodeIdFunc
 }): JSX.Element => {
   const classes = useStyles()
 
@@ -153,7 +151,7 @@ const AgGridWithDetails = ({
       detailRowToggleMap: detailRowToggleMap.current,
       rowData: rowData,
       setRowData: setRowData,
-      getDataId: getDataId,
+      getRowNodeId: getRowNodeId,
       actionColumnIdSuffix: actionColumnIdSuffix,
     }
   }
@@ -236,7 +234,11 @@ const AgGridWithDetails = ({
       paddingRight: 0,
     },
     cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
-      <DetailToggleButtonRenderer data={data} getDataId={getDataId} detailRowToggleMap={detailRowToggleMap.current} />
+      <DetailToggleButtonRenderer
+        data={data}
+        getRowNodeId={getRowNodeId}
+        detailRowToggleMap={detailRowToggleMap.current}
+      />
     ),
     width: 54,
     minWidth: 54,
@@ -258,7 +260,7 @@ const AgGridWithDetails = ({
       ? {
           fullWidthCellRendererFramework: detailRowRenderer,
           getRowNodeId: (data: Record<string, unknown>) => {
-            return isFullWidth(data) ? detailIdFromDataId(getDataId(data)) : getDataId(data)
+            return isFullWidth(data) ? detailIdFromDataId(getRowNodeId(data)) : getRowNodeId(data)
           },
           getRowHeight: (params: { node: { data: Record<string, unknown> } }) => {
             return getRowHeight(params.node.data, getDependencies())

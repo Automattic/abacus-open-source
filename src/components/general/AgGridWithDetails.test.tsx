@@ -7,7 +7,7 @@ const DetailRenderer = ({ data }: { data: Record<string, unknown> }) => {
   return <div>Detail data {JSON.stringify(data)} has been rendered.</div>
 }
 
-const getDataId = (data: Record<string, unknown>) => {
+const getRowNodeId = (data: Record<string, unknown>) => {
   return data.test as string
 }
 
@@ -35,7 +35,7 @@ test('renders detail row when clicked', async () => {
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
       otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
-      getDataId={getDataId}
+      getRowNodeId={getRowNodeId}
     />,
   )
 
@@ -90,7 +90,7 @@ test('closes detail row after opening when clicked', async () => {
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
       otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
-      getDataId={getDataId}
+      getRowNodeId={getRowNodeId}
     />,
   )
 
@@ -133,7 +133,7 @@ test('ignores clicks on action columns but allows other actions in cell', async 
       detailRowRenderer={DetailRenderer}
       actionColumnIdSuffix={ACTION_COLUMN_SUFFIX}
       otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
-      getDataId={getDataId}
+      getRowNodeId={getRowNodeId}
     />,
   )
 
@@ -180,7 +180,7 @@ test('ignores clicks on full width rows', async () => {
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
       otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
-      getDataId={getDataId}
+      getRowNodeId={getRowNodeId}
     />,
   )
 

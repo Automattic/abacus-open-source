@@ -1,9 +1,7 @@
-import { CellClickedEvent, GridApi } from 'ag-grid-community'
+import { CellClickedEvent, GetRowNodeIdFunc, GridApi } from 'ag-grid-community'
 import React from 'react'
 
 import RowToggleButton from './RowToggleButton'
-
-export type GetDataIdFunc = (data: Record<string, unknown>) => string
 
 export const DETAIL_TOGGLE_BUTTON_COLUMN_NAME = '__detail-button-col__'
 const DETAIL_ID_SUFFIX = '-detail'
@@ -20,7 +18,7 @@ export const setHeightOfFullWidthRow = (
   data: Record<string, unknown>,
   maxRowHeightMap: Map<string, number>,
   gridApiRef: GridApi | null,
-  getDataId: GetDataIdFunc,
+  getRowNodeId: GetRowNodeIdFunc,
 ): void => {
   // Add a timeout to ensure the grid rows are rendered
   setTimeout(() => {
@@ -51,7 +49,7 @@ export const setHeightOfFullWidthRow = (
 
     const rowChild = found.firstElementChild
     const rowHeight = rowChild.clientHeight
-    maxRowHeightMap.set(detailIdFromDataId(getDataId(data)), rowHeight)
+    maxRowHeightMap.set(detailIdFromDataId(getRowNodeId(data)), rowHeight)
 
     gridApiRef?.resetRowHeights()
     //gridApiRef?.redrawRows()
@@ -63,10 +61,10 @@ export const isFullWidth = (data: Record<string, unknown> & { isDetail?: boolean
 export const addDetailRow = (
   data: Record<string, unknown>,
   rowData: Record<string, unknown>[],
-  getDataId: GetDataIdFunc,
+  getRowNodeId: GetRowNodeIdFunc,
 ): Record<string, unknown>[] => {
   const newMetrics = [...rowData]
-  const index = newMetrics.findIndex((element) => getDataId(element) === getDataId(data))
+  const index = newMetrics.findIndex((element) => getRowNodeId(element) === getRowNodeId(data))
   newMetrics.splice(index + 1, 0, { ...data, isDetail: true })
   return newMetrics
 }
@@ -74,10 +72,12 @@ export const addDetailRow = (
 export const removeDetailRow = (
   data: Record<string, unknown>,
   rowData: Record<string, unknown>[],
-  getDataId: GetDataIdFunc,
+  getRowNodeId: GetRowNodeIdFunc,
 ): Record<string, unknown>[] => {
   const newMetrics = [...rowData]
-  const index = newMetrics.findIndex((element) => getDataId(element) === getDataId(data) && element.isDetail === true)
+  const index = newMetrics.findIndex(
+    (element) => getRowNodeId(element) === getRowNodeId(data) && element.isDetail === true,
+  )
 
   // istanbul ignore next; trivial and shouldn't occur
   if (index >= 0) {
@@ -90,26 +90,26 @@ export const toggleDetailRow = (
   data: Record<string, unknown>,
   rowData: Record<string, unknown>[],
   detailRowToggleMap: Map<string, boolean>,
-  getDataId: GetDataIdFunc,
+  getRowNodeId: GetRowNodeIdFunc,
 ): Record<string, unknown>[] => {
-  const detailRowExists = !!detailRowToggleMap.get(getDataId(data))
+  const detailRowExists = !!detailRowToggleMap.get(getRowNodeId(data))
   let newRows
   if (detailRowExists) {
-    newRows = removeDetailRow(data, rowData, getDataId)
+    newRows = removeDetailRow(data, rowData, getRowNodeId)
   } else {
-    newRows = addDetailRow(data, rowData, getDataId)
+    newRows = addDetailRow(data, rowData, getRowNodeId)
   }
 
-  detailRowToggleMap.set(getDataId(data), !detailRowExists)
+  detailRowToggleMap.set(getRowNodeId(data), !detailRowExists)
   return newRows
 }
 
 export const getRowHeight = (
   data: Record<string, unknown>,
-  { maxRowHeightMap, getDataId }: { maxRowHeightMap: Map<string, number>; getDataId: GetDataIdFunc },
+  { maxRowHeightMap, getRowNodeId }: { maxRowHeightMap: Map<string, number>; getRowNodeId: GetRowNodeIdFunc },
 ): number | undefined | null => {
   if (isFullWidth(data)) {
-    const result = maxRowHeightMap.get(detailIdFromDataId(getDataId(data))) as number
+    const result = maxRowHeightMap.get(detailIdFromDataId(getRowNodeId(data))) as number
     if (typeof result === 'undefined') {
       // a barely visible height as it renders so we can load the true height
       return 1
@@ -127,7 +127,7 @@ export const onCellClicked = (
     setRowData,
     detailRowToggleMap,
     maxRowHeightMap,
-    getDataId,
+    getRowNodeId,
     actionColumnIdSuffix,
   }: {
     gridApiRef: GridApi | null
@@ -135,7 +135,7 @@ export const onCellClicked = (
     setRowData: (rowData: Record<string, unknown>[]) => void
     detailRowToggleMap: Map<string, boolean>
     maxRowHeightMap: Map<string, number>
-    getDataId: GetDataIdFunc
+    getRowNodeId: GetRowNodeIdFunc
     actionColumnIdSuffix?: string | undefined
   },
 ): void => {
@@ -145,7 +145,7 @@ export const onCellClicked = (
   }
 
   // istanbul ignore else
-  if (!isFullWidth(event.data) && getDataId && gridApiRef) {
+  if (!isFullWidth(event.data) && getRowNodeId && gridApiRef) {
     const target = event.event?.target as HTMLElement
 
     // Retrieve the HTML element of the detail toggle button
@@ -159,11 +159,11 @@ export const onCellClicked = (
 
       // Toggle the detail row if the detail button was clicked
       if (target && (target === button || button?.contains(target))) {
-        setRowData(toggleDetailRow(event.data, rowData, detailRowToggleMap, getDataId))
+        setRowData(toggleDetailRow(event.data, rowData, detailRowToggleMap, getRowNodeId))
 
         // istanbul ignore else
-        if (detailRowToggleMap.get(getDataId(event.data))) {
-          setHeightOfFullWidthRow(1 + (event.rowIndex as number), event.data, maxRowHeightMap, gridApiRef, getDataId)
+        if (detailRowToggleMap.get(getRowNodeId(event.data))) {
+          setHeightOfFullWidthRow(1 + (event.rowIndex as number), event.data, maxRowHeightMap, gridApiRef, getRowNodeId)
         }
       }
       // Trigger the detail button if anything else in the row was clicked
@@ -177,14 +177,14 @@ export const onCellClicked = (
 
 export const DetailToggleButtonRenderer = ({
   data,
-  getDataId,
+  getRowNodeId,
   detailRowToggleMap,
 }: {
   data: Record<string, unknown>
-  getDataId: GetDataIdFunc
+  getRowNodeId: GetRowNodeIdFunc
   detailRowToggleMap: Map<string, boolean>
 }): JSX.Element => {
-  const toggled = !!detailRowToggleMap.get(getDataId(data))
+  const toggled = !!detailRowToggleMap.get(getRowNodeId(data))
 
   return <RowToggleButton toggled={toggled} />
 }
