@@ -1,5 +1,5 @@
 import { CellClickedEvent, GridApi } from 'ag-grid-community'
-import React, { useRef } from 'react'
+import React from 'react'
 
 import RowToggleButton from './RowToggleButton'
 
@@ -184,10 +184,7 @@ export const DetailToggleButtonRenderer = ({
   getDataId: GetDataIdFunc
   detailRowToggleMap: Map<string, boolean>
 }): JSX.Element => {
-  const dataId = useRef<string>('')
-  dataId.current = getDataId(data)
-
-  const toggled = !!detailRowToggleMap.get(dataId.current)
+  const toggled = !!detailRowToggleMap.get(getDataId(data))
 
   return <RowToggleButton toggled={toggled} />
 }
