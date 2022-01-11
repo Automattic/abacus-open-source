@@ -2,9 +2,8 @@ import { fireEvent, getByText, render, screen, waitFor, waitForElementToBeRemove
 import React from 'react'
 
 import AgGridWithDetails from './AgGridWithDetails'
-import { Data } from './AgGridWithDetails.utils'
 
-const DetailRenderer = ({ data }: { data: Data }) => {
+const DetailRenderer = ({ data }: { data: Record<string, unknown> }) => {
   return <div>Detail data {JSON.stringify(data)} has been rendered.</div>
 }
 
@@ -12,7 +11,7 @@ const waitForSeconds = (seconds: number) => {
   return new Promise((resolve) => setTimeout(resolve, seconds * 1000))
 }
 
-const getDataId = (data: Data) => {
+const getDataId = (data: Record<string, unknown>) => {
   return data.test as string
 }
 
@@ -28,7 +27,9 @@ test('renders detail row when clicked', async () => {
       field: 'test',
       width: 100,
       minWidth: 100,
-      cellRendererFramework: ({ data }: { data: Data }) => <div>Click Me! {JSON.stringify(data)}</div>,
+      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
+        <div>Click Me! {JSON.stringify(data)}</div>
+      ),
     },
   ]
 
@@ -81,7 +82,9 @@ test('closes detail row after opening when clicked', async () => {
       field: 'test',
       width: 100,
       minWidth: 100,
-      cellRendererFramework: ({ data }: { data: Data }) => <div>Click Me! {JSON.stringify(data)}</div>,
+      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
+        <div>Click Me! {JSON.stringify(data)}</div>
+      ),
     },
   ]
 
@@ -121,7 +124,7 @@ test('ignores clicks on action columns but allows other actions in cell', async 
       field: ACTION_COLUMN_NAME,
       width: 100,
       minWidth: 100,
-      cellRendererFramework: ({ data }: { data: Data }) => (
+      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
         <button onClick={mockCallback}>Click Me! {JSON.stringify(data)}</button>
       ),
     },
@@ -171,7 +174,9 @@ test('ignores clicks on full width rows', async () => {
       field: 'testing',
       width: 100,
       minWidth: 100,
-      cellRendererFramework: ({ data }: { data: Data }) => <div>Click Me! {JSON.stringify(data)}</div>,
+      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
+        <div>Click Me! {JSON.stringify(data)}</div>
+      ),
     },
   ]
 
