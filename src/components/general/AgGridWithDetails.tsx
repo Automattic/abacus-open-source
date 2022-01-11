@@ -9,13 +9,11 @@ import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
 import {
-  Data,
   DETAIL_TOGGLE_BUTTON_COLUMN_NAME,
   detailIdFromDataId,
   DetailToggleButtonRenderer,
   GetDataIdFunc,
   getRowHeight,
-  isDataArray,
   isFullWidth,
   onCellClicked,
 } from './AgGridWithDetails.utils'
@@ -129,13 +127,13 @@ const AgGridWithDetails = ({
 }: {
   title?: string
   search?: boolean
-  data: unknown[]
+  data: Record<string, unknown>[]
   defaultColDef?: AgGridColumnProps
   columnDefs: AgGridColumnProps[]
   otherAgGridProps?: AgGridReactProps
   defaultSortColumnId?: string
   actionColumnIdSuffix?: string
-  detailRowRenderer: ({ data }: { data: Data }) => JSX.Element
+  detailRowRenderer: ({ data }: { data: Record<string, unknown> }) => JSX.Element
   getDataId: GetDataIdFunc
 }): JSX.Element => {
   const classes = useStyles()
@@ -144,7 +142,7 @@ const AgGridWithDetails = ({
   const gridColumnApiRef = useRef<ColumnApi | null>(null)
   const maxRowHeightMap = useRef<Map<string, number>>(new Map())
   const detailRowToggleMap = useRef<Map<string, boolean>>(new Map())
-  const [rowData, setRowData] = useState<Data[]>(isDataArray(data) ? data : [])
+  const [rowData, setRowData] = useState<Record<string, unknown>[]>(data)
   const [searchState, setSearchState] = useState<string>('')
 
   // Helper function to forward deps to helper util functions
@@ -169,9 +167,7 @@ const AgGridWithDetails = ({
   }, [rowData])
 
   useEffect(() => {
-    if (isDataArray(data)) {
-      setRowData(data)
-    }
+    setRowData(data)
   }, [data])
 
   useEffect(() => {
@@ -239,7 +235,7 @@ const AgGridWithDetails = ({
       paddingLeft: 0,
       paddingRight: 0,
     },
-    cellRendererFramework: ({ data }: { data: Data }) => (
+    cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
       <DetailToggleButtonRenderer data={data} getDataId={getDataId} detailRowToggleMap={detailRowToggleMap.current} />
     ),
     width: 54,
@@ -261,10 +257,10 @@ const AgGridWithDetails = ({
     ...(detailRowRenderer
       ? {
           fullWidthCellRendererFramework: detailRowRenderer,
-          getRowNodeId: (data: Data) => {
+          getRowNodeId: (data: Record<string, unknown>) => {
             return isFullWidth(data) ? detailIdFromDataId(getDataId(data)) : getDataId(data)
           },
-          getRowHeight: (params: { node: { data: Data } }) => {
+          getRowHeight: (params: { node: { data: Record<string, unknown> } }) => {
             return getRowHeight(params.node.data, getDependencies())
           },
           isFullWidthCell: (rowNode: RowNode) => isFullWidth(rowNode.data),

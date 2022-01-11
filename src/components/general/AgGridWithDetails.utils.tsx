@@ -3,26 +3,10 @@ import React, { useRef } from 'react'
 
 import RowToggleButton from './RowToggleButton'
 
-interface DataDetail {
-  isDetail?: boolean
-}
-
-export interface Data {
-  [key: string]: unknown | DataDetail
-}
-
-export type GetDataIdFunc = (data: Data) => string
+export type GetDataIdFunc = (data: Record<string, unknown>) => string
 
 export const DETAIL_TOGGLE_BUTTON_COLUMN_NAME = '__detail-button-col__'
 const DETAIL_ID_SUFFIX = '-detail'
-
-export const isData = (data: unknown): data is Data => {
-  return !!data && typeof data === 'object' && Object.keys(data as Record<string, unknown>).length > 0
-}
-
-export const isDataArray = (data: unknown[]): data is Data[] => {
-  return data.reduce((acc, x) => acc && isData(x), true) as boolean
-}
 
 export const detailIdFromDataId = (dataId: string): string => {
   return `${dataId}${DETAIL_ID_SUFFIX}`
@@ -33,7 +17,7 @@ export const detailIdFromDataId = (dataId: string): string => {
 // Adapted solution from https://github.com/ag-grid/ag-grid/issues/3160#issuecomment-562024900
 export const setHeightOfFullWidthRow = (
   rowIndex: number,
-  data: Data,
+  data: Record<string, unknown>,
   maxRowHeightMap: Map<string, number>,
   gridApiRef: GridApi | null,
   getDataId: GetDataIdFunc,
@@ -74,16 +58,24 @@ export const setHeightOfFullWidthRow = (
   }, 100)
 }
 
-export const isFullWidth = (data: Data): boolean => data.isDetail === true
+export const isFullWidth = (data: Record<string, unknown> & { isDetail?: boolean }): boolean => data.isDetail === true
 
-export const addDetailRow = (data: Data, rowData: Data[], getDataId: GetDataIdFunc): Data[] => {
+export const addDetailRow = (
+  data: Record<string, unknown>,
+  rowData: Record<string, unknown>[],
+  getDataId: GetDataIdFunc,
+): Record<string, unknown>[] => {
   const newMetrics = [...rowData]
   const index = newMetrics.findIndex((element) => getDataId(element) === getDataId(data))
   newMetrics.splice(index + 1, 0, { ...data, isDetail: true })
   return newMetrics
 }
 
-export const removeDetailRow = (data: Data, rowData: Data[], getDataId: GetDataIdFunc): Data[] => {
+export const removeDetailRow = (
+  data: Record<string, unknown>,
+  rowData: Record<string, unknown>[],
+  getDataId: GetDataIdFunc,
+): Record<string, unknown>[] => {
   const newMetrics = [...rowData]
   const index = newMetrics.findIndex((element) => getDataId(element) === getDataId(data) && element.isDetail === true)
 
@@ -95,11 +87,11 @@ export const removeDetailRow = (data: Data, rowData: Data[], getDataId: GetDataI
 }
 
 export const toggleDetailRow = (
-  data: Data,
-  rowData: Data[],
+  data: Record<string, unknown>,
+  rowData: Record<string, unknown>[],
   detailRowToggleMap: Map<string, boolean>,
   getDataId: GetDataIdFunc,
-): Data[] => {
+): Record<string, unknown>[] => {
   const detailRowExists = !!detailRowToggleMap.get(getDataId(data))
   let newRows
   if (detailRowExists) {
@@ -113,7 +105,7 @@ export const toggleDetailRow = (
 }
 
 export const getRowHeight = (
-  data: Data,
+  data: Record<string, unknown>,
   { maxRowHeightMap, getDataId }: { maxRowHeightMap: Map<string, number>; getDataId: GetDataIdFunc },
 ): number | undefined | null => {
   if (isFullWidth(data)) {
@@ -139,8 +131,8 @@ export const onCellClicked = (
     actionColumnIdSuffix,
   }: {
     gridApiRef: GridApi | null
-    rowData: Data[]
-    setRowData: (rowData: Data[]) => void
+    rowData: Record<string, unknown>[]
+    setRowData: (rowData: Record<string, unknown>[]) => void
     detailRowToggleMap: Map<string, boolean>
     maxRowHeightMap: Map<string, number>
     getDataId: GetDataIdFunc
@@ -188,7 +180,7 @@ export const DetailToggleButtonRenderer = ({
   getDataId,
   detailRowToggleMap,
 }: {
-  data: Data
+  data: Record<string, unknown>
   getDataId: GetDataIdFunc
   detailRowToggleMap: Map<string, boolean>
 }): JSX.Element => {
