@@ -876,7 +876,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="__detail-button-col__"
                           comp-id="223"
                           role="gridcell"
-                          style="width: 54px; left: 0px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; color: rgba(0, 0, 0, 0.5); padding-left: 0; padding-right: 0; "
+                          style="width: 54px; left: 0px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; color: rgba(0, 0, 0, 0.5); padding-left: 0; padding-right: 0; "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -886,7 +886,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="name"
                           comp-id="224"
                           role="gridcell"
-                          style="width: 430px; left: 54px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; font-weight: 700; "
+                          style="width: 430px; left: 54px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; font-weight: 700; "
                           tabindex="-1"
                           unselectable="on"
                         />
@@ -896,7 +896,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="description"
                           comp-id="225"
                           role="gridcell"
-                          style="width: 590px; left: 484px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; word-break: normal; "
+                          style="width: 590px; left: 484px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; word-break: normal; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -908,7 +908,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="parameterType"
                           comp-id="226"
                           role="gridcell"
-                          style="width: 200px; left: 1074px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 1074px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -931,7 +931,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="__detail-button-col__"
                           comp-id="213"
                           role="gridcell"
-                          style="width: 54px; left: 0px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; color: rgba(0, 0, 0, 0.5); padding-left: 0; padding-right: 0; "
+                          style="width: 54px; left: 0px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; color: rgba(0, 0, 0, 0.5); padding-left: 0; padding-right: 0; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -970,7 +970,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="name"
                           comp-id="214"
                           role="gridcell"
-                          style="width: 430px; left: 54px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; font-weight: 700; "
+                          style="width: 430px; left: 54px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; font-weight: 700; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -991,7 +991,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="description"
                           comp-id="215"
                           role="gridcell"
-                          style="width: 590px; left: 484px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; word-break: normal; "
+                          style="width: 590px; left: 484px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; word-break: normal; "
                           tabindex="-1"
                           unselectable="on"
                         >
@@ -1003,7 +1003,7 @@ exports[`with some metrics can search parameters 1`] = `
                           col-id="parameterType"
                           comp-id="216"
                           role="gridcell"
-                          style="width: 200px; left: 1074px; display: flex; align-items: center; font-family: 'Roboto Mono', monospace; "
+                          style="width: 200px; left: 1074px; display: flex; align-items: center; line-height: 25px; padding-top: 15px; padding-bottom: 15px; font-family: 'Roboto Mono', monospace; "
                           tabindex="-1"
                           unselectable="on"
                         >
