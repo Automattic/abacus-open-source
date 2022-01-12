@@ -39,6 +39,7 @@ type AgGridWithDetailsHandle = {
 
 /**
  * Renders an AgGrid that can display a master/detail component for each row.
+ * Forwarding a ref here so that outside components can access the Grid APIs
  */
 const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGridWithDetailsProps> = (props, ref) => {
   const {
