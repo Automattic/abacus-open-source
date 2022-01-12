@@ -145,22 +145,18 @@ export const getRowDataWithDetails = (
   detailRowToggleMap: Record<string, boolean>,
   getRowNodeId: GetRowNodeIdFunc,
 ): Record<string, unknown>[] => {
-  const detailRows = rowData
-    .filter((row) => {
-      return detailRowToggleMap[getRowNodeId(row)]
-    })
-    .map((row) => {
-      return { ...row, isDetail: true }
-    })
-  const toggledRows = rowData.map((row) => {
+  const newRowData: Record<string, unknown>[] = []
+
+  rowData.forEach((row) => {
     if (detailRowToggleMap[getRowNodeId(row)]) {
-      return { ...row, isOpen: true }
+      newRowData.push({ ...row, isOpen: true })
+      newRowData.push({ ...row, isDetail: true })
     } else {
-      return row
+      newRowData.push(row)
     }
   })
 
-  return [...toggledRows, ...detailRows]
+  return newRowData
 }
 
 export const DetailButtonRenderer = ({ data }: { data: Record<string, unknown> }): JSX.Element => {
