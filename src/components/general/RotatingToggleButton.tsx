@@ -1,7 +1,7 @@
 import { IconButton, makeStyles } from '@material-ui/core'
 import { ChevronRightRounded as ChevronRightRoundedIcon } from '@material-ui/icons'
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 const useStyles = makeStyles({
   root: {
@@ -15,41 +15,35 @@ const useStyles = makeStyles({
   },
 })
 
-const RowToggleButton = ({
-  toggled,
+const RotatingToggleButton = ({
+  isOpen,
   className,
   icon = <ChevronRightRoundedIcon />,
   onClick,
 }: {
-  toggled: boolean
+  isOpen: boolean
   className?: string
   icon?: JSX.Element
   onClick?: () => void
 }): JSX.Element => {
   const classes = useStyles()
-  const [cls, setCls] = useState<string>(toggled ? classes.rotated : classes.notRotated)
-  const [isToggled, setIsToggled] = useState<boolean>(toggled)
-
-  useEffect(() => {
-    setCls(isToggled ? classes.rotated : classes.notRotated)
-  }, [isToggled, classes.rotated, classes.notRotated])
-
-  useEffect(() => {
-    setIsToggled(toggled)
-  }, [toggled])
+  const toggleClass = isOpen ? classes.rotated : classes.notRotated
 
   const handleClick = () => {
-    setIsToggled(!isToggled)
     if (onClick) {
       onClick()
     }
   }
 
   return (
-    <IconButton className={clsx(classes.root, cls, className)} aria-label={'Toggle Row'} onClick={handleClick}>
+    <IconButton
+      className={clsx(classes.root, toggleClass, className)}
+      aria-label={'Toggle Button'}
+      onClick={handleClick}
+    >
       {icon}
     </IconButton>
   )
 }
 
-export default RowToggleButton
+export default RotatingToggleButton
