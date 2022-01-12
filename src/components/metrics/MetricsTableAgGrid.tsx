@@ -1,4 +1,3 @@
-// istanbul ignore file; demo
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
@@ -8,11 +7,8 @@ import React from 'react'
 
 import { Metric } from 'src/lib/schemas'
 
-import AgGridWithDetails from '../general/AgGridWithDetails'
-import { Data } from '../general/AgGridWithDetails.utils'
-import { MetricDetailRenderer, MetricEditButtonRenderer, MetricNameRenderer } from './MetricsTableRenderers'
-
-export type MetricDetail = Partial<Metric & Data>
+import GridContainer from '../general/GridContainer'
+import { Data, MetricDetailRenderer, MetricEditButtonRenderer, MetricNameRenderer } from './MetricsTableAgGrid.utils'
 
 const ACTION_COLUMN_SUFFIX = '--actions'
 
@@ -37,6 +33,11 @@ const MetricsTableAgGrid = ({
     filter: true,
     resizable: true,
     cellStyle: {
+      display: 'flex',
+      alignItems: 'center',
+      lineHeight: '25px',
+      paddingTop: '15px',
+      paddingBottom: '15px',
       fontFamily: theme.custom.fonts.monospace,
     },
     wrapText: true,
@@ -57,6 +58,9 @@ const MetricsTableAgGrid = ({
     {
       headerName: 'Description',
       field: 'description',
+      cellStyle: {
+        wordBreak: 'normal',
+      },
       width: 590,
     },
     {
@@ -104,21 +108,21 @@ const MetricsTableAgGrid = ({
       : []),
   ]
 
-  const getDataId = (data: MetricDetail) => {
-    return data.name as string
+  const getRowNodeId = (data: Metric) => {
+    return data.name
   }
 
   return (
-    <AgGridWithDetails
-      title={'Metrics'}
+    <GridContainer
+      title='Metrics'
       search
-      data={metrics}
+      rowData={metrics as Data[]}
       defaultColDef={defaultColDef}
       columnDefs={columnDefs}
-      getDataId={getDataId}
+      getRowNodeId={getRowNodeId}
       detailRowRenderer={MetricDetailRenderer}
       actionColumnIdSuffix={ACTION_COLUMN_SUFFIX}
-      defaultSearchColumnId={'name'}
+      defaultSortColumnId='name'
     />
   )
 }

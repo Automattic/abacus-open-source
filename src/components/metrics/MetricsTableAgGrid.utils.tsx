@@ -17,7 +17,7 @@ import React from 'react'
 import { Metric } from 'src/lib/schemas'
 import { formatBoolean } from 'src/utils/formatters'
 
-import { MetricDetail } from './MetricsTableAgGrid'
+export type Data = Partial<Metric & Record<string, unknown>>
 
 const debug = debugFactory('abacus:components/MetricTableRenderers.tsx')
 
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export const MetricDetailRenderer = ({ data }: { data: MetricDetail }): JSX.Element => {
+export const MetricDetailRenderer = ({ data }: { data: Data }): JSX.Element => {
   debug('MetricDetailRenderer#render')
   const classes = useStyles()
 
