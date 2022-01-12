@@ -10,7 +10,7 @@ import {
 import React from 'react'
 
 import Fixtures from 'src/test-helpers/fixtures'
-import { render } from 'src/test-helpers/test-utils'
+import { changeFieldByRole, render } from 'src/test-helpers/test-utils'
 
 import MetricsTableAgGrid from './MetricsTableAgGrid'
 
@@ -86,4 +86,14 @@ test('with some metrics and onEditMetric can click on the edit button', async ()
   fireEvent.click(edits[0])
 
   expect(onEditMetric.mock.calls.length).toBe(1)
+})
+
+test('with some metrics can search parameters', async () => {
+  const { container } = render(<MetricsTableAgGrid metrics={Fixtures.createMetrics(2)} />)
+
+  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
+  await waitFor(() => getByText(containerElmt, /metric_1/), { container })
+
+  await changeFieldByRole('textbox', /Search/, 'event_name')
+  expect(container).toMatchSnapshot()
 })
