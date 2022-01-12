@@ -1,5 +1,5 @@
 import { fireEvent, getByText, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
-import React from 'react'
+import React, { ElementRef, useRef } from 'react'
 
 import AgGridWithDetails from './AgGridWithDetails'
 
@@ -14,6 +14,82 @@ const getRowNodeId = (data: Record<string, unknown>) => {
 beforeEach(() => {
   jest.useRealTimers()
   jest.restoreAllMocks()
+})
+
+test('renders correctly with various optional props', async () => {
+  const defaultColDef = {
+    width: 100,
+  }
+
+  const columnDefs = [
+    {
+      headerName: 'Test',
+      field: 'test',
+      width: 100,
+      minWidth: 100,
+      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
+        <div>Click Me! {JSON.stringify(data)}</div>
+      ),
+    },
+  ]
+
+  const { container } = render(
+    <AgGridWithDetails
+      defaultColDef={defaultColDef}
+      rowData={[{ test: 'test1' }]}
+      columnDefs={columnDefs}
+      detailRowRenderer={DetailRenderer}
+      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      getRowNodeId={getRowNodeId}
+    />,
+  )
+
+  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
+  expect(containerElmt).not.toBeNull()
+  await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
+
+  expect(container).toMatchSnapshot()
+})
+
+test('forwardRef and useImperativeHandle functionality works', async () => {
+  const columnDefs = [
+    {
+      headerName: 'Test',
+      field: 'test',
+      width: 100,
+      minWidth: 100,
+      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
+        <div>Click Me! {JSON.stringify(data)}</div>
+      ),
+    },
+  ]
+
+  const GridWrapper = () => {
+    type AgGridWithDetailsHandle = ElementRef<typeof AgGridWithDetails>
+    const agGridRef = useRef<AgGridWithDetailsHandle>(null)
+
+    const onRender = () => {
+      expect(agGridRef.current?.getGridApi()).not.toBeNull()
+      expect(agGridRef.current?.getGridColumnApi()).not.toBeNull()
+    }
+
+    return (
+      <AgGridWithDetails
+        rowData={[{ test: 'test1' }]}
+        columnDefs={columnDefs}
+        detailRowRenderer={DetailRenderer}
+        gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+        getRowNodeId={getRowNodeId}
+        onFirstDataRendered={onRender}
+        ref={agGridRef}
+      />
+    )
+  }
+
+  const { container } = render(<GridWrapper />)
+
+  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
+  expect(containerElmt).not.toBeNull()
 })
 
 test('renders detail row when clicked', async () => {
@@ -31,10 +107,10 @@ test('renders detail row when clicked', async () => {
 
   const { container } = render(
     <AgGridWithDetails
-      data={[{ test: 'test1' }]}
+      rowData={[{ test: 'test1' }]}
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
-      otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
       getRowNodeId={getRowNodeId}
     />,
   )
@@ -69,6 +145,10 @@ test('renders detail row when clicked', async () => {
     const detailRow = document.querySelector('div.ag-full-width-row') as HTMLElement
     expect(detailRow.style).toHaveProperty('height', '300px')
   })
+
+  // Sanity check to see if toggle button has rotated
+  const toggleButton = await screen.findByLabelText('Toggle Button')
+  expect(toggleButton.className).toContain('rotated')
 })
 
 test('closes detail row after opening when clicked', async () => {
@@ -86,10 +166,10 @@ test('closes detail row after opening when clicked', async () => {
 
   const { container } = render(
     <AgGridWithDetails
-      data={[{ test: 'test1' }]}
+      rowData={[{ test: 'test1' }]}
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
-      otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
       getRowNodeId={getRowNodeId}
     />,
   )
@@ -128,11 +208,11 @@ test('ignores clicks on action columns but allows other actions in cell', async 
 
   const { container } = render(
     <AgGridWithDetails
-      data={[{ test: 'test2' }]}
+      rowData={[{ test: 'test2' }]}
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
       actionColumnIdSuffix={ACTION_COLUMN_SUFFIX}
-      otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
       getRowNodeId={getRowNodeId}
     />,
   )
@@ -176,10 +256,10 @@ test('ignores clicks on full width rows', async () => {
 
   const { container } = render(
     <AgGridWithDetails
-      data={[{ test: 'test3' }]}
+      rowData={[{ test: 'test3' }]}
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
-      otherAgGridProps={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
+      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
       getRowNodeId={getRowNodeId}
     />,
   )
