@@ -30,6 +30,7 @@ const RotatingToggleButton = ({
   const toggleClass = isOpen ? classes.rotated : classes.notRotated
 
   const handleClick = () => {
+    // istanbul ignore else; trivial
     if (onClick) {
       onClick()
     }
