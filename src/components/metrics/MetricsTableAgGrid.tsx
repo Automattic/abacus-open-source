@@ -35,9 +35,9 @@ const MetricsTableAgGrid = ({
     cellStyle: {
       display: 'flex',
       alignItems: 'center',
-      lineHeight: '25px',
-      paddingTop: '15px',
-      paddingBottom: '15px',
+      lineHeight: '15px',
+      paddingTop: '8px',
+      paddingBottom: '8px',
       fontFamily: theme.custom.fonts.monospace,
     },
     wrapText: true,
@@ -59,6 +59,8 @@ const MetricsTableAgGrid = ({
       headerName: 'Description',
       field: 'description',
       cellStyle: {
+        fontSize: '12px',
+        lineHeight: '15px',
         wordBreak: 'normal',
       },
       width: 590,
