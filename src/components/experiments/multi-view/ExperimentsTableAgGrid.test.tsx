@@ -56,7 +56,7 @@ it('should allow searching, filtering, sorting, and resetting by changing url pa
   await screen.findByText(/First/)
 
   // Wait for default sorting options
-  let expectedParamsObj = defaultSortParams as UrlParams
+  let expectedParamsObj: UrlParams = defaultSortParams
   await waitFor(() => {
     expect(history.length).toBe(2)
   })
@@ -79,7 +79,7 @@ it('should allow searching, filtering, sorting, and resetting by changing url pa
     search: searchString,
   }
   const nameColumn = screen.getByText(/Name/)
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
       const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
@@ -227,7 +227,7 @@ it('should allow searching, filtering, sorting, and resetting by changing url pa
   // Test reset
   expectedParamsObj = defaultSortParams
   const resetButton = screen.getByRole('button', { name: /Reset/ })
-  userEvent.click(resetButton)
+  await userEvent.click(resetButton)
   await screen.findByText(/wpcom/)
   expect(history.length).toBe(9)
   expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
@@ -266,15 +266,15 @@ it('getting rid of all sorting and filtering should result in special url params
     null: 'true',
   }
   const nameColumn = screen.getByText(/Name/)
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     expect(history.length).toBe(3)
   })
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     expect(history.length).toBe(4)
   })
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     expect(history.length).toBe(5)
   })
