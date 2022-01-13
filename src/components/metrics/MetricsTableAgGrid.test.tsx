@@ -1,5 +1,4 @@
 import {
-  fireEvent,
   getAllByText,
   getByText,
   getDefaultNormalizer,
@@ -7,10 +6,11 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import React from 'react'
 
 import Fixtures from 'src/test-helpers/fixtures'
-import { changeFieldByRole, render } from 'src/test-helpers/test-utils'
+import { render } from 'src/test-helpers/test-utils'
 
 import MetricsTableAgGrid from './MetricsTableAgGrid'
 
@@ -41,6 +41,7 @@ test('with some metrics, renders a table', async () => {
 })
 
 test('with some metrics, loads and opens metric details', async () => {
+  const user = userEvent.setup()
   const { container } = render(<MetricsTableAgGrid metrics={Fixtures.createMetrics(6)} />)
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   expect(containerElmt).not.toBeNull()
@@ -51,7 +52,7 @@ test('with some metrics, loads and opens metric details', async () => {
 
     // Open metric details
     const metricElmt = containerElmt.querySelector(`div.ag-row[row-id='metric_${i}'] .ag-cell`) as HTMLElement
-    fireEvent.click(metricElmt)
+    await user.click(metricElmt)
     const detailContainerElmt = container.querySelector('div.ag-full-width-container') as HTMLDivElement
 
     await waitFor(() => getByText(detailContainerElmt, /Higher is Better/))
@@ -67,7 +68,7 @@ test('with some metrics, loads and opens metric details', async () => {
     )
 
     // Close metric details
-    fireEvent.click(metricElmt)
+    await user.click(metricElmt)
     await waitForElementToBeRemoved(
       detailContainerElmt.querySelector(`div.ag-full-width-row[row-id='metric_${i}-detail']`),
     )
@@ -75,6 +76,7 @@ test('with some metrics, loads and opens metric details', async () => {
 })
 
 test('with some metrics and onEditMetric can click on the edit button', async () => {
+  const user = userEvent.setup()
   const onEditMetric = jest.fn()
   const { container } = render(<MetricsTableAgGrid metrics={Fixtures.createMetrics(2)} onEditMetric={onEditMetric} />)
 
@@ -83,17 +85,26 @@ test('with some metrics and onEditMetric can click on the edit button', async ()
 
   const edits = screen.getAllByRole('button', { name: 'Edit Metric' })
 
-  fireEvent.click(edits[0])
+  await user.click(edits[0])
 
   expect(onEditMetric.mock.calls.length).toBe(1)
 })
 
 test('with some metrics can search parameters', async () => {
+  const user = userEvent.setup()
   const { container } = render(<MetricsTableAgGrid metrics={Fixtures.createMetrics(2)} />)
 
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   await waitFor(() => getByText(containerElmt, /metric_1/), { container })
 
-  await changeFieldByRole('textbox', /Search/, 'event_name')
+  const input = screen.getByRole('textbox', { name: /Search/ }) as HTMLInputElement
+  await user.click(input)
+  await user.type(input, 'event_name')
+
+  await waitFor(() => {
+    const metric = container.querySelector('div[row-id="metric_2"]')
+    expect(metric).not.toBeInTheDocument()
+  })
+
   expect(container).toMatchSnapshot()
 })
