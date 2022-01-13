@@ -1,4 +1,4 @@
-import { fireEvent, getByText, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
+import { act, fireEvent, getByText, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
 import React, { ElementRef, useRef } from 'react'
 
 import AgGridWithDetails from './AgGridWithDetails'
@@ -149,6 +149,19 @@ test('renders detail row when clicked', async () => {
   // Sanity check to see if toggle button has rotated
   const toggleButton = await screen.findByLabelText('Toggle Button')
   expect(toggleButton.className).toContain('rotated')
+
+  // Open one more time to see if height caching works
+  jest.useRealTimers()
+  await act(async () => {
+    fireEvent.click(row)
+  })
+  await act(async () => {
+    fireEvent.click(row)
+  })
+  await waitFor(() => {
+    const detailRow = document.querySelector('div.ag-full-width-row') as HTMLElement
+    expect(detailRow.style).toHaveProperty('height', '300px')
+  })
 })
 
 test('closes detail row after opening when clicked', async () => {
@@ -179,14 +192,18 @@ test('closes detail row after opening when clicked', async () => {
   await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
 
   const row = getByText(containerElmt, /Click Me!/)
-  fireEvent.click(row)
+  await act(async () => {
+    fireEvent.click(row)
+  })
 
   await waitFor(() => {
     const detailContainer = container.querySelector('div.ag-full-width-container') as HTMLElement
     getByText(detailContainer, /has been rendered./)
   })
 
-  fireEvent.click(row)
+  await act(async () => {
+    fireEvent.click(row)
+  })
   await waitForElementToBeRemoved(() => container.querySelector('div.ag-full-width-row'))
 })
 
@@ -222,14 +239,13 @@ test('ignores clicks on action columns but allows other actions in cell', async 
   await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
 
   const button = getByText(containerElmt, /Click Me!/)
-  fireEvent.click(button)
+  await act(async () => {
+    fireEvent.click(button)
+  })
 
-  await waitFor(
-    () => {
-      expect(mockCallback.mock.calls.length).toBe(1)
-    },
-    { timeout: 10000 },
-  )
+  await waitFor(() => {
+    expect(mockCallback.mock.calls.length).toBe(1)
+  })
 
   const actionCol = container.querySelector(`div.ag-cell[col-id='${ACTION_COLUMN_NAME}']`) as HTMLElement
 
@@ -269,7 +285,9 @@ test('ignores clicks on full width rows', async () => {
   await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
 
   const row = getByText(containerElmt, /Click Me!/)
-  fireEvent.click(row)
+  await act(async () => {
+    fireEvent.click(row)
+  })
 
   const detailContainerElmt = container.querySelector('div.ag-full-width-container') as HTMLElement
   await waitFor(() => getByText(detailContainerElmt, /has been rendered./))
@@ -278,7 +296,9 @@ test('ignores clicks on full width rows', async () => {
   jest.runOnlyPendingTimers()
 
   const detailRow = detailContainerElmt.querySelector('div.ag-full-width-row') as HTMLElement
-  fireEvent.click(detailRow)
+  await act(async () => {
+    fireEvent.click(detailRow)
+  })
 
   jest.advanceTimersByTime(1000)
   jest.runOnlyPendingTimers()
