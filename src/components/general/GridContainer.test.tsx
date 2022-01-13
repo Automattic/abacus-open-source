@@ -1,8 +1,7 @@
-import { fireEvent, getByText, render, screen, waitFor } from '@testing-library/react'
+import { getByText, render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { AgGridColumnProps } from 'ag-grid-react'
 import React from 'react'
-
-import { changeFieldByRole } from 'src/test-helpers/test-utils'
 
 import GridContainer from './GridContainer'
 
@@ -76,6 +75,8 @@ test('renders a grid properly', async () => {
 })
 
 test('should render a grid with data, allow searching and resetting', async () => {
+  const user = userEvent.setup()
+
   const columnDefs = [
     {
       headerName: 'Test',
@@ -106,15 +107,19 @@ test('should render a grid with data, allow searching and resetting', async () =
 
   expect(container).toMatchSnapshot()
 
-  await changeFieldByRole('textbox', /Search/, 'explat_test')
+  const searchInput = screen.getByRole('textbox', { name: /Search/ })
+  await user.click(searchInput)
+  await user.type(searchInput, 'explat_test')
   expect(container).toMatchSnapshot()
 
   const resetButton = screen.getByRole('button', { name: /Reset/ })
-  fireEvent.click(resetButton)
+  await user.click(resetButton)
   expect(container).toMatchSnapshot()
 })
 
 test('test clicking reset button with no columns', async () => {
+  const user = userEvent.setup()
+
   const columnDefs: AgGridColumnProps[] = []
 
   const { container } = render(
@@ -132,6 +137,6 @@ test('test clicking reset button with no columns', async () => {
   expect(containerElmt).not.toBeNull()
 
   const resetButton = screen.getByRole('button', { name: /Reset/ })
-  fireEvent.click(resetButton)
+  await user.click(resetButton)
   expect(container).toMatchSnapshot()
 })

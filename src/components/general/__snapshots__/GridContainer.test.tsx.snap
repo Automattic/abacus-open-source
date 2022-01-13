@@ -1776,7 +1776,7 @@ exports[`should render a grid with data, allow searching and resetting 2`] = `
             </svg>
           </div>
           <div
-            class="MuiInputBase-root makeStyles-inputRoot-29"
+            class="MuiInputBase-root makeStyles-inputRoot-29 Mui-focused"
           >
             <input
               aria-label="Search"
@@ -1810,7 +1810,7 @@ exports[`should render a grid with data, allow searching and resetting 2`] = `
         style="height: auto; flex: 1;"
       >
         <div
-          class="ag-root-wrapper ag-layout-normal ag-ltr"
+          class="ag-root-wrapper ag-layout-normal ag-ltr ag-keyboard-focus"
           ref="eRootWrapper"
         >
           
@@ -1831,7 +1831,7 @@ exports[`should render a grid with data, allow searching and resetting 2`] = `
             <div
               aria-colcount="2"
               aria-rowcount="2"
-              class="ag-root ag-unselectable ag-layout-normal"
+              class="ag-root ag-unselectable ag-layout-normal ag-column-moving"
               ref="gridPanel"
               role="grid"
               unselectable="on"
@@ -2607,7 +2607,16 @@ exports[`should render a grid with data, allow searching and resetting 3`] = `
           </span>
           <span
             class="MuiTouchRipple-root"
-          />
+          >
+            <span
+              class="MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
+              style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
+            >
+              <span
+                class="MuiTouchRipple-child MuiTouchRipple-childLeaving"
+              />
+            </span>
+          </span>
         </button>
       </div>
     </div>
@@ -4118,7 +4127,16 @@ exports[`test clicking reset button with no columns 1`] = `
           </span>
           <span
             class="MuiTouchRipple-root"
-          />
+          >
+            <span
+              class="MuiTouchRipple-ripple MuiTouchRipple-rippleVisible"
+              style="width: 2.8284271247461903px; height: 2.8284271247461903px; top: -1.4142135623730951px; left: -1.4142135623730951px;"
+            >
+              <span
+                class="MuiTouchRipple-child MuiTouchRipple-childLeaving"
+              />
+            </span>
+          </span>
         </button>
       </div>
     </div>
@@ -4457,7 +4475,36 @@ exports[`test clicking reset button with no columns 1`] = `
                           style="width: 54px; left: 0px; display: flex; align-items: center; color: rgba(0, 0, 0, 0.5); padding-left: 0; padding-right: 0; "
                           tabindex="-1"
                           unselectable="on"
-                        />
+                        >
+                          <div
+                            class="ag-react-container"
+                          >
+                            <button
+                              aria-label="Toggle Button"
+                              class="MuiButtonBase-root MuiIconButton-root makeStyles-root-45 makeStyles-notRotated-47"
+                              tabindex="0"
+                              type="button"
+                            >
+                              <span
+                                class="MuiIconButton-label"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  class="MuiSvgIcon-root"
+                                  focusable="false"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path
+                                    d="M9.29 6.71c-.39.39-.39 1.02 0 1.41L13.17 12l-3.88 3.88c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l4.59-4.59c.39-.39.39-1.02 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"
+                                  />
+                                </svg>
+                              </span>
+                              <span
+                                class="MuiTouchRipple-root"
+                              />
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     
