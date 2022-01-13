@@ -49,10 +49,11 @@ export const setHeightOfFullWidthRow = (
 
     const rowChild = found.firstElementChild
     const rowHeight = rowChild.clientHeight
-    maxRowHeightMap[detailIdFromDataId(getRowNodeId(data))] = rowHeight
-
-    gridApiRef?.resetRowHeights()
-    //gridApiRef?.redrawRows()
+    if (maxRowHeightMap[detailIdFromDataId(getRowNodeId(data))] !== rowHeight) {
+      maxRowHeightMap[detailIdFromDataId(getRowNodeId(data))] = rowHeight
+      gridApiRef?.resetRowHeights()
+      gridApiRef?.redrawRows()
+    }
   }, 100)
 }
 
