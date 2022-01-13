@@ -111,7 +111,7 @@ test('should render a grid with data, allow searching and resetting', async () =
     expect(moving).not.toBeInTheDocument()
   })
 
-  const searchInput = screen.getByRole('textbox', { name: /Search/ })
+  const searchInput = screen.getByRole('textbox', { name: /Search/ }) as HTMLInputElement
   await user.click(searchInput)
   await user.type(searchInput, 'explat_test')
 
@@ -125,10 +125,8 @@ test('should render a grid with data, allow searching and resetting', async () =
   await user.click(resetButton)
 
   await waitFor(() => {
-    const moving = container.querySelector('.ag-column-moving')
-    expect(moving).not.toBeInTheDocument()
+    expect(searchInput.value).toBe('')
   })
-  expect(container).toMatchSnapshot()
 })
 
 test('test clicking reset button with no columns', async () => {
@@ -150,11 +148,20 @@ test('test clicking reset button with no columns', async () => {
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   expect(containerElmt).not.toBeNull()
 
-  const resetButton = screen.getByRole('button', { name: /Reset/ })
-  await user.click(resetButton)
+  const searchInput = screen.getByRole('textbox', { name: /Search/ }) as HTMLInputElement
+  await user.click(searchInput)
+  await user.type(searchInput, 'explat_test')
+
   await waitFor(() => {
     const moving = container.querySelector('.ag-column-moving')
     expect(moving).not.toBeInTheDocument()
   })
-  expect(container).toMatchSnapshot()
+  expect(searchInput.value).toBe('explat_test')
+
+  const resetButton = screen.getByRole('button', { name: /Reset/ })
+  await user.click(resetButton)
+
+  await waitFor(() => {
+    expect(searchInput.value).toBe('')
+  })
 })

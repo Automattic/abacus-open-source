@@ -87,6 +87,8 @@ const GridContainer = ({
     const gridApi = agGridRef.current?.getGridApi()
     const columnApi = agGridRef.current?.getGridColumnApi()
 
+    setSearchState('')
+
     if (columnDefs.length === 0) {
       return
     }
@@ -98,8 +100,6 @@ const GridContainer = ({
 
     let sortColumn = defaultSortColumnId
     sortColumn = sortColumn || columnDefs[0].field
-
-    setSearchState('')
     columnApi.resetColumnState()
     gridApi.setFilterModel(null)
     columnApi.applyColumnState({
