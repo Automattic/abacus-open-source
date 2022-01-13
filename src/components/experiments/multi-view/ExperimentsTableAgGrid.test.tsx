@@ -56,7 +56,7 @@ it('should allow searching, sorting, and resetting by changing url params', asyn
   await screen.findByText(/First/)
 
   // Wait for default sorting options
-  let expectedParamsObj = defaultSortParams as UrlParams
+  let expectedParamsObj: UrlParams = defaultSortParams
   await waitFor(() => {
     expect(history.length).toBe(2)
   })
@@ -79,7 +79,7 @@ it('should allow searching, sorting, and resetting by changing url params', asyn
     search: searchString,
   }
   const nameColumn = screen.getByText(/Name/)
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
       const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
@@ -133,15 +133,15 @@ it('getting rid of all sorting should result in special url params', async () =>
     null: 'true',
   }
   const nameColumn = screen.getByText(/Name/)
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     expect(history.length).toBe(3)
   })
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     expect(history.length).toBe(4)
   })
-  userEvent.click(nameColumn)
+  await userEvent.click(nameColumn)
   await waitFor(() => {
     expect(history.length).toBe(5)
   })
