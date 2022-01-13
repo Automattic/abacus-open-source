@@ -149,6 +149,15 @@ test('renders detail row when clicked', async () => {
   // Sanity check to see if toggle button has rotated
   const toggleButton = await screen.findByLabelText('Toggle Button')
   expect(toggleButton.className).toContain('rotated')
+
+  // Open one more time to see if height caching works
+  jest.useRealTimers()
+  fireEvent.click(row)
+  fireEvent.click(row)
+  await waitFor(() => {
+    const detailRow = document.querySelector('div.ag-full-width-row') as HTMLElement
+    expect(detailRow.style).toHaveProperty('height', '300px')
+  })
 })
 
 test('closes detail row after opening when clicked', async () => {
