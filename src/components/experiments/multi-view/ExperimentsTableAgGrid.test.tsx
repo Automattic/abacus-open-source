@@ -94,7 +94,7 @@ it('should allow searching, sorting, and resetting by changing url params', asyn
   // Test reset
   expectedParamsObj = defaultSortParams
   const resetButton = screen.getByRole('button', { name: /Reset/ })
-  userEvent.click(resetButton)
+  await userEvent.click(resetButton)
   await screen.findByText(/wpcom/)
   expect(history.length).toBe(5)
   expect(history.location.search).toBe(`?${getParamsStringFromObj(expectedParamsObj)}`)
