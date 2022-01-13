@@ -18,7 +18,7 @@ beforeEach(() => {
   jest.restoreAllMocks()
 })
 
-test('should render an empty grid', () => {
+test('should render an empty grid', async () => {
   const columnDefs: AgGridColumnProps[] = []
 
   const { container } = render(
@@ -32,6 +32,10 @@ test('should render an empty grid', () => {
 
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   expect(containerElmt).not.toBeNull()
+  await waitFor(() => {
+    const moving = container.querySelector('.ag-column-moving')
+    expect(moving).not.toBeInTheDocument()
+  })
 
   expect(container).toMatchSnapshot()
 })
@@ -70,8 +74,6 @@ test('renders a grid properly', async () => {
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   expect(containerElmt).not.toBeNull()
   await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
-
-  expect(container).toMatchSnapshot()
 })
 
 test('should render a grid with data, allow searching and resetting', async () => {
@@ -104,16 +106,28 @@ test('should render a grid with data, allow searching and resetting', async () =
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   expect(containerElmt).not.toBeNull()
   await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
-
-  expect(container).toMatchSnapshot()
+  await waitFor(() => {
+    const moving = container.querySelector('.ag-column-moving')
+    expect(moving).not.toBeInTheDocument()
+  })
 
   const searchInput = screen.getByRole('textbox', { name: /Search/ })
   await user.click(searchInput)
   await user.type(searchInput, 'explat_test')
+
+  await waitFor(() => {
+    const moving = container.querySelector('.ag-column-moving')
+    expect(moving).not.toBeInTheDocument()
+  })
   expect(container).toMatchSnapshot()
 
   const resetButton = screen.getByRole('button', { name: /Reset/ })
   await user.click(resetButton)
+
+  await waitFor(() => {
+    const moving = container.querySelector('.ag-column-moving')
+    expect(moving).not.toBeInTheDocument()
+  })
   expect(container).toMatchSnapshot()
 })
 
@@ -138,5 +152,9 @@ test('test clicking reset button with no columns', async () => {
 
   const resetButton = screen.getByRole('button', { name: /Reset/ })
   await user.click(resetButton)
+  await waitFor(() => {
+    const moving = container.querySelector('.ag-column-moving')
+    expect(moving).not.toBeInTheDocument()
+  })
   expect(container).toMatchSnapshot()
 })
