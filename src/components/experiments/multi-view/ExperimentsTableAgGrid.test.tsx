@@ -101,15 +101,17 @@ it('should allow searching, filtering, sorting, and resetting by changing url pa
     search: searchString,
   }
   const cellLabels = container.querySelectorAll('.ag-cell-label-container')
+  let filterMenu: Element | null = null
   cellLabels.forEach((value, _key, _parent) => {
     const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
     if (headerText === 'Name') {
-      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
-      userEvent.click(filterMenu)
+      filterMenu = value.querySelector('.ag-icon-menu') as Element
     }
   })
+  expect(filterMenu).not.toBeNull()
+  await userEvent.click((filterMenu as unknown) as Element)
   const inputField = container.querySelector('input[aria-label="Filter Value"]') as HTMLElement
-  userEvent.type(inputField, filterText)
+  await userEvent.type(inputField, filterText)
   await waitFor(() => {
     container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
       const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
@@ -138,12 +140,12 @@ it('should allow searching, filtering, sorting, and resetting by changing url pa
   cellLabels.forEach((value, _key, _parent) => {
     const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
     if (headerText === 'Name') {
-      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
-      userEvent.click(filterMenu)
+      filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
     }
   })
+  await userEvent.click((filterMenu as unknown) as Element)
   const inputFields = container.querySelectorAll('input[aria-label="Filter Value"]')
-  userEvent.type(inputFields[1], filterText2)
+  await userEvent.type(inputFields[1], filterText2)
   await waitFor(() => {
     expect(history.length).toBe(6)
   })
@@ -166,12 +168,12 @@ it('should allow searching, filtering, sorting, and resetting by changing url pa
   cellLabels.forEach((value, _key, _parent) => {
     const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
     if (headerText === 'Start') {
-      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
-      userEvent.click(filterMenu)
+      filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
     }
   })
+  await userEvent.click((filterMenu as unknown) as Element)
   const dateInputField = container.querySelector('input[placeholder="yyyy-mm-dd"]') as HTMLElement
-  userEvent.type(dateInputField, filterDate)
+  await userEvent.type(dateInputField, filterDate)
   await waitFor(() => {
     container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
       const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
@@ -205,12 +207,12 @@ it('should allow searching, filtering, sorting, and resetting by changing url pa
   cellLabels.forEach((value, _key, _parent) => {
     const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
     if (headerText === 'Start') {
-      const filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
-      userEvent.click(filterMenu)
+      filterMenu = value.querySelector('.ag-icon-menu') as HTMLElement
     }
   })
+  await userEvent.click((filterMenu as unknown) as Element)
   const dateInputFields = container.querySelectorAll('input[placeholder="yyyy-mm-dd"]')
-  userEvent.type(dateInputFields[2], filterDate2)
+  await userEvent.type(dateInputFields[2], filterDate2)
   await waitFor(() => {
     container.querySelectorAll('.ag-header-cell-label').forEach((value, _key, _parent) => {
       const headerText = value.querySelector('.ag-header-cell-text')?.innerHTML
