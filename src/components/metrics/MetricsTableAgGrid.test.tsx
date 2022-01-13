@@ -1,11 +1,4 @@
-import {
-  getAllByText,
-  getByText,
-  getDefaultNormalizer,
-  screen,
-  waitFor,
-  waitForElementToBeRemoved,
-} from '@testing-library/react'
+import { act, fireEvent, getAllByText, getByText, getDefaultNormalizer, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
@@ -41,7 +34,6 @@ test('with some metrics, renders a table', async () => {
 })
 
 test('with some metrics, loads and opens metric details', async () => {
-  const user = userEvent.setup()
   const { container } = render(<MetricsTableAgGrid metrics={Fixtures.createMetrics(6)} />)
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   expect(containerElmt).not.toBeNull()
@@ -51,13 +43,17 @@ test('with some metrics, loads and opens metric details', async () => {
     const metric = Fixtures.createMetric(i)
 
     // Open metric details
-    const metricElmt = containerElmt.querySelector(`div.ag-row[row-id='metric_${i}'] .ag-cell`) as HTMLElement
-    await user.click(metricElmt)
+    const metricButton = containerElmt.querySelector(`div.ag-row[row-id='metric_${i}'] button`) as Element
+    await act(async () => {
+      fireEvent.click(metricButton)
+    })
     const detailContainerElmt = container.querySelector('div.ag-full-width-container') as HTMLDivElement
 
     await waitFor(() => getByText(detailContainerElmt, /Higher is Better/))
-    metric.higherIsBetter ? getByText(detailContainerElmt, /Yes/) : getByText(detailContainerElmt, /No/)
-    getByText(detailContainerElmt, /Parameters/)
+    await waitFor(() =>
+      metric.higherIsBetter ? getByText(detailContainerElmt, /Yes/) : getByText(detailContainerElmt, /No/),
+    )
+    await waitFor(() => getByText(detailContainerElmt, /Parameters/))
 
     getAllByText(
       detailContainerElmt,
@@ -68,9 +64,15 @@ test('with some metrics, loads and opens metric details', async () => {
     )
 
     // Close metric details
-    await user.click(metricElmt)
-    await waitForElementToBeRemoved(
-      detailContainerElmt.querySelector(`div.ag-full-width-row[row-id='metric_${i}-detail']`),
+    await act(async () => {
+      fireEvent.click(metricButton)
+    })
+    await waitFor(
+      () => {
+        const detailRow = detailContainerElmt.querySelector(`div.ag-full-width-row[row-id='metric_${i}-detail']`)
+        expect(detailRow).not.toBeInTheDocument()
+      },
+      { timeout: 5000 },
     )
   }
 })
@@ -105,6 +107,4 @@ test('with some metrics can search parameters', async () => {
     const metric = container.querySelector('div[row-id="metric_2"]')
     expect(metric).not.toBeInTheDocument()
   })
-
-  expect(container).toMatchSnapshot()
 })
