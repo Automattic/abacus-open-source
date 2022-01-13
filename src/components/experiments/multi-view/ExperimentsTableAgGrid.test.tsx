@@ -66,7 +66,7 @@ it('should allow searching and resetting by changing url params', async () => {
 
   // Test reset
   const resetButton = screen.getByRole('button', { name: /Reset/ })
-  userEvent.click(resetButton)
+  await userEvent.click(resetButton)
   await screen.findByText(/wpcom/)
   expect(history.length).toBe(3)
   expect(history.location.search).toBe('')
