@@ -10,14 +10,16 @@ import {
   Theme,
   Tooltip,
 } from '@material-ui/core'
-import { ChevronRightRounded as ChevronRightRoundedIcon, Edit as EditIcon } from '@material-ui/icons'
+import { Edit as EditIcon } from '@material-ui/icons'
 import debugFactory from 'debug'
 import React from 'react'
 
-import { MetricDetail } from 'src/components/metrics/MetricsTableAgGrid'
+import { Metric } from 'src/lib/schemas'
 import { formatBoolean } from 'src/utils/formatters'
 
-const debug = debugFactory('abacus:components/MetricDetailRenderer.tsx')
+import { MetricDetail } from './MetricsTableAgGrid'
+
+const debug = debugFactory('abacus:components/MetricTableRenderers.tsx')
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,7 +67,7 @@ export const MetricDetailRenderer = ({ data }: { data: MetricDetail }): JSX.Elem
         <TableBody>
           <TableRow>
             <TableCell className={classes.headerCell}>Higher is Better:</TableCell>
-            <TableCell className={classes.dataCell}>{formatBoolean(data.higherIsBetter)}</TableCell>
+            <TableCell className={classes.dataCell}>{formatBoolean(data.higherIsBetter as boolean)}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className={classes.headerCell}>Parameters:</TableCell>
@@ -78,30 +80,6 @@ export const MetricDetailRenderer = ({ data }: { data: MetricDetail }): JSX.Elem
         </TableBody>
       </Table>
     </TableContainer>
-  )
-}
-
-export const MetricDetailToggleButtonRenderer = ({
-  data,
-  detailRowToggleMap,
-}: {
-  data: MetricDetail
-  detailRowToggleMap: Map<string, boolean>
-}): JSX.Element => {
-  debug('MetricDetailToggleButtonRenderer#render')
-  const detailRowExists = detailRowToggleMap.get(data.name)
-  const transform = detailRowExists ? 'rotate(90deg)' : 'none'
-
-  return (
-    <Tooltip title='Toggle details'>
-      <IconButton
-        id={data.name}
-        style={{ transition: 'all 200ms ease 0s', transform: transform }}
-        aria-label='Toggle Metric Details'
-      >
-        <ChevronRightRoundedIcon />
-      </IconButton>
-    </Tooltip>
   )
 }
 
@@ -120,7 +98,7 @@ export const MetricEditButtonRenderer = ({
   data,
   onEditMetric,
 }: {
-  data: MetricDetail
+  data: Metric
   onEditMetric: (metricId: number) => void
 }): JSX.Element => {
   debug('MetricEditButtonRenderer#render')
