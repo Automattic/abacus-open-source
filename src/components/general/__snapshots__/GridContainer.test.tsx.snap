@@ -3,24 +3,24 @@
 exports[`should render a grid with data, allow searching and resetting 1`] = `
 <div>
   <div
-    class="ag-theme-alpine makeStyles-root-19"
+    class="ag-theme-alpine makeStyles-root-20"
   >
     <div
-      class="makeStyles-toolbar-20"
+      class="makeStyles-toolbar-21"
     >
       <h2
-        class="MuiTypography-root makeStyles-root-22 MuiTypography-h2"
+        class="MuiTypography-root makeStyles-root-23 MuiTypography-h2"
       >
         Test Grid
       </h2>
       <div
-        class="makeStyles-root-23"
+        class="makeStyles-root-24"
       >
         <div
-          class="makeStyles-search-25"
+          class="makeStyles-search-26"
         >
           <div
-            class="makeStyles-searchIcon-26"
+            class="makeStyles-searchIcon-28"
           >
             <svg
               aria-hidden="true"
@@ -34,11 +34,11 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
             </svg>
           </div>
           <div
-            class="MuiInputBase-root makeStyles-inputRoot-29 Mui-focused"
+            class="MuiInputBase-root makeStyles-inputRoot-31 Mui-focused"
           >
             <input
               aria-label="Search"
-              class="MuiInputBase-input makeStyles-inputInput-30"
+              class="MuiInputBase-input makeStyles-inputInput-32"
               placeholder="Search…"
               type="text"
               value="explat_test"
@@ -62,7 +62,7 @@ exports[`should render a grid with data, allow searching and resetting 1`] = `
       </div>
     </div>
     <div
-      class="ag-theme-alpine makeStyles-gridContainer-21"
+      class="ag-theme-alpine makeStyles-gridContainer-22"
     >
       <div
         style="height: auto; flex: 1;"

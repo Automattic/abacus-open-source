@@ -3,7 +3,7 @@
 exports[`allows adding, editing and removing a Metric Assignment 1`] = `
 <div>
   <div
-    class="makeStyles-root-38"
+    class="makeStyles-root-39"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
@@ -73,22 +73,22 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </table>
     </div>
     <div
-      class="makeStyles-tableContainer-58"
+      class="makeStyles-tableContainer-59"
     >
       <div
-        class="ag-theme-alpine makeStyles-root-62"
+        class="ag-theme-alpine makeStyles-root-63"
       >
         <div
-          class="makeStyles-toolbar-63"
+          class="makeStyles-toolbar-64"
         >
           <div
-            class="makeStyles-rootFullWidth-66"
+            class="makeStyles-rootFullWidth-67"
           >
             <div
-              class="makeStyles-search-67"
+              class="makeStyles-search-68 makeStyles-searchBorder-69"
             >
               <div
-                class="makeStyles-searchIcon-68"
+                class="makeStyles-searchIcon-70"
               >
                 <svg
                   aria-hidden="true"
@@ -102,11 +102,11 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
                 </svg>
               </div>
               <div
-                class="MuiInputBase-root makeStyles-inputRootFullWidth-69"
+                class="MuiInputBase-root makeStyles-inputRootFullWidth-71"
               >
                 <input
                   aria-label="Search"
-                  class="MuiInputBase-input makeStyles-inputInputFullWidth-70"
+                  class="MuiInputBase-input makeStyles-inputInputFullWidth-72"
                   placeholder="Search…"
                   type="text"
                   value=""
@@ -130,7 +130,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
           </div>
         </div>
         <div
-          class="ag-theme-alpine makeStyles-gridContainer-64"
+          class="ag-theme-alpine makeStyles-gridContainer-65"
         >
           <div
             style="height: auto; flex: 1;"
@@ -316,7 +316,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
                           <div
                             aria-colindex="2"
                             aria-sort="none"
-                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-61"
+                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-62"
                             col-id="name"
                             role="columnheader"
                             style="width: 465px; left: 34px;"
@@ -1338,7 +1338,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-48 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-49 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -1376,7 +1376,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-49 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-50 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -1397,13 +1397,13 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="attr-window-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="attr-window-panel"
             role="button"
             tabindex="0"
@@ -1467,7 +1467,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
                       is the window of time after exposure to an experiment that we capture metric events for a participant (exposure can be from either assignment or specified exposure events). The refund window is the window of time after a purchase event. Revenue metrics will automatically deduct transactions that have been refunded within the metric’s refund window.
                       <br />
                       <div
-                        class="makeStyles-attributionWindowDiagram-50"
+                        class="makeStyles-attributionWindowDiagram-51"
                       >
                         <svg>
                           attribution_window.svg
@@ -1486,7 +1486,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-51 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-52 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -1507,13 +1507,13 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="min-diff-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="min-diff-panel"
             role="button"
             tabindex="0"
@@ -1577,7 +1577,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
                       are absolute differences from the baseline (not relative). For example, if the baseline conversion rate is 5%, a minimum difference of 0.5 pp is equivalent to a 10% relative change.
                       <br />
                       <div
-                        class="makeStyles-minDiffDiagram-52"
+                        class="makeStyles-minDiffDiagram-53"
                       >
                         <svg>
                           min_diffs.svg
@@ -1593,7 +1593,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-53 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-54 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -1623,7 +1623,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </div>
     </div>
     <h4
-      class="MuiTypography-root makeStyles-exposureEventsTitle-54 MuiTypography-h4"
+      class="MuiTypography-root makeStyles-exposureEventsTitle-55 MuiTypography-h4"
     >
       Exposure Events
     </h4>
@@ -1656,11 +1656,11 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </table>
     </div>
     <div
-      class="makeStyles-addMetric-59"
+      class="makeStyles-addMetric-60"
     >
       <svg
         aria-hidden="true"
-        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-60"
+        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-61"
         focusable="false"
         viewBox="0 0 24 24"
       >
@@ -1685,7 +1685,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </button>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-55 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-56 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -1719,7 +1719,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-56 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-57 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -1754,7 +1754,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
 exports[`allows adding, editing and removing a Metric Assignment 2`] = `
 <div>
   <div
-    class="makeStyles-root-38"
+    class="makeStyles-root-39"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
@@ -1810,17 +1810,17 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
             class="MuiTableRow-root"
           >
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-43"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-44"
             >
               <span
-                class="makeStyles-metricName-44 makeStyles-tooltipped-45"
+                class="makeStyles-metricName-45 makeStyles-tooltipped-46"
                 title="string"
               >
                 asdf_7d_refund
               </span>
               <br />
               <span
-                class="makeStyles-root-85 makeStyles-monospaced-42"
+                class="makeStyles-root-87 makeStyles-monospaced-43"
               >
                 primary
               </span>
@@ -1829,7 +1829,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-41"
+                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-42"
               >
                 <div
                   aria-haspopup="listbox"
@@ -1861,11 +1861,11 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                 </svg>
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-86 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-87"
+                    class="PrivateNotchedOutline-legend-89"
                     style="width: 0.01px;"
                   >
                     <span>
@@ -1876,7 +1876,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
               </div>
             </td>
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-47"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-48"
             >
               <span
                 class="MuiSwitch-root"
@@ -1884,7 +1884,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                 <span
                   aria-disabled="false"
                   aria-label="Change Expected"
-                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-90 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-91 Mui-checked"
+                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-92 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-93 Mui-checked"
                   variant="outlined"
                 >
                   <span
@@ -1892,7 +1892,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                   >
                     <input
                       checked=""
-                      class="PrivateSwitchBase-input-93 MuiSwitch-input"
+                      class="PrivateSwitchBase-input-95 MuiSwitch-input"
                       id="experiment.metricAssignments[0].changeExpected"
                       name="experiment.metricAssignments[0].changeExpected"
                       type="checkbox"
@@ -1915,7 +1915,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiFormControl-root MuiTextField-root makeStyles-root-94 makeStyles-minDifferenceField-46"
+                class="MuiFormControl-root MuiTextField-root makeStyles-root-96 makeStyles-minDifferenceField-47"
               >
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
@@ -1932,7 +1932,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                     value=""
                   />
                   <div
-                    class="MuiInputAdornment-root makeStyles-adornment-96 MuiInputAdornment-positionEnd"
+                    class="MuiInputAdornment-root makeStyles-adornment-98 MuiInputAdornment-positionEnd"
                   >
                     <p
                       class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
@@ -1942,11 +1942,11 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                   </div>
                   <fieldset
                     aria-hidden="true"
-                    class="PrivateNotchedOutline-root-86 MuiOutlinedInput-notchedOutline"
+                    class="PrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline"
                     style="padding-left: 8px;"
                   >
                     <legend
-                      class="PrivateNotchedOutline-legend-87"
+                      class="PrivateNotchedOutline-legend-89"
                       style="width: 0.01px;"
                     >
                       <span>
@@ -1994,22 +1994,22 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </table>
     </div>
     <div
-      class="makeStyles-tableContainer-58"
+      class="makeStyles-tableContainer-59"
     >
       <div
-        class="ag-theme-alpine makeStyles-root-62"
+        class="ag-theme-alpine makeStyles-root-63"
       >
         <div
-          class="makeStyles-toolbar-63"
+          class="makeStyles-toolbar-64"
         >
           <div
-            class="makeStyles-rootFullWidth-66"
+            class="makeStyles-rootFullWidth-67"
           >
             <div
-              class="makeStyles-search-67"
+              class="makeStyles-search-68 makeStyles-searchBorder-69"
             >
               <div
-                class="makeStyles-searchIcon-68"
+                class="makeStyles-searchIcon-70"
               >
                 <svg
                   aria-hidden="true"
@@ -2023,11 +2023,11 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                 </svg>
               </div>
               <div
-                class="MuiInputBase-root makeStyles-inputRootFullWidth-69"
+                class="MuiInputBase-root makeStyles-inputRootFullWidth-71"
               >
                 <input
                   aria-label="Search"
-                  class="MuiInputBase-input makeStyles-inputInputFullWidth-70"
+                  class="MuiInputBase-input makeStyles-inputInputFullWidth-72"
                   placeholder="Search…"
                   type="text"
                   value=""
@@ -2051,7 +2051,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
           </div>
         </div>
         <div
-          class="ag-theme-alpine makeStyles-gridContainer-64"
+          class="ag-theme-alpine makeStyles-gridContainer-65"
         >
           <div
             style="height: auto; flex: 1;"
@@ -2237,7 +2237,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                           <div
                             aria-colindex="2"
                             aria-sort="ascending"
-                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-61"
+                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-62"
                             col-id="name"
                             role="columnheader"
                             style="width: 465px; left: 34px;"
@@ -2824,7 +2824,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -2862,7 +2862,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="asdf_7d_refund"
                                 >
                                   asdf_7d_refund
@@ -2895,11 +2895,11 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-83 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-85 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -2955,7 +2955,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -2993,7 +2993,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="registration_start"
                                 >
                                   registration_start
@@ -3026,11 +3026,11 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-84 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-86 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -3417,7 +3417,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-48 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-49 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -3455,7 +3455,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-49 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-50 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -3476,13 +3476,13 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="attr-window-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="attr-window-panel"
             role="button"
             tabindex="0"
@@ -3546,7 +3546,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                       is the window of time after exposure to an experiment that we capture metric events for a participant (exposure can be from either assignment or specified exposure events). The refund window is the window of time after a purchase event. Revenue metrics will automatically deduct transactions that have been refunded within the metric’s refund window.
                       <br />
                       <div
-                        class="makeStyles-attributionWindowDiagram-50"
+                        class="makeStyles-attributionWindowDiagram-51"
                       >
                         <svg>
                           attribution_window.svg
@@ -3565,7 +3565,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-51 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-52 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -3586,13 +3586,13 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="min-diff-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="min-diff-panel"
             role="button"
             tabindex="0"
@@ -3656,7 +3656,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
                       are absolute differences from the baseline (not relative). For example, if the baseline conversion rate is 5%, a minimum difference of 0.5 pp is equivalent to a 10% relative change.
                       <br />
                       <div
-                        class="makeStyles-minDiffDiagram-52"
+                        class="makeStyles-minDiffDiagram-53"
                       >
                         <svg>
                           min_diffs.svg
@@ -3672,7 +3672,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-53 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-54 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -3702,7 +3702,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </div>
     </div>
     <h4
-      class="MuiTypography-root makeStyles-exposureEventsTitle-54 MuiTypography-h4"
+      class="MuiTypography-root makeStyles-exposureEventsTitle-55 MuiTypography-h4"
     >
       Exposure Events
     </h4>
@@ -3735,11 +3735,11 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </table>
     </div>
     <div
-      class="makeStyles-addMetric-59"
+      class="makeStyles-addMetric-60"
     >
       <svg
         aria-hidden="true"
-        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-60"
+        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-61"
         focusable="false"
         viewBox="0 0 24 24"
       >
@@ -3764,7 +3764,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </button>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-55 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-56 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -3798,7 +3798,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-56 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-57 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -3835,7 +3835,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
   aria-hidden="true"
 >
   <div
-    class="makeStyles-root-38"
+    class="makeStyles-root-39"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
@@ -3891,17 +3891,17 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
             class="MuiTableRow-root"
           >
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-43"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-44"
             >
               <span
-                class="makeStyles-metricName-44 makeStyles-tooltipped-45"
+                class="makeStyles-metricName-45 makeStyles-tooltipped-46"
                 title="string"
               >
                 asdf_7d_refund
               </span>
               <br />
               <span
-                class="makeStyles-root-85 makeStyles-monospaced-42"
+                class="makeStyles-root-87 makeStyles-monospaced-43"
               >
                 primary
               </span>
@@ -3910,7 +3910,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-41"
+                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-42"
               >
                 <div
                   aria-haspopup="listbox"
@@ -3942,11 +3942,11 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                 </svg>
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-86 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-87"
+                    class="PrivateNotchedOutline-legend-89"
                     style="width: 0.01px;"
                   >
                     <span>
@@ -3957,7 +3957,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
               </div>
             </td>
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-47"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-48"
             >
               <span
                 class="MuiSwitch-root"
@@ -3965,7 +3965,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                 <span
                   aria-disabled="false"
                   aria-label="Change Expected"
-                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-90 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-91 Mui-checked"
+                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-92 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-93 Mui-checked"
                   variant="outlined"
                 >
                   <span
@@ -3973,7 +3973,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                   >
                     <input
                       checked=""
-                      class="PrivateSwitchBase-input-93 MuiSwitch-input"
+                      class="PrivateSwitchBase-input-95 MuiSwitch-input"
                       id="experiment.metricAssignments[0].changeExpected"
                       name="experiment.metricAssignments[0].changeExpected"
                       type="checkbox"
@@ -3996,7 +3996,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiFormControl-root MuiTextField-root makeStyles-root-94 makeStyles-minDifferenceField-46"
+                class="MuiFormControl-root MuiTextField-root makeStyles-root-96 makeStyles-minDifferenceField-47"
               >
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
@@ -4013,7 +4013,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                     value="0.01"
                   />
                   <div
-                    class="MuiInputAdornment-root makeStyles-adornment-96 MuiInputAdornment-positionEnd"
+                    class="MuiInputAdornment-root makeStyles-adornment-98 MuiInputAdornment-positionEnd"
                   >
                     <p
                       class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
@@ -4023,11 +4023,11 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                   </div>
                   <fieldset
                     aria-hidden="true"
-                    class="PrivateNotchedOutline-root-86 MuiOutlinedInput-notchedOutline"
+                    class="PrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline"
                     style="padding-left: 8px;"
                   >
                     <legend
-                      class="PrivateNotchedOutline-legend-87"
+                      class="PrivateNotchedOutline-legend-89"
                       style="width: 0.01px;"
                     >
                       <span>
@@ -4075,22 +4075,22 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </table>
     </div>
     <div
-      class="makeStyles-tableContainer-58"
+      class="makeStyles-tableContainer-59"
     >
       <div
-        class="ag-theme-alpine makeStyles-root-62"
+        class="ag-theme-alpine makeStyles-root-63"
       >
         <div
-          class="makeStyles-toolbar-63"
+          class="makeStyles-toolbar-64"
         >
           <div
-            class="makeStyles-rootFullWidth-66"
+            class="makeStyles-rootFullWidth-67"
           >
             <div
-              class="makeStyles-search-67"
+              class="makeStyles-search-68 makeStyles-searchBorder-69"
             >
               <div
-                class="makeStyles-searchIcon-68"
+                class="makeStyles-searchIcon-70"
               >
                 <svg
                   aria-hidden="true"
@@ -4104,11 +4104,11 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                 </svg>
               </div>
               <div
-                class="MuiInputBase-root makeStyles-inputRootFullWidth-69"
+                class="MuiInputBase-root makeStyles-inputRootFullWidth-71"
               >
                 <input
                   aria-label="Search"
-                  class="MuiInputBase-input makeStyles-inputInputFullWidth-70"
+                  class="MuiInputBase-input makeStyles-inputInputFullWidth-72"
                   placeholder="Search…"
                   type="text"
                   value=""
@@ -4132,7 +4132,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
           </div>
         </div>
         <div
-          class="ag-theme-alpine makeStyles-gridContainer-64"
+          class="ag-theme-alpine makeStyles-gridContainer-65"
         >
           <div
             style="height: auto; flex: 1;"
@@ -4318,7 +4318,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                           <div
                             aria-colindex="2"
                             aria-sort="ascending"
-                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-61"
+                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-62"
                             col-id="name"
                             role="columnheader"
                             style="width: 465px; left: 34px;"
@@ -4905,7 +4905,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -4943,7 +4943,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="asdf_7d_refund"
                                 >
                                   asdf_7d_refund
@@ -4976,11 +4976,11 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-83 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-85 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -5036,7 +5036,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -5074,7 +5074,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="registration_start"
                                 >
                                   registration_start
@@ -5107,11 +5107,11 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-84 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-86 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -5498,7 +5498,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-48 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-49 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -5536,7 +5536,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-49 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-50 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -5557,13 +5557,13 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="attr-window-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="attr-window-panel"
             role="button"
             tabindex="0"
@@ -5627,7 +5627,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                       is the window of time after exposure to an experiment that we capture metric events for a participant (exposure can be from either assignment or specified exposure events). The refund window is the window of time after a purchase event. Revenue metrics will automatically deduct transactions that have been refunded within the metric’s refund window.
                       <br />
                       <div
-                        class="makeStyles-attributionWindowDiagram-50"
+                        class="makeStyles-attributionWindowDiagram-51"
                       >
                         <svg>
                           attribution_window.svg
@@ -5646,7 +5646,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-51 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-52 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -5667,13 +5667,13 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="min-diff-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="min-diff-panel"
             role="button"
             tabindex="0"
@@ -5737,7 +5737,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
                       are absolute differences from the baseline (not relative). For example, if the baseline conversion rate is 5%, a minimum difference of 0.5 pp is equivalent to a 10% relative change.
                       <br />
                       <div
-                        class="makeStyles-minDiffDiagram-52"
+                        class="makeStyles-minDiffDiagram-53"
                       >
                         <svg>
                           min_diffs.svg
@@ -5753,7 +5753,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-53 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-54 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -5783,7 +5783,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </div>
     </div>
     <h4
-      class="MuiTypography-root makeStyles-exposureEventsTitle-54 MuiTypography-h4"
+      class="MuiTypography-root makeStyles-exposureEventsTitle-55 MuiTypography-h4"
     >
       Exposure Events
     </h4>
@@ -5816,11 +5816,11 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </table>
     </div>
     <div
-      class="makeStyles-addMetric-59"
+      class="makeStyles-addMetric-60"
     >
       <svg
         aria-hidden="true"
-        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-60"
+        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-61"
         focusable="false"
         viewBox="0 0 24 24"
       >
@@ -5845,7 +5845,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </button>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-55 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-56 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -5879,7 +5879,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-56 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-57 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -5914,7 +5914,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
 exports[`allows adding, editing and removing a Metric Assignment 4`] = `
 <div>
   <div
-    class="makeStyles-root-38"
+    class="makeStyles-root-39"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
@@ -5970,17 +5970,17 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
             class="MuiTableRow-root"
           >
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-43"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-44"
             >
               <span
-                class="makeStyles-metricName-44 makeStyles-tooltipped-45"
+                class="makeStyles-metricName-45 makeStyles-tooltipped-46"
                 title="string"
               >
                 asdf_7d_refund
               </span>
               <br />
               <span
-                class="makeStyles-root-85 makeStyles-monospaced-42"
+                class="makeStyles-root-87 makeStyles-monospaced-43"
               >
                 primary
               </span>
@@ -5989,7 +5989,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-41"
+                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-42"
               >
                 <div
                   aria-haspopup="listbox"
@@ -6021,11 +6021,11 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                 </svg>
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-86 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-87"
+                    class="PrivateNotchedOutline-legend-89"
                     style="width: 0.01px;"
                   >
                     <span>
@@ -6036,7 +6036,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
               </div>
             </td>
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-47"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-48"
             >
               <span
                 class="MuiSwitch-root"
@@ -6044,7 +6044,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                 <span
                   aria-disabled="false"
                   aria-label="Change Expected"
-                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-90 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-91 Mui-checked"
+                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-92 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-93 Mui-checked"
                   variant="outlined"
                 >
                   <span
@@ -6052,7 +6052,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                   >
                     <input
                       checked=""
-                      class="PrivateSwitchBase-input-93 MuiSwitch-input"
+                      class="PrivateSwitchBase-input-95 MuiSwitch-input"
                       id="experiment.metricAssignments[0].changeExpected"
                       name="experiment.metricAssignments[0].changeExpected"
                       type="checkbox"
@@ -6075,7 +6075,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiFormControl-root MuiTextField-root makeStyles-root-94 makeStyles-minDifferenceField-46"
+                class="MuiFormControl-root MuiTextField-root makeStyles-root-96 makeStyles-minDifferenceField-47"
               >
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
@@ -6092,7 +6092,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                     value="0.01"
                   />
                   <div
-                    class="MuiInputAdornment-root makeStyles-adornment-96 MuiInputAdornment-positionEnd"
+                    class="MuiInputAdornment-root makeStyles-adornment-98 MuiInputAdornment-positionEnd"
                   >
                     <p
                       class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
@@ -6102,11 +6102,11 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                   </div>
                   <fieldset
                     aria-hidden="true"
-                    class="PrivateNotchedOutline-root-86 MuiOutlinedInput-notchedOutline"
+                    class="PrivateNotchedOutline-root-88 MuiOutlinedInput-notchedOutline"
                     style="padding-left: 8px;"
                   >
                     <legend
-                      class="PrivateNotchedOutline-legend-87"
+                      class="PrivateNotchedOutline-legend-89"
                       style="width: 0.01px;"
                     >
                       <span>
@@ -6154,22 +6154,22 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </table>
     </div>
     <div
-      class="makeStyles-tableContainer-58"
+      class="makeStyles-tableContainer-59"
     >
       <div
-        class="ag-theme-alpine makeStyles-root-62"
+        class="ag-theme-alpine makeStyles-root-63"
       >
         <div
-          class="makeStyles-toolbar-63"
+          class="makeStyles-toolbar-64"
         >
           <div
-            class="makeStyles-rootFullWidth-66"
+            class="makeStyles-rootFullWidth-67"
           >
             <div
-              class="makeStyles-search-67"
+              class="makeStyles-search-68 makeStyles-searchBorder-69"
             >
               <div
-                class="makeStyles-searchIcon-68"
+                class="makeStyles-searchIcon-70"
               >
                 <svg
                   aria-hidden="true"
@@ -6183,11 +6183,11 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                 </svg>
               </div>
               <div
-                class="MuiInputBase-root makeStyles-inputRootFullWidth-69"
+                class="MuiInputBase-root makeStyles-inputRootFullWidth-71"
               >
                 <input
                   aria-label="Search"
-                  class="MuiInputBase-input makeStyles-inputInputFullWidth-70"
+                  class="MuiInputBase-input makeStyles-inputInputFullWidth-72"
                   placeholder="Search…"
                   type="text"
                   value=""
@@ -6211,7 +6211,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
           </div>
         </div>
         <div
-          class="ag-theme-alpine makeStyles-gridContainer-64"
+          class="ag-theme-alpine makeStyles-gridContainer-65"
         >
           <div
             style="height: auto; flex: 1;"
@@ -6397,7 +6397,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                           <div
                             aria-colindex="2"
                             aria-sort="ascending"
-                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-61"
+                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-62"
                             col-id="name"
                             role="columnheader"
                             style="width: 465px; left: 34px;"
@@ -6984,7 +6984,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -7022,7 +7022,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="asdf_7d_refund"
                                 >
                                   asdf_7d_refund
@@ -7055,11 +7055,11 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-83 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-85 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -7115,7 +7115,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -7153,7 +7153,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="registration_start"
                                 >
                                   registration_start
@@ -7186,11 +7186,11 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-84 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-86 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -7577,7 +7577,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-48 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-49 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -7615,7 +7615,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-49 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-50 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -7636,13 +7636,13 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="attr-window-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="attr-window-panel"
             role="button"
             tabindex="0"
@@ -7706,7 +7706,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                       is the window of time after exposure to an experiment that we capture metric events for a participant (exposure can be from either assignment or specified exposure events). The refund window is the window of time after a purchase event. Revenue metrics will automatically deduct transactions that have been refunded within the metric’s refund window.
                       <br />
                       <div
-                        class="makeStyles-attributionWindowDiagram-50"
+                        class="makeStyles-attributionWindowDiagram-51"
                       >
                         <svg>
                           attribution_window.svg
@@ -7725,7 +7725,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-51 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-52 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -7746,13 +7746,13 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="min-diff-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="min-diff-panel"
             role="button"
             tabindex="0"
@@ -7816,7 +7816,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
                       are absolute differences from the baseline (not relative). For example, if the baseline conversion rate is 5%, a minimum difference of 0.5 pp is equivalent to a 10% relative change.
                       <br />
                       <div
-                        class="makeStyles-minDiffDiagram-52"
+                        class="makeStyles-minDiffDiagram-53"
                       >
                         <svg>
                           min_diffs.svg
@@ -7832,7 +7832,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-53 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-54 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -7862,7 +7862,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </div>
     </div>
     <h4
-      class="MuiTypography-root makeStyles-exposureEventsTitle-54 MuiTypography-h4"
+      class="MuiTypography-root makeStyles-exposureEventsTitle-55 MuiTypography-h4"
     >
       Exposure Events
     </h4>
@@ -7895,11 +7895,11 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </table>
     </div>
     <div
-      class="makeStyles-addMetric-59"
+      class="makeStyles-addMetric-60"
     >
       <svg
         aria-hidden="true"
-        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-60"
+        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-61"
         focusable="false"
         viewBox="0 0 24 24"
       >
@@ -7924,7 +7924,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </button>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-55 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-56 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -7958,7 +7958,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-56 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-57 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -7993,7 +7993,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
 exports[`allows adding, editing and removing a Metric Assignment 5`] = `
 <div>
   <div
-    class="makeStyles-root-38"
+    class="makeStyles-root-39"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
@@ -8063,22 +8063,22 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </table>
     </div>
     <div
-      class="makeStyles-tableContainer-58"
+      class="makeStyles-tableContainer-59"
     >
       <div
-        class="ag-theme-alpine makeStyles-root-62"
+        class="ag-theme-alpine makeStyles-root-63"
       >
         <div
-          class="makeStyles-toolbar-63"
+          class="makeStyles-toolbar-64"
         >
           <div
-            class="makeStyles-rootFullWidth-66"
+            class="makeStyles-rootFullWidth-67"
           >
             <div
-              class="makeStyles-search-67"
+              class="makeStyles-search-68 makeStyles-searchBorder-69"
             >
               <div
-                class="makeStyles-searchIcon-68"
+                class="makeStyles-searchIcon-70"
               >
                 <svg
                   aria-hidden="true"
@@ -8092,11 +8092,11 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                 </svg>
               </div>
               <div
-                class="MuiInputBase-root makeStyles-inputRootFullWidth-69"
+                class="MuiInputBase-root makeStyles-inputRootFullWidth-71"
               >
                 <input
                   aria-label="Search"
-                  class="MuiInputBase-input makeStyles-inputInputFullWidth-70"
+                  class="MuiInputBase-input makeStyles-inputInputFullWidth-72"
                   placeholder="Search…"
                   type="text"
                   value=""
@@ -8120,7 +8120,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
           </div>
         </div>
         <div
-          class="ag-theme-alpine makeStyles-gridContainer-64"
+          class="ag-theme-alpine makeStyles-gridContainer-65"
         >
           <div
             style="height: auto; flex: 1;"
@@ -8306,7 +8306,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                           <div
                             aria-colindex="2"
                             aria-sort="ascending"
-                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-61"
+                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-62"
                             col-id="name"
                             role="columnheader"
                             style="width: 465px; left: 34px;"
@@ -8893,7 +8893,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -8931,7 +8931,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="asdf_7d_refund"
                                 >
                                   asdf_7d_refund
@@ -8964,11 +8964,11 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-83 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-85 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -9024,7 +9024,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -9062,7 +9062,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="registration_start"
                                 >
                                   registration_start
@@ -9095,11 +9095,11 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-84 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-86 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -9486,7 +9486,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-48 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-49 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -9524,7 +9524,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-49 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-50 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -9545,13 +9545,13 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="attr-window-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="attr-window-panel"
             role="button"
             tabindex="0"
@@ -9615,7 +9615,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                       is the window of time after exposure to an experiment that we capture metric events for a participant (exposure can be from either assignment or specified exposure events). The refund window is the window of time after a purchase event. Revenue metrics will automatically deduct transactions that have been refunded within the metric’s refund window.
                       <br />
                       <div
-                        class="makeStyles-attributionWindowDiagram-50"
+                        class="makeStyles-attributionWindowDiagram-51"
                       >
                         <svg>
                           attribution_window.svg
@@ -9634,7 +9634,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-51 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-52 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -9655,13 +9655,13 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="min-diff-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="min-diff-panel"
             role="button"
             tabindex="0"
@@ -9725,7 +9725,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
                       are absolute differences from the baseline (not relative). For example, if the baseline conversion rate is 5%, a minimum difference of 0.5 pp is equivalent to a 10% relative change.
                       <br />
                       <div
-                        class="makeStyles-minDiffDiagram-52"
+                        class="makeStyles-minDiffDiagram-53"
                       >
                         <svg>
                           min_diffs.svg
@@ -9741,7 +9741,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-53 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-54 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -9771,7 +9771,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </div>
     </div>
     <h4
-      class="MuiTypography-root makeStyles-exposureEventsTitle-54 MuiTypography-h4"
+      class="MuiTypography-root makeStyles-exposureEventsTitle-55 MuiTypography-h4"
     >
       Exposure Events
     </h4>
@@ -9804,11 +9804,11 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </table>
     </div>
     <div
-      class="makeStyles-addMetric-59"
+      class="makeStyles-addMetric-60"
     >
       <svg
         aria-hidden="true"
-        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-60"
+        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-61"
         focusable="false"
         viewBox="0 0 24 24"
       >
@@ -9833,7 +9833,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </button>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-55 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-56 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -9867,7 +9867,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-56 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-57 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -9902,7 +9902,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
 exports[`allows adding, editing and removing a Metric Assignment 6`] = `
 <div>
   <div
-    class="makeStyles-root-38"
+    class="makeStyles-root-39"
   >
     <h4
       class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom"
@@ -9958,17 +9958,17 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
             class="MuiTableRow-root"
           >
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-43"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-metricNameCell-44"
             >
               <span
-                class="makeStyles-metricName-44 makeStyles-tooltipped-45"
+                class="makeStyles-metricName-45 makeStyles-tooltipped-46"
                 title="string"
               >
                 registration_start
               </span>
               <br />
               <span
-                class="makeStyles-root-97 makeStyles-monospaced-42"
+                class="makeStyles-root-99 makeStyles-monospaced-43"
               >
                 primary
               </span>
@@ -9977,7 +9977,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-41"
+                class="MuiInputBase-root MuiOutlinedInput-root makeStyles-attributionWindowSelect-42"
               >
                 <div
                   aria-haspopup="listbox"
@@ -10009,11 +10009,11 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                 </svg>
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-98 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-100 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-99"
+                    class="PrivateNotchedOutline-legend-101"
                     style="width: 0.01px;"
                   >
                     <span>
@@ -10024,7 +10024,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
               </div>
             </td>
             <td
-              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-47"
+              class="MuiTableCell-root MuiTableCell-body makeStyles-changeExpected-48"
             >
               <span
                 class="MuiSwitch-root"
@@ -10032,7 +10032,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                 <span
                   aria-disabled="false"
                   aria-label="Change Expected"
-                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-102 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-103 Mui-checked"
+                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-104 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-105 Mui-checked"
                   variant="outlined"
                 >
                   <span
@@ -10040,7 +10040,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                   >
                     <input
                       checked=""
-                      class="PrivateSwitchBase-input-105 MuiSwitch-input"
+                      class="PrivateSwitchBase-input-107 MuiSwitch-input"
                       id="experiment.metricAssignments[0].changeExpected"
                       name="experiment.metricAssignments[0].changeExpected"
                       type="checkbox"
@@ -10063,7 +10063,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
               class="MuiTableCell-root MuiTableCell-body"
             >
               <div
-                class="MuiFormControl-root MuiTextField-root makeStyles-root-106 makeStyles-minDifferenceField-46"
+                class="MuiFormControl-root MuiTextField-root makeStyles-root-108 makeStyles-minDifferenceField-47"
               >
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
@@ -10081,10 +10081,10 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                     value="0"
                   />
                   <div
-                    class="MuiInputAdornment-root makeStyles-adornment-108 MuiInputAdornment-positionEnd"
+                    class="MuiInputAdornment-root makeStyles-adornment-110 MuiInputAdornment-positionEnd"
                   >
                     <p
-                      class="MuiTypography-root makeStyles-tooltipped-107 MuiTypography-body1 MuiTypography-colorTextSecondary"
+                      class="MuiTypography-root makeStyles-tooltipped-109 MuiTypography-body1 MuiTypography-colorTextSecondary"
                       title="Percentage Points"
                     >
                       pp
@@ -10092,11 +10092,11 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                   </div>
                   <fieldset
                     aria-hidden="true"
-                    class="PrivateNotchedOutline-root-98 MuiOutlinedInput-notchedOutline"
+                    class="PrivateNotchedOutline-root-100 MuiOutlinedInput-notchedOutline"
                     style="padding-left: 8px;"
                   >
                     <legend
-                      class="PrivateNotchedOutline-legend-99"
+                      class="PrivateNotchedOutline-legend-101"
                       style="width: 0.01px;"
                     >
                       <span>
@@ -10144,22 +10144,22 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </table>
     </div>
     <div
-      class="makeStyles-tableContainer-58"
+      class="makeStyles-tableContainer-59"
     >
       <div
-        class="ag-theme-alpine makeStyles-root-62"
+        class="ag-theme-alpine makeStyles-root-63"
       >
         <div
-          class="makeStyles-toolbar-63"
+          class="makeStyles-toolbar-64"
         >
           <div
-            class="makeStyles-rootFullWidth-66"
+            class="makeStyles-rootFullWidth-67"
           >
             <div
-              class="makeStyles-search-67"
+              class="makeStyles-search-68 makeStyles-searchBorder-69"
             >
               <div
-                class="makeStyles-searchIcon-68"
+                class="makeStyles-searchIcon-70"
               >
                 <svg
                   aria-hidden="true"
@@ -10173,11 +10173,11 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                 </svg>
               </div>
               <div
-                class="MuiInputBase-root makeStyles-inputRootFullWidth-69"
+                class="MuiInputBase-root makeStyles-inputRootFullWidth-71"
               >
                 <input
                   aria-label="Search"
-                  class="MuiInputBase-input makeStyles-inputInputFullWidth-70"
+                  class="MuiInputBase-input makeStyles-inputInputFullWidth-72"
                   placeholder="Search…"
                   type="text"
                   value=""
@@ -10201,7 +10201,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
           </div>
         </div>
         <div
-          class="ag-theme-alpine makeStyles-gridContainer-64"
+          class="ag-theme-alpine makeStyles-gridContainer-65"
         >
           <div
             style="height: auto; flex: 1;"
@@ -10387,7 +10387,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                           <div
                             aria-colindex="2"
                             aria-sort="ascending"
-                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-61"
+                            class="ag-header-cell ag-focus-managed ag-header-cell-sortable makeStyles-noLeftPadding-62"
                             col-id="name"
                             role="columnheader"
                             style="width: 465px; left: 34px;"
@@ -10974,7 +10974,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -11012,7 +11012,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="asdf_7d_refund"
                                 >
                                   asdf_7d_refund
@@ -11045,11 +11045,11 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-83 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-85 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -11105,7 +11105,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                               >
                                 <button
                                   aria-label="Toggle Button"
-                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-75 makeStyles-notRotated-77 MuiIconButton-sizeSmall"
+                                  class="MuiButtonBase-root MuiIconButton-root makeStyles-root-77 makeStyles-notRotated-79 MuiIconButton-sizeSmall"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -11143,7 +11143,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-metricName-78"
+                                  class="makeStyles-metricName-80"
                                   title="registration_start"
                                 >
                                   registration_start
@@ -11176,11 +11176,11 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                                 class="ag-react-container"
                               >
                                 <div
-                                  class="makeStyles-root-79"
+                                  class="makeStyles-root-81"
                                 >
                                   <button
                                     aria-label="Assign metric"
-                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-84 MuiButton-contained makeStyles-noWrap-80 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
+                                    class="MuiButtonBase-root MuiButton-root WithStyles(ForwardRef(Button))-root-86 MuiButton-contained makeStyles-noWrap-82 MuiButton-containedPrimary MuiButton-containedSizeSmall MuiButton-sizeSmall MuiButton-disableElevation"
                                     tabindex="0"
                                     type="button"
                                   >
@@ -11567,7 +11567,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-48 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-metricsInfo-49 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -11605,7 +11605,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-49 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-attributionWindowInfo-50 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -11626,13 +11626,13 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="attr-window-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="attr-window-panel"
             role="button"
             tabindex="0"
@@ -11696,7 +11696,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                       is the window of time after exposure to an experiment that we capture metric events for a participant (exposure can be from either assignment or specified exposure events). The refund window is the window of time after a purchase event. Revenue metrics will automatically deduct transactions that have been refunded within the metric’s refund window.
                       <br />
                       <div
-                        class="makeStyles-attributionWindowDiagram-50"
+                        class="makeStyles-attributionWindowDiagram-51"
                       >
                         <svg>
                           attribution_window.svg
@@ -11715,7 +11715,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-51 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-minDiffInfo-52 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -11736,13 +11736,13 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-73 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-75 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="min-diff-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-74"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-76"
             id="min-diff-panel"
             role="button"
             tabindex="0"
@@ -11806,7 +11806,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
                       are absolute differences from the baseline (not relative). For example, if the baseline conversion rate is 5%, a minimum difference of 0.5 pp is equivalent to a 10% relative change.
                       <br />
                       <div
-                        class="makeStyles-minDiffDiagram-52"
+                        class="makeStyles-minDiffDiagram-53"
                       >
                         <svg>
                           min_diffs.svg
@@ -11822,7 +11822,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-53 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-requestMetricInfo-54 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -11852,7 +11852,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </div>
     </div>
     <h4
-      class="MuiTypography-root makeStyles-exposureEventsTitle-54 MuiTypography-h4"
+      class="MuiTypography-root makeStyles-exposureEventsTitle-55 MuiTypography-h4"
     >
       Exposure Events
     </h4>
@@ -11885,11 +11885,11 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </table>
     </div>
     <div
-      class="makeStyles-addMetric-59"
+      class="makeStyles-addMetric-60"
     >
       <svg
         aria-hidden="true"
-        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-60"
+        class="MuiSvgIcon-root makeStyles-addMetricAddSymbol-61"
         focusable="false"
         viewBox="0 0 24 24"
       >
@@ -11914,7 +11914,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </button>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-55 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-exposureEventsInfo-56 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -11948,7 +11948,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
       </div>
     </div>
     <div
-      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-56 MuiPaper-elevation0"
+      class="MuiPaper-root MuiAlert-root MuiAlert-standardInfo makeStyles-multipleExposureEventsInfo-57 MuiPaper-elevation0"
       role="alert"
     >
       <div
@@ -12065,10 +12065,10 @@ exports[`renders as expected 1`] = `
             class="makeStyles-rootFullWidth-29"
           >
             <div
-              class="makeStyles-search-30"
+              class="makeStyles-search-30 makeStyles-searchBorder-31"
             >
               <div
-                class="makeStyles-searchIcon-31"
+                class="makeStyles-searchIcon-32"
               >
                 <svg
                   aria-hidden="true"
@@ -12082,11 +12082,11 @@ exports[`renders as expected 1`] = `
                 </svg>
               </div>
               <div
-                class="MuiInputBase-root makeStyles-inputRootFullWidth-32"
+                class="MuiInputBase-root makeStyles-inputRootFullWidth-33"
               >
                 <input
                   aria-label="Search"
-                  class="MuiInputBase-input makeStyles-inputInputFullWidth-33"
+                  class="MuiInputBase-input makeStyles-inputInputFullWidth-34"
                   placeholder="Search…"
                   type="text"
                   value=""
@@ -13377,13 +13377,13 @@ exports[`renders as expected 1`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-36 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-37 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="attr-window-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-37"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-38"
             id="attr-window-panel"
             role="button"
             tabindex="0"
@@ -13487,13 +13487,13 @@ exports[`renders as expected 1`] = `
         class="MuiAlert-message"
       >
         <div
-          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-36 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+          class="MuiPaper-root MuiAccordion-root MuiAlert-standardInfo makeStyles-accordionRoot-37 MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
         >
           <div
             aria-controls="min-diff-panel-content"
             aria-disabled="false"
             aria-expanded="false"
-            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-37"
+            class="MuiButtonBase-root MuiAccordionSummary-root makeStyles-accordionSummary-38"
             id="min-diff-panel"
             role="button"
             tabindex="0"
