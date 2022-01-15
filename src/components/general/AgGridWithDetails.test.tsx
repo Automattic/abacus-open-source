@@ -1,4 +1,5 @@
 import { act, fireEvent, getByText, render, screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react'
+import { GridOptions } from 'ag-grid-community'
 import React, { ElementRef, useRef } from 'react'
 
 import AgGridWithDetails from './AgGridWithDetails'
@@ -11,16 +12,22 @@ const getRowNodeId = (data: Record<string, unknown>) => {
   return data.test as string
 }
 
-beforeEach(() => {
-  jest.useRealTimers()
-  jest.restoreAllMocks()
-})
+// Query helpers
+const RowLocator = {
+  rows: 'div.ag-row[role="row"]',
+  cell: 'div.ag-react-container ',
+  detail: 'div.ag-full-width-row',
+}
 
-test('renders correctly with various optional props', async () => {
-  const defaultColDef = {
-    width: 100,
-  }
+const DetailButtonLocator = {
+  label: 'Toggle Button',
+}
 
+const getCellByColumnId = (container: Element, colId: string) => {
+  return container.querySelector(`div.ag-cell[col-id='${colId}']`)
+}
+
+const renderGrid = async (additionalProps?: GridOptions) => {
   const columnDefs = [
     {
       headerName: 'Test',
@@ -35,18 +42,62 @@ test('renders correctly with various optional props', async () => {
 
   const { container } = render(
     <AgGridWithDetails
-      defaultColDef={defaultColDef}
       rowData={[{ test: 'test1' }]}
       columnDefs={columnDefs}
       detailRowRenderer={DetailRenderer}
-      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
       getRowNodeId={getRowNodeId}
+      {...additionalProps}
     />,
   )
 
+  await waitFor(() => {
+    checkIfGridLoaded(container)
+  })
+  const row = container.querySelector(RowLocator.cell) as Element
+
+  return { container, row }
+}
+
+const checkIfGridLoaded = (container: Element) => {
   const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
   expect(containerElmt).not.toBeNull()
-  await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
+  const row = container.querySelector(RowLocator.cell) as Element
+  expect(row).not.toBeNull()
+  return row
+}
+
+const waitForDetailRowToRender = async (container: Element) => {
+  return waitFor(() => {
+    const detailContainer = container.querySelector('div.ag-full-width-container') as HTMLElement
+    getByText(detailContainer, /has been rendered./)
+  })
+}
+
+const clickElement = async (element: Element) => {
+  return act(async () => {
+    fireEvent.click(element)
+  })
+}
+
+const mockClientHeight = (element: Element, height: number) => {
+  jest.spyOn(element, 'clientHeight', 'get').mockImplementationOnce(() => height)
+}
+
+beforeEach(() => {
+  jest.useRealTimers()
+  jest.restoreAllMocks()
+})
+
+test('renders correctly with various optional props', async () => {
+  const defaultColDef = {
+    width: 100,
+  }
+
+  const { container } = await renderGrid({
+    defaultColDef,
+    suppressColumnVirtualisation: true,
+    minColWidth: 100,
+  })
 
   expect(container).toMatchSnapshot()
 })
@@ -93,118 +144,50 @@ test('forwardRef and useImperativeHandle functionality works', async () => {
 })
 
 test('renders detail row when clicked', async () => {
-  const columnDefs = [
-    {
-      headerName: 'Test',
-      field: 'test',
-      width: 100,
-      minWidth: 100,
-      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
-        <div>Click Me! {JSON.stringify(data)}</div>
-      ),
-    },
-  ]
+  const { container, row } = await renderGrid({ suppressColumnVirtualisation: true, minColWidth: 100 })
 
-  const { container } = render(
-    <AgGridWithDetails
-      rowData={[{ test: 'test1' }]}
-      columnDefs={columnDefs}
-      detailRowRenderer={DetailRenderer}
-      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
-      getRowNodeId={getRowNodeId}
-    />,
-  )
-
-  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
-  expect(containerElmt).not.toBeNull()
-  await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
-
-  const row = getByText(containerElmt, /Click Me!/)
-  fireEvent.click(row)
+  await clickElement(row)
 
   jest.useFakeTimers()
   jest.advanceTimersByTime(1000)
   jest.runOnlyPendingTimers()
 
-  await waitFor(() => {
-    const detailContainer = container.querySelector('div.ag-full-width-container') as HTMLElement
-    getByText(detailContainer, /has been rendered./)
-  })
+  await waitForDetailRowToRender(container)
 
-  // Mock client height
-  const detailContainerElmt = container.querySelector('div.ag-full-width-container') as HTMLElement
-  const detailRow = detailContainerElmt.querySelector('div.ag-full-width-row') as HTMLElement
-  const elementChild = detailRow.firstElementChild as HTMLDivElement
-  jest.spyOn(elementChild, 'clientHeight', 'get').mockImplementationOnce(() => 300)
+  // Mock detail row's client height
+  const detailRow = container.querySelector(RowLocator.detail) as HTMLElement
+  mockClientHeight(detailRow.firstElementChild as HTMLDivElement, 300)
 
   expect(detailRow.style).toHaveProperty('height', '1px')
 
   jest.advanceTimersByTime(1000)
 
   await waitFor(() => {
-    const detailRow = document.querySelector('div.ag-full-width-row') as HTMLElement
     expect(detailRow.style).toHaveProperty('height', '300px')
   })
 
-  // Sanity check to see if toggle button has rotated
-  const toggleButton = await screen.findByLabelText('Toggle Button')
-  expect(toggleButton.className).toContain('rotated')
+  // Sanity check to see if detail toggle button has rotated
+  const detailButton = await screen.findByLabelText(DetailButtonLocator.label)
+  expect(detailButton.className).toContain('rotated')
 
   // Open one more time to see if height caching works
   jest.useRealTimers()
-  await act(async () => {
-    fireEvent.click(row)
-  })
-  await act(async () => {
-    fireEvent.click(row)
-  })
+  await clickElement(row)
+  await clickElement(row)
+
   await waitFor(() => {
-    const detailRow = document.querySelector('div.ag-full-width-row') as HTMLElement
     expect(detailRow.style).toHaveProperty('height', '300px')
   })
 })
 
 test('closes detail row after opening when clicked', async () => {
-  const columnDefs = [
-    {
-      headerName: 'Test',
-      field: 'test',
-      width: 100,
-      minWidth: 100,
-      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
-        <div>Click Me! {JSON.stringify(data)}</div>
-      ),
-    },
-  ]
+  const { container, row } = await renderGrid({ suppressColumnVirtualisation: true, minColWidth: 100 })
 
-  const { container } = render(
-    <AgGridWithDetails
-      rowData={[{ test: 'test1' }]}
-      columnDefs={columnDefs}
-      detailRowRenderer={DetailRenderer}
-      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
-      getRowNodeId={getRowNodeId}
-    />,
-  )
+  await clickElement(row)
+  await waitForDetailRowToRender(container)
 
-  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
-  expect(containerElmt).not.toBeNull()
-  await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
-
-  const row = getByText(containerElmt, /Click Me!/)
-  await act(async () => {
-    fireEvent.click(row)
-  })
-
-  await waitFor(() => {
-    const detailContainer = container.querySelector('div.ag-full-width-container') as HTMLElement
-    getByText(detailContainer, /has been rendered./)
-  })
-
-  await act(async () => {
-    fireEvent.click(row)
-  })
-  await waitForElementToBeRemoved(() => container.querySelector('div.ag-full-width-row'))
+  await clickElement(row)
+  await waitForElementToBeRemoved(() => container.querySelector(RowLocator.detail))
 })
 
 test('ignores clicks on action columns but allows other actions in cell', async () => {
@@ -218,7 +201,7 @@ test('ignores clicks on action columns but allows other actions in cell', async 
       width: 100,
       minWidth: 100,
       cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
-        <button onClick={mockCallback}>Click Me! {JSON.stringify(data)}</button>
+        <button onClick={mockCallback}>Click this button! {JSON.stringify(data)}</button>
       ),
     },
   ]
@@ -234,75 +217,39 @@ test('ignores clicks on action columns but allows other actions in cell', async 
     />,
   )
 
-  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
-  expect(containerElmt).not.toBeNull()
-  await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
-
-  const button = getByText(containerElmt, /Click Me!/)
-  await act(async () => {
-    fireEvent.click(button)
+  await waitFor(() => {
+    checkIfGridLoaded(container)
   })
+
+  const button = getByText(container, /Click this button!/)
+  await clickElement(button)
 
   await waitFor(() => {
     expect(mockCallback.mock.calls.length).toBe(1)
   })
 
-  const actionCol = container.querySelector(`div.ag-cell[col-id='${ACTION_COLUMN_NAME}']`) as HTMLElement
+  const actionCol = getCellByColumnId(container, ACTION_COLUMN_NAME) as Element
+  await clickElement(actionCol.firstElementChild as Element)
 
-  await waitFor(() => {
-    fireEvent.click(actionCol.firstElementChild as HTMLElement)
-  })
-
-  const detailRow = screen.queryByText(/has been rendered./)
+  const detailRow = container.querySelector(RowLocator.detail)
   await waitFor(() => expect(detailRow).not.toBeInTheDocument())
 })
 
 test('ignores clicks on full width rows', async () => {
-  const columnDefs = [
-    {
-      headerName: 'Testing',
-      field: 'testing',
-      width: 100,
-      minWidth: 100,
-      cellRendererFramework: ({ data }: { data: Record<string, unknown> }) => (
-        <div>Click Me! {JSON.stringify(data)}</div>
-      ),
-    },
-  ]
+  const { container, row } = await renderGrid({ suppressColumnVirtualisation: true, minColWidth: 100 })
 
-  const { container } = render(
-    <AgGridWithDetails
-      rowData={[{ test: 'test3' }]}
-      columnDefs={columnDefs}
-      detailRowRenderer={DetailRenderer}
-      gridOptions={{ suppressColumnVirtualisation: true, minColWidth: 100 }}
-      getRowNodeId={getRowNodeId}
-    />,
-  )
-
-  const containerElmt = container.querySelector('.ag-center-cols-container') as HTMLDivElement
-  expect(containerElmt).not.toBeNull()
-  await waitFor(() => getByText(containerElmt, /Click Me!/), { container })
-
-  const row = getByText(containerElmt, /Click Me!/)
-  await act(async () => {
-    fireEvent.click(row)
-  })
-
-  const detailContainerElmt = container.querySelector('div.ag-full-width-container') as HTMLElement
-  await waitFor(() => getByText(detailContainerElmt, /has been rendered./))
+  await clickElement(row)
+  await waitForDetailRowToRender(container)
 
   jest.useFakeTimers()
   jest.runOnlyPendingTimers()
 
-  const detailRow = detailContainerElmt.querySelector('div.ag-full-width-row') as HTMLElement
-  await act(async () => {
-    fireEvent.click(detailRow)
-  })
+  const detailRow = container.querySelector(RowLocator.detail) as Element
+  await clickElement(detailRow)
 
   jest.advanceTimersByTime(1000)
   jest.runOnlyPendingTimers()
 
-  const rows = container.querySelectorAll('div.ag-row')
+  const rows = container.querySelectorAll(RowLocator.rows)
   expect(rows.length).toBe(4)
 })
