@@ -10,19 +10,7 @@ import {
 import { AgGridColumnProps, AgGridReact, AgGridReactProps } from 'ag-grid-react'
 import React, { forwardRef, ForwardRefRenderFunction, useImperativeHandle, useRef, useState } from 'react'
 
-import {
-  DETAIL_TOGGLE_BUTTON_COLUMN_NAME,
-  DetailButtonRenderer,
-  detailIdFromDataId,
-  ExternalRow,
-  getDetailRowHeight,
-  InternalRow,
-  IS_DETAIL_SYM,
-  IS_OPEN_SYM,
-  isDetailRow,
-  onCellClicked,
-  setHeightOfFullWidthRow,
-} from './AgGridWithDetails.utils'
+import RotatingToggleButton from './RotatingToggleButton'
 
 interface AgGridWithDetailsProps extends AgGridReactProps {
   rowData: ExternalRow[]
@@ -35,6 +23,25 @@ interface AgGridWithDetailsProps extends AgGridReactProps {
 type AgGridWithDetailsHandle = {
   getGridApi: () => GridApi | null
   getGridColumnApi: () => ColumnApi | null
+}
+
+const DetailButtonRenderer = ({ data }: { data: InternalRow }): JSX.Element => {
+  const toggled = !!data[IS_OPEN_SYM]
+  return <RotatingToggleButton isOpen={toggled} />
+}
+
+const DETAIL_TOGGLE_BUTTON_COLUMN_NAME = '__detail-button-col__'
+const DETAIL_ID_SUFFIX = '-detail'
+const detailIdFromDataId = (dataId: string): string => {
+  return `${dataId}${DETAIL_ID_SUFFIX}`
+}
+
+const IS_DETAIL_SYM = Symbol('AgGridWithDetails-isDetail')
+const IS_OPEN_SYM = Symbol('AgGridWithDetails-isOpen')
+type ExternalRow = Record<string, unknown>
+type InternalRow = ExternalRow & {
+  [IS_DETAIL_SYM]: boolean
+  [IS_OPEN_SYM]: boolean
 }
 
 const detailButtonColumnDef = {
@@ -88,7 +95,6 @@ const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGri
   // Maps regular rowId -> whether or not its detail row is open
   const [detailRowToggleMap, setDetailRowToggleMap] = useState<Record<string, boolean>>({})
 
-  // Checks to see if the detail row of rowId is open
   const isDetailRowOpen = (rowId: string) => {
     return !!detailRowToggleMap[rowId]
   }
@@ -101,39 +107,101 @@ const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGri
   }
 
   const toggleDetailRowOpen = (rowId: string) => {
+    // istanbul ignore next; shouldn't occur
     if (!gridApiRef.current) {
       throw new Error('GridApi is null.')
     }
 
     const rowNode = gridApiRef.current.getRowNode(rowId)
+    // istanbul ignore next; shouldn't occur
     if (!rowNode) {
       throw new Error(`Could not find row node with row id: ${rowId}`)
     }
 
+    // Toggle open the detail row
     const toggledValue = !isDetailRowOpen(rowId)
     toggleDetailRowState(rowId)
 
     if (toggledValue) {
-      setHeightOfFullWidthRow(1 + (rowNode.rowIndex as number), rowId, maxRowHeightMapRef.current, gridApiRef.current)
+      setHeightOfFullWidthRow(1 + (rowNode.rowIndex as number), rowId)
     }
 
-    // Toggle the detail button
+    // Toggle/rotate the detail button
     // Retrieve the cell renderer instance of the detail button
     const params = { columns: [DETAIL_TOGGLE_BUTTON_COLUMN_NAME], rowNodes: [rowNode] }
     const cellRendererInstances = gridApiRef.current.getCellRendererInstances(params)
 
-    // istanbul ignore next; precautionary check, shouldn't occur
+    // istanbul ignore next; shouldn't occur
     if (cellRendererInstances.length === 0) {
       throw new Error(`Could not find detail toggle button cellRendererInstance with row id: ${rowId}`)
     }
 
     const cellRendererInstance = cellRendererInstances[0]
 
-    // Note: there appears to be a bug with using gridApiRef.refreshCells() in that it doesn't update the row data params for the cell renderer
+    // Note: there appears to be a bug with using gridApiRef.refreshCells() in that it doesn't update the row data params for the cell renderer.
     // Thus, must manually refresh the button renderer with explicit params
     cellRendererInstance.refresh({
       data: { ...rowNode.data, [IS_OPEN_SYM]: toggledValue } as keyof ICellRendererParams,
     } as ICellRendererParams)
+  }
+
+  // Dynamically adjust the height of a detail row to fit.
+  // Currently, setting autoHeight to true fails if using a fullWidthRow renderer.
+  // Adapted solution from https://github.com/ag-grid/ag-grid/issues/3160#issuecomment-562024900
+  const setHeightOfFullWidthRow = (rowIndex: number, rowId: string) => {
+    // Add a timeout to wait for the grid rows to render
+    setTimeout(() => {
+      // istanbul ignore next; shouldn't occur
+      if (!gridApiRef.current) {
+        throw new Error('Grid API is null.')
+      }
+
+      const fullWidthRows = [...document.getElementsByClassName('ag-full-width-row')]
+
+      const found = fullWidthRows.find((row: Element) => {
+        const rowChild = row.firstElementChild
+        // istanbul ignore next; trivial and shouldn't occur
+        if (!rowChild) {
+          return false
+        }
+
+        const key = 'row-index'
+        // istanbul ignore next; trivial and shouldn't occur
+        if (!(key in row.attributes)) {
+          return false
+        }
+
+        const thisRowIndexAttr = row.attributes[key as keyof typeof row.attributes] as Attr
+        const thisRowIndex = parseInt(thisRowIndexAttr.value)
+        return thisRowIndex === rowIndex
+      })
+
+      // istanbul ignore next; row just might not be loaded yet
+      if (!found || !found.firstElementChild) {
+        return
+      }
+
+      const rowChild = found.firstElementChild
+      const rowHeight = rowChild.clientHeight
+      // istanbul ignore else; difficult to get jest to recognize this branch
+      if (maxRowHeightMapRef.current[detailIdFromDataId(rowId)] !== rowHeight) {
+        maxRowHeightMapRef.current[detailIdFromDataId(rowId)] = rowHeight
+        gridApiRef.current.resetRowHeights()
+        gridApiRef.current.redrawRows()
+      }
+    }, 100)
+  }
+
+  const isDetailRow = (data: InternalRow): boolean => !!data[IS_DETAIL_SYM]
+
+  const getDetailRowHeight = (rowId: string) => {
+    const result = maxRowHeightMapRef.current[rowId]
+    if (typeof result === 'undefined') {
+      // a barely visible height as it renders so we can load the true height
+      return 1
+    } else {
+      return result
+    }
   }
 
   // istanbul ignore next; difficult to test through unit testing, better to test visually
@@ -143,6 +211,23 @@ const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGri
     }
 
     gridApiRef.current.sizeColumnsToFit()
+  }
+
+  const onCellClicked = (event: CellClickedEvent) => {
+    // istanbul ignore next; trivial
+    // TODO: maybe can test this and get rid of the istanbul ignore next?
+    if (isDetailRow(event.data)) {
+      return
+    }
+
+    // Ignore clicks on cells with 'actions'
+    if (actionColumnIdSuffix && event.column.getColId().endsWith(actionColumnIdSuffix)) {
+      return
+    }
+
+    // Toggle the detail row
+    const rowId = event.node.id as string
+    toggleDetailRowOpen(rowId)
   }
 
   const rowDataWithDetails = rowData.reduce<ExternalRow[]>((prevValue, currentValue) => {
@@ -168,13 +253,11 @@ const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGri
       }}
       getRowHeight={(params: { node: { data: InternalRow; id: string } }) => {
         if (isDetailRow(params.node.data)) {
-          return getDetailRowHeight(params.node.id, maxRowHeightMapRef.current)
+          return getDetailRowHeight(params.node.id)
         }
       }}
       isFullWidthCell={(rowNode: RowNode) => isDetailRow(rowNode.data)}
-      onCellClicked={(event: CellClickedEvent) => {
-        onCellClicked(event, toggleDetailRowOpen, actionColumnIdSuffix)
-      }}
+      onCellClicked={onCellClicked}
       onGridReady={onGridReady}
       onGridSizeChanged={onGridSizeChanged}
       immutableData={true}
