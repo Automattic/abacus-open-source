@@ -214,12 +214,6 @@ const AgGridWithDetails: ForwardRefRenderFunction<AgGridWithDetailsHandle, AgGri
   }
 
   const onCellClicked = (event: CellClickedEvent) => {
-    // istanbul ignore next; trivial
-    // TODO: maybe can test this and get rid of the istanbul ignore next?
-    if (isDetailRow(event.data)) {
-      return
-    }
-
     // Ignore clicks on cells with 'actions'
     if (actionColumnIdSuffix && event.column.getColId().endsWith(actionColumnIdSuffix)) {
       return
