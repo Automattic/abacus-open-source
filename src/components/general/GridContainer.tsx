@@ -71,7 +71,7 @@ const GridContainer = ({
   useEffect(() => {
     const gridApi = agGridRef.current?.getGridApi()
 
-    // istanbul ignore next; trivial and shouldn't occur
+    // istanbul ignore next; grid may not be loaded yet
     if (!gridApi) {
       return
     }
