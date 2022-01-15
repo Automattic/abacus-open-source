@@ -1,10 +1,18 @@
-import { CellClickedEvent, GetRowNodeIdFunc, GridApi, ICellRendererParams } from 'ag-grid-community'
+import { CellClickedEvent, GridApi } from 'ag-grid-community'
 import React from 'react'
 
 import RotatingToggleButton from './RotatingToggleButton'
 
 export const DETAIL_TOGGLE_BUTTON_COLUMN_NAME = '__detail-button-col__'
 const DETAIL_ID_SUFFIX = '-detail'
+
+export const IS_DETAIL_SYM = Symbol('AgGridWithDetails-isDetail')
+export const IS_OPEN_SYM = Symbol('AgGridWithDetails-isOpen')
+export type ExternalRow = Record<string, unknown>
+export type InternalRow = ExternalRow & {
+  [IS_DETAIL_SYM]: boolean
+  [IS_OPEN_SYM]: boolean
+}
 
 export const detailIdFromDataId = (dataId: string): string => {
   return `${dataId}${DETAIL_ID_SUFFIX}`
@@ -15,10 +23,9 @@ export const detailIdFromDataId = (dataId: string): string => {
 // Adapted solution from https://github.com/ag-grid/ag-grid/issues/3160#issuecomment-562024900
 export const setHeightOfFullWidthRow = (
   rowIndex: number,
-  data: Record<string, unknown>,
+  rowId: string,
   maxRowHeightMap: Record<string, number>,
   gridApiRef: GridApi | null,
-  getRowNodeId: GetRowNodeIdFunc,
 ): void => {
   // Add a timeout to ensure the grid rows are rendered
   setTimeout(() => {
@@ -42,7 +49,7 @@ export const setHeightOfFullWidthRow = (
       return thisRowIndex === rowIndex
     })
 
-    // istanbul ignore next; trivial and shouldn't occur
+    // istanbul ignore next; row just might not be loaded yet
     if (!found || !found.firstElementChild) {
       return
     }
@@ -50,51 +57,35 @@ export const setHeightOfFullWidthRow = (
     const rowChild = found.firstElementChild
     const rowHeight = rowChild.clientHeight
     // istanbul ignore else; difficult to get jest to recognize this branch
-    if (maxRowHeightMap[detailIdFromDataId(getRowNodeId(data))] !== rowHeight) {
-      maxRowHeightMap[detailIdFromDataId(getRowNodeId(data))] = rowHeight
+    if (maxRowHeightMap[detailIdFromDataId(rowId)] !== rowHeight) {
+      maxRowHeightMap[detailIdFromDataId(rowId)] = rowHeight
       gridApiRef?.resetRowHeights()
       gridApiRef?.redrawRows()
     }
   }, 100)
 }
+export const isDetailRow = (data: InternalRow): boolean => !!data[IS_DETAIL_SYM]
 
-export const isFullWidth = (data: Record<string, unknown> & { isDetail?: boolean }): boolean => data.isDetail === true
-
-export const getRowHeight = (
-  data: Record<string, unknown>,
-  { maxRowHeightMap, getRowNodeId }: { maxRowHeightMap: Record<string, number>; getRowNodeId: GetRowNodeIdFunc },
+export const getDetailRowHeight = (
+  rowId: string,
+  maxRowHeightMap: Record<string, number>,
 ): number | undefined | null => {
-  if (isFullWidth(data)) {
-    const result = maxRowHeightMap[detailIdFromDataId(getRowNodeId(data))]
-    if (typeof result === 'undefined') {
-      // a barely visible height as it renders so we can load the true height
-      return 1
-    } else {
-      return result
-    }
+  const result = maxRowHeightMap[rowId]
+  if (typeof result === 'undefined') {
+    // a barely visible height as it renders so we can load the true height
+    return 1
+  } else {
+    return result
   }
 }
 
 export const onCellClicked = (
   event: CellClickedEvent,
-  {
-    gridApiRef,
-    detailRowToggleMap,
-    setDetailRowToggleMap,
-    maxRowHeightMap,
-    getRowNodeId,
-    actionColumnIdSuffix,
-  }: {
-    gridApiRef: GridApi | null
-    detailRowToggleMap: Record<string, boolean>
-    setDetailRowToggleMap: (map: Record<string, boolean>) => void
-    maxRowHeightMap: Record<string, number>
-    getRowNodeId: GetRowNodeIdFunc
-    actionColumnIdSuffix?: string | undefined
-  },
+  toggleDetailRowOpen: (rowId: string) => void,
+  actionColumnIdSuffix?: string | undefined,
 ): void => {
   // istanbul ignore next; trivial
-  if (!gridApiRef || isFullWidth(event.data)) {
+  if (isDetailRow(event.data)) {
     return
   }
 
@@ -103,65 +94,12 @@ export const onCellClicked = (
     return
   }
 
-  // Retrieve the HTML element of the detail toggle button
-  const target = event.event?.target as HTMLElement
-  const params = { columns: [DETAIL_TOGGLE_BUTTON_COLUMN_NAME], rowNodes: [event.node] }
-  const instances = gridApiRef?.getCellRendererInstances(params)
-
-  // istanbul ignore next; precautionary check, shouldn't occur
-  if (instances.length === 0) {
-    return
-  }
-
-  const instance = instances[0]
-  const instanceGui = instance.getGui()
-  const element = instanceGui.firstElementChild as HTMLElement
-
-  // Toggle the detail row if the detail button was clicked
-  if (target && (target === element || element?.contains(target))) {
-    const rowId = getRowNodeId(event.data)
-    const toggledValue = !detailRowToggleMap[rowId]
-    setDetailRowToggleMap({
-      ...detailRowToggleMap,
-      [rowId]: toggledValue,
-    })
-
-    if (toggledValue) {
-      setHeightOfFullWidthRow(1 + (event.rowIndex as number), event.data, maxRowHeightMap, gridApiRef, getRowNodeId)
-    }
-
-    // Note: there appears to be a bug with using gridApiRef.refreshCells() in that it doesn't update the row data params for the cell renderer
-    // Thus, must manually refresh the button renderer with explicit params
-    instance.refresh({
-      data: { ...event.data, isOpen: toggledValue } as keyof ICellRendererParams,
-    } as ICellRendererParams)
-  }
-  // Trigger the detail button if anything else in the row was clicked
-  else {
-    element.click()
-  }
+  // Toggle the detail row
+  const rowId = event.node.id as string
+  toggleDetailRowOpen(rowId)
 }
 
-export const getRowDataWithDetails = (
-  rowData: Record<string, unknown>[],
-  detailRowToggleMap: Record<string, boolean>,
-  getRowNodeId: GetRowNodeIdFunc,
-): Record<string, unknown>[] => {
-  const newRowData: Record<string, unknown>[] = []
-
-  rowData.forEach((row) => {
-    if (detailRowToggleMap[getRowNodeId(row)]) {
-      newRowData.push({ ...row, isOpen: true })
-      newRowData.push({ ...row, isDetail: true })
-    } else {
-      newRowData.push(row)
-    }
-  })
-
-  return newRowData
-}
-
-export const DetailButtonRenderer = ({ data }: { data: Record<string, unknown> }): JSX.Element => {
-  const toggled = !!data.isOpen
+export const DetailButtonRenderer = ({ data }: { data: InternalRow }): JSX.Element => {
+  const toggled = !!data[IS_OPEN_SYM]
   return <RotatingToggleButton isOpen={toggled} />
 }
