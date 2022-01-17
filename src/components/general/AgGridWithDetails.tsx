@@ -10,7 +10,7 @@ import {
 import { AgGridColumnProps, AgGridReact, AgGridReactProps } from 'ag-grid-react'
 import React, { forwardRef, ForwardRefRenderFunction, useImperativeHandle, useRef, useState } from 'react'
 
-import RotatingToggleButton from './RotatingToggleButton'
+import ChevronToggleButton from './ChevronToggleButton'
 
 interface AgGridWithDetailsProps extends AgGridReactProps {
   rowData: ExternalRow[]
@@ -27,7 +27,7 @@ type AgGridWithDetailsHandle = {
 
 const DetailButtonRenderer = ({ data }: { data: InternalRow }): JSX.Element => {
   const toggled = !!data[IS_OPEN_SYM]
-  return <RotatingToggleButton isOpen={toggled} />
+  return <ChevronToggleButton isOpen={toggled} />
 }
 
 const DETAIL_TOGGLE_BUTTON_COLUMN_NAME = '__detail-button-col__'
