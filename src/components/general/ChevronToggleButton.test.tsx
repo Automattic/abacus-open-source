@@ -3,7 +3,7 @@ import React from 'react'
 
 import { render } from 'src/test-helpers/test-utils'
 
-import RotatingToggleButton from './RotatingToggleButton'
+import ChevronToggleButton from './ChevronToggleButton'
 
 afterEach(() => {
   jest.restoreAllMocks()
@@ -12,7 +12,7 @@ afterEach(() => {
 
 test('calls callback function when clicked', async () => {
   const mockCallback = jest.fn()
-  render(<RotatingToggleButton isOpen={false} onClick={mockCallback} />)
+  render(<ChevronToggleButton isOpen={false} onClick={mockCallback} />)
   const button = await screen.findByLabelText('Toggle Button')
   fireEvent.click(button)
 
@@ -20,12 +20,12 @@ test('calls callback function when clicked', async () => {
 })
 
 test('button rotates depending on isOpen prop', async () => {
-  const { rerender } = render(<RotatingToggleButton isOpen={true} />)
+  const { rerender } = render(<ChevronToggleButton isOpen={true} />)
   let button = await screen.findByLabelText('Toggle Button')
 
   expect(button.className).toContain('rotated')
 
-  rerender(<RotatingToggleButton isOpen={false} />)
+  rerender(<ChevronToggleButton isOpen={false} />)
 
   button = await screen.findByLabelText('Toggle Button')
   expect(button.className).toContain('notRotated')

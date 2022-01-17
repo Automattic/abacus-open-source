@@ -15,10 +15,9 @@ const useStyles = makeStyles({
   },
 })
 
-const RotatingToggleButton = ({
+const ChevronToggleButton = ({
   isOpen,
   className,
-  icon = <ChevronRightRoundedIcon />,
   onClick,
 }: {
   isOpen: boolean
@@ -42,9 +41,9 @@ const RotatingToggleButton = ({
       aria-label={'Toggle Button'}
       onClick={handleClick}
     >
-      {icon}
+      <ChevronRightRoundedIcon />
     </IconButton>
   )
 }
 
-export default RotatingToggleButton
+export default ChevronToggleButton
