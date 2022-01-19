@@ -27,7 +27,8 @@ type AgGridWithDetailsHandle = {
 
 const DetailButtonRenderer = ({ data }: { data: InternalRow }): JSX.Element => {
   const toggled = !!data[IS_OPEN_SYM]
-  return <ChevronToggleButton isOpen={toggled} />
+  // istanbul ignore next; onClick handler is intentionally void
+  return <ChevronToggleButton isOpen={toggled} onClick={() => void 0} />
 }
 
 const DETAIL_TOGGLE_BUTTON_COLUMN_NAME = '__detail-button-col__'
