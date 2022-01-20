@@ -1,22 +1,28 @@
-// istanbul ignore file; demo
 import 'ag-grid-community/dist/styles/ag-grid.css'
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
 import { Button, createStyles, fade, InputBase, Link, makeStyles, Theme, Typography, useTheme } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
-import { ColumnApi, GridApi, GridReadyEvent } from 'ag-grid-community'
+import {
+  ColumnApi,
+  ColumnState,
+  FilterChangedEvent,
+  GridApi,
+  GridReadyEvent,
+  SortChangedEvent,
+} from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import _ from 'lodash'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
+import React, { useEffect, useRef } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
 import DatetimeText from 'src/components/general/DatetimeText'
 import { ExperimentBare, Status } from 'src/lib/schemas'
+import { ColumnFilter, GridActions, GridState } from 'src/utils/ag-grid'
 import { createIdSlug } from 'src/utils/general'
 
 import ExperimentStatus from '../ExperimentStatus'
-import { getParamsObjFromSearchString, getParamsStringFromObj, UrlParams } from './ExperimentsTableAgGrid.utils'
 
 const statusOrder = {
   [Status.Completed]: 0,
@@ -24,6 +30,8 @@ const statusOrder = {
   [Status.Staging]: 2,
   [Status.Disabled]: 3,
 }
+
+// istanbul ignore next; jest doesn't recognize this is covered
 const statusComparator = (statusA: Status, statusB: Status) => {
   return statusOrder[statusA] - statusOrder[statusB]
 }
@@ -90,84 +98,20 @@ const useStyles = makeStyles((theme: Theme) =>
 /**
  * Renders a table of "bare" experiment information.
  */
-const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): JSX.Element => {
+const ExperimentsTable = ({
+  experiments,
+  gridState,
+  actions,
+}: {
+  experiments: ExperimentBare[]
+  gridState: GridState
+  actions: GridActions
+}): JSX.Element => {
   const theme = useTheme()
   const classes = useStyles()
-  const history = useHistory()
-  const location = useLocation()
 
-  const [urlSearchParams, setUrlSearchParams] = useState<UrlParams>(getParamsObjFromSearchString(location.search))
   const gridApiRef = useRef<GridApi | null>(null)
   const gridColumnApiRef = useRef<ColumnApi | null>(null)
-
-  const updateParamsIfNotEqual = useCallback(
-    (newParams: UrlParams) => {
-      if (_.isEqual(newParams, urlSearchParams)) {
-        return
-      }
-
-      setUrlSearchParams(newParams)
-    },
-    [urlSearchParams],
-  )
-
-  const setSearch = useCallback((params: UrlParams) => {
-    // istanbul ignore next; trivial and shouldn't occur
-    if (!gridApiRef.current || !gridColumnApiRef.current) {
-      return
-    }
-
-    gridApiRef.current.setQuickFilter(params.search || '')
-  }, [])
-
-  const updateHistory = useCallback(
-    (params: UrlParams) => {
-      if (_.isEqual(params, getParamsObjFromSearchString(location.search))) {
-        return
-      }
-
-      if (_.isEmpty(params)) {
-        history.push({
-          pathname: '/experiments',
-        })
-      } else {
-        history.push({
-          pathname: '/experiments',
-          search: `?${getParamsStringFromObj(params)}`,
-        })
-      }
-    },
-    [history, location],
-  )
-
-  const setDefaultSortAndFilter = () => {
-    // istanbul ignore next; trivial and shouldn't occur
-    if (!gridApiRef.current || !gridColumnApiRef.current) {
-      return
-    }
-
-    gridApiRef.current.setFilterModel(null)
-    gridColumnApiRef.current.applyColumnState({
-      state: [
-        {
-          colId: 'status',
-          sort: 'asc',
-          sortIndex: 0,
-        },
-        {
-          colId: 'startDatetime',
-          sort: 'desc',
-          sortIndex: 1,
-        },
-      ],
-      defaultState: { sort: null },
-    })
-  }
-
-  const onReset = useCallback(() => {
-    setDefaultSortAndFilter()
-    updateHistory({})
-  }, [updateHistory])
 
   const onGridReady = (event: GridReadyEvent) => {
     gridApiRef.current = event.api
@@ -176,6 +120,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     event.api.sizeColumnsToFit()
   }
 
+  // istanbul ignore next; difficult to test through unit testing, better to test visually
   const onGridResize = () => {
     if (!gridApiRef.current) {
       return
@@ -184,20 +129,14 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
     gridApiRef.current.sizeColumnsToFit()
   }
 
-  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (urlSearchParams.search === event.target.value) {
+  const onReset = () => {
+    // istanbul ignore next; trivial and shouldn't occur
+    if (!gridApiRef.current || !gridColumnApiRef.current) {
       return
     }
 
-    let newParams = {}
-    if (event.target.value === '') {
-      newParams = {}
-    } else {
-      newParams = {
-        search: event.target.value,
-      }
-    }
-    updateHistory(newParams)
+    actions.resetGridState()
+    gridApiRef.current.sizeColumnsToFit()
   }
 
   const onFirstDataRendered = () => {
@@ -206,32 +145,52 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
       return
     }
 
-    if (Object.keys(urlSearchParams).length === 0) {
-      setSearch({})
-    } else {
-      setSearch(getParamsObjFromSearchString(location.search))
-    }
-    setDefaultSortAndFilter()
-    gridColumnApiRef.current.autoSizeAllColumns()
+    // TODO: only update grid states if they're different from prev values?
+    gridApiRef.current.setQuickFilter(gridState.searchText)
+    gridColumnApiRef.current.applyColumnState({
+      state: gridState.columnState,
+      defaultState: { sort: null },
+    })
+    gridApiRef.current.setFilterModel(gridState.filterModel)
   }
 
   useEffect(() => {
-    // istanbul ignore next; trivial and shouldn't occur
-    if (!gridApiRef.current) {
+    if (!gridApiRef.current || !gridColumnApiRef.current) {
       return
     }
 
-    setSearch(urlSearchParams)
-  }, [urlSearchParams, setSearch])
+    // TODO: only update grid states if they're different from prev values?
+    gridApiRef.current.setQuickFilter(gridState.searchText)
+    gridColumnApiRef.current.applyColumnState({
+      state: gridState.columnState,
+      defaultState: { sort: null },
+    })
+    gridApiRef.current.setFilterModel(gridState.filterModel)
+  }, [gridState])
 
-  useEffect(() => {
-    if (location.search === '') {
-      updateParamsIfNotEqual({})
-    } else {
-      const newParams = getParamsObjFromSearchString(location.search)
-      updateParamsIfNotEqual(newParams)
+  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = event.target.value
+    // istanbul ignore else; trivial
+    if (gridState.searchText !== searchValue) {
+      actions.updateGridSearchText(searchValue)
     }
-  }, [location, updateParamsIfNotEqual])
+  }
+
+  const onSortChanged = (event: SortChangedEvent) => {
+    const columnsWithSortState = event.columnApi.getColumnState().filter((value: ColumnState) => value.sort !== null)
+    // istanbul ignore else; trivial
+    if (!_.isEqual(gridState.columnState, columnsWithSortState)) {
+      actions.updateGridSortState(columnsWithSortState)
+    }
+  }
+
+  const onFilterChanged = (event: FilterChangedEvent) => {
+    const filterModel = event.api.getFilterModel() as ColumnFilter
+    // istanbul ignore else; trivial
+    if (!_.isEqual(gridState.filterModel, filterModel)) {
+      actions.updateGridFilterModel(filterModel)
+    }
+  }
 
   return (
     <div className={clsx('ag-theme-alpine', classes.root)}>
@@ -249,7 +208,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'Search' }}
-              value={urlSearchParams.search || ''}
+              value={gridState.searchText}
               onChange={onSearchChange}
             />
           </div>
@@ -284,6 +243,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
               sortable: true,
               filter: true,
               resizable: true,
+              flex: 1,
             },
             {
               headerName: 'Platform',
@@ -294,6 +254,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
               sortable: true,
               filter: true,
               resizable: true,
+              flex: 1,
             },
             {
               headerName: 'Owner',
@@ -304,6 +265,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
               sortable: true,
               filter: true,
               resizable: true,
+              flex: 1,
             },
             {
               headerName: 'Start',
@@ -314,6 +276,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
               sortable: true,
               filter: 'agDateColumnFilter',
               resizable: true,
+              flex: 1,
             },
             {
               headerName: 'End',
@@ -324,6 +287,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
               sortable: true,
               filter: 'agDateColumnFilter',
               resizable: true,
+              flex: 1,
             },
           ]}
           rowData={experiments}
@@ -331,6 +295,8 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
           onFirstDataRendered={onFirstDataRendered}
           onGridReady={onGridReady}
           onGridSizeChanged={onGridResize}
+          onSortChanged={onSortChanged}
+          onFilterChanged={onFilterChanged}
         />
       </div>
     </div>
