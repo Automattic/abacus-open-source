@@ -11,15 +11,23 @@ import ThemeProvider from 'src/styles/ThemeProvider'
 /**
  * A wrapped unit-test react-renderer, useful for adding React Contexts globally.
  */
-export const render: typeof actualRender = <Q extends Queries>(ui: React.ReactElement, options?: RenderOptions<Q>) =>
-  actualRender(
+export const render: typeof actualRender = <Q extends Queries>(ui: React.ReactElement, options?: RenderOptions<Q>) => {
+  const rendered = actualRender(
     (
       <StaticRouter>
         <ThemeProvider>{ui}</ThemeProvider>
       </StaticRouter>
     ) as React.ReactElement,
     options,
-  ) as ReturnType<typeof actualRender>
+  )
+
+  // Use a custom rerender function so that it maintains the same container/ThemeProvider even when rerendered
+  // See https://github.com/testing-library/react-testing-library/issues/218#issuecomment-436730757
+  return {
+    ...rendered,
+    rerender: (ui: React.ReactElement) => render(ui, { container: rendered.container, ...options }),
+  } as ReturnType<typeof actualRender>
+}
 
 /**
  * Create a `matchMedia` function that will match a query based on the specified
