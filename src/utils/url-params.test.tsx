@@ -3,22 +3,27 @@ import { createMemoryHistory } from 'history'
 import React from 'react'
 import { Router } from 'react-router-dom'
 
-import { getParamsObjFromSearchString, getParamsStringFromObj, UrlParams, usePageParams } from './url-params'
+import {
+  searchStringToUrlSearchParams,
+  UrlSearchParams,
+  urlSearchParamsToSearchString,
+  useUrlSearchParams,
+} from './url-params'
 
 describe('utils/url-params.ts module', () => {
-  describe('getParamsObjFromSearchString', () => {
+  describe('searchStringToUrlSearchParams', () => {
     it('should be an empty object when given an empty string', () => {
-      expect(getParamsObjFromSearchString('')).toMatchObject({})
+      expect(searchStringToUrlSearchParams('')).toMatchObject({})
     })
 
     it('should be an empty object when given invalid search params', () => {
-      expect(getParamsObjFromSearchString('?')).toMatchObject({})
-      expect(getParamsObjFromSearchString('?test')).toMatchObject({})
-      expect(getParamsObjFromSearchString('test=123')).toMatchObject({})
+      expect(searchStringToUrlSearchParams('?')).toMatchObject({})
+      expect(searchStringToUrlSearchParams('?test')).toMatchObject({})
+      expect(searchStringToUrlSearchParams('test=123')).toMatchObject({})
     })
 
     it('should return object with properties that matches search params', () => {
-      expect(getParamsObjFromSearchString('?test=hello&test2=123')).toMatchObject({
+      expect(searchStringToUrlSearchParams('?test=hello&test2=123')).toMatchObject({
         test: 'hello',
         test2: '123',
       })
@@ -26,7 +31,7 @@ describe('utils/url-params.ts module', () => {
 
     it('should correctly decode URL encoded strings', () => {
       expect(
-        getParamsObjFromSearchString(
+        searchStringToUrlSearchParams(
           '?test=+%3A%3C%3E%28%29%7B%7D%21%40%23%24%25%5E%26*%2C.%2F%5C%5B%5D%3D-%2B_%60%7E',
         ),
       ).toMatchObject({
@@ -35,14 +40,14 @@ describe('utils/url-params.ts module', () => {
     })
   })
 
-  describe('getParamsStringFromObj', () => {
+  describe('urlSearchParamsToSearchString', () => {
     it('should return empty string when given empty object', () => {
-      expect(getParamsStringFromObj({})).toBe('')
+      expect(urlSearchParamsToSearchString({})).toBe('')
     })
 
     it('should return correct string when given an object with properties', () => {
       expect(
-        getParamsStringFromObj({
+        urlSearchParamsToSearchString({
           test: 'hello',
           test2: '123',
         }),
@@ -51,21 +56,21 @@ describe('utils/url-params.ts module', () => {
 
     it('should correctly URL encode properties with special characters', () => {
       expect(
-        getParamsStringFromObj({
+        urlSearchParamsToSearchString({
           test: ' :<>(){}!@#$%^&*,./\\[]=-+_`~',
         }),
       ).toBe('test=+%3A%3C%3E%28%29%7B%7D%21%40%23%24%25%5E%26*%2C.%2F%5C%5B%5D%3D-%2B_%60%7E')
     })
   })
 
-  describe('usePageParams', () => {
-    const TestPageParams = ({ initialParams }: { initialParams?: UrlParams }) => {
-      usePageParams(initialParams)
+  describe('useUrlSearchParams', () => {
+    const TestPageParams = ({ defaultParams }: { defaultParams?: UrlSearchParams }) => {
+      useUrlSearchParams(defaultParams)
 
       return <div></div>
     }
 
-    it('usePageParams works as intended without initialParams', () => {
+    it('useUrlSearchParams works as intended without defaultParams', () => {
       const history = createMemoryHistory()
       render(
         <Router history={history}>
@@ -77,11 +82,11 @@ describe('utils/url-params.ts module', () => {
       expect(history.location.search).toBe('?')
     })
 
-    it('usePageParams works as intended given initialParams', () => {
+    it('useUrlSearchParams works as intended given defaultParams', () => {
       const history = createMemoryHistory()
       render(
         <Router history={history}>
-          <TestPageParams initialParams={{ test: 'a8c' }} />
+          <TestPageParams defaultParams={{ test: 'a8c' }} />
         </Router>,
       )
 

@@ -1,10 +1,7 @@
-import { render } from '@testing-library/react'
-import React, { useEffect, useRef } from 'react'
+import { GridState, gridStateToUrlSearchParams, urlSearchParamsToGridState } from './ag-grid'
+import { UrlSearchParams } from './url-params'
 
-import { getGridStateFromUrlParams, getUrlParamsFromGridState, GridState, useGridState } from './ag-grid'
-import { UrlParams } from './url-params'
-
-// corresponding gridStates and UrlParams
+// corresponding gridStates and UrlSearchParams
 const statesAndParams = [
   {
     gridState: {
@@ -30,7 +27,7 @@ const statesAndParams = [
       nameSi: '0',
       ownerF: 'isaac',
       ownerT: 'contains',
-    } as UrlParams,
+    } as UrlSearchParams,
   },
   {
     gridState: {
@@ -49,7 +46,7 @@ const statesAndParams = [
       startDf: '2022-01-01',
       startDt: '2022-02-22',
       startT: 'inRange',
-    } as UrlParams,
+    } as UrlSearchParams,
   },
   {
     gridState: {
@@ -78,7 +75,7 @@ const statesAndParams = [
       ownerC1t: 'contains',
       ownerC2f: 'aaron',
       ownerC2t: 'equals',
-    } as UrlParams,
+    } as UrlSearchParams,
   },
   {
     gridState: {
@@ -111,36 +108,36 @@ const statesAndParams = [
       startC2df: '2022-03-31',
       startC2dt: '2022-04-14',
       startC2t: 'equals',
-    } as UrlParams,
+    } as UrlSearchParams,
   },
 ]
 
 describe('utils/ag-grid.ts module', () => {
-  describe('getGridStateFromUrlParams', () => {
-    it('returns an empty GridState given an empty UrlParams object', () => {
-      expect(getGridStateFromUrlParams({})).toMatchObject({
+  describe('urlSearchParamsToGridState', () => {
+    it('returns an empty GridState given an empty UrlSearchParams object', () => {
+      expect(urlSearchParamsToGridState({})).toMatchObject({
         searchText: '',
         columnState: [],
         filterModel: {},
       })
     })
 
-    it('returns the correct GridState given UrlParams object with search, sort, and filter params', () => {
+    it('returns the correct GridState given UrlSearchParams object with search, sort, and filter params', () => {
       statesAndParams.forEach(({ gridState, urlParams }) => {
-        expect(getGridStateFromUrlParams(urlParams)).toMatchObject(gridState)
+        expect(urlSearchParamsToGridState(urlParams)).toMatchObject(gridState)
       })
     })
 
-    it('returns an empty GridState given incomplete UrlParams object', () => {
-      expect(getGridStateFromUrlParams({ nameT: 'contains' })).toMatchObject({
+    it('returns an empty GridState given incomplete UrlSearchParams object', () => {
+      expect(urlSearchParamsToGridState({ nameT: 'contains' })).toMatchObject({
         searchText: '',
         columnState: [],
         filterModel: {},
       })
     })
 
-    it('returns an empty GridState given incorrect UrlParams object', () => {
-      expect(getGridStateFromUrlParams({ wrong: 'test' })).toMatchObject({
+    it('returns an empty GridState given incorrect UrlSearchParams object', () => {
+      expect(urlSearchParamsToGridState({ wrong: 'test' })).toMatchObject({
         searchText: '',
         columnState: [],
         filterModel: {},
@@ -148,10 +145,10 @@ describe('utils/ag-grid.ts module', () => {
     })
   })
 
-  describe('getUrlParamsFromGridState', () => {
-    it('empty gridState should result in empty URL params object', () => {
+  describe('gridStateToUrlSearchParams', () => {
+    it('empty gridState should result in empty UrlSearchParams object', () => {
       expect(
-        getUrlParamsFromGridState({
+        gridStateToUrlSearchParams({
           searchText: '',
           columnState: [],
           filterModel: {},
@@ -159,131 +156,10 @@ describe('utils/ag-grid.ts module', () => {
       ).toMatchObject({})
     })
 
-    it('gridState should result in corresponding URL params object', () => {
+    it('gridState should result in corresponding UrlSearchParams object', () => {
       statesAndParams.forEach(({ gridState, urlParams }) => {
-        expect(getUrlParamsFromGridState(gridState)).toMatchObject(urlParams)
+        expect(gridStateToUrlSearchParams(gridState)).toMatchObject(urlParams)
       })
-    })
-  })
-
-  describe('useGridState', () => {
-    const TestEmptyInitialGridState = () => {
-      const { gridState } = useGridState()
-
-      expect(gridState).toMatchObject({
-        searchText: '',
-        columnState: [],
-        filterModel: {},
-      })
-
-      return <div></div>
-    }
-
-    const TestInitialGridState = () => {
-      const initialState = {
-        searchText: 'explat_test',
-        columnState: [
-          {
-            colId: 'name',
-            sort: 'asc',
-            sortIndex: 0,
-          },
-        ],
-        filterModel: {
-          owner: {
-            filterType: 'text',
-            filter: 'isaac',
-            type: 'contains',
-          },
-        },
-      } as GridState
-      const { gridState } = useGridState(initialState)
-
-      useEffect(() => {
-        expect(gridState).toMatchObject(initialState)
-      })
-
-      return <div></div>
-    }
-
-    const TestUpdateGridState = () => {
-      const { gridState, updateGridState } = useGridState()
-
-      const newState = {
-        searchText: 'test2',
-        columnState: [
-          {
-            colId: 'name',
-            sort: 'desc',
-            sortIndex: 0,
-          },
-        ],
-        filterModel: {
-          owner: {
-            filterType: 'text',
-            filter: 'blah',
-            type: 'contains',
-          },
-        },
-      } as GridState
-
-      useEffect(() => {
-        updateGridState(newState, (state: GridState) => {
-          expect(state).toMatchObject(newState)
-        })
-
-        updateGridState({}, (state: GridState) => {
-          expect(state).toMatchObject(gridState)
-        })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [])
-
-      return <div></div>
-    }
-
-    const TestUpdateGridStateNoCallback = () => {
-      const { gridState, updateGridState } = useGridState()
-      const count = useRef<number>(0)
-      count.current++
-
-      const newState = {
-        searchText: 'test2',
-        columnState: [
-          {
-            colId: 'name',
-            sort: 'desc',
-            sortIndex: 0,
-          },
-        ],
-        filterModel: {
-          owner: {
-            filterType: 'text',
-            filter: 'blah',
-            type: 'contains',
-          },
-        },
-      } as GridState
-
-      useEffect(() => {
-        updateGridState(newState)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [])
-
-      useEffect(() => {
-        if (count.current === 2) {
-          expect(gridState).toMatchObject(newState)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [gridState])
-
-      return <div></div>
-    }
-
-    it('useGridState works as expected', () => {
-      render(<TestEmptyInitialGridState />)
-      render(<TestInitialGridState />)
-      render(<TestUpdateGridState />)
-      render(<TestUpdateGridStateNoCallback />)
     })
   })
 })
