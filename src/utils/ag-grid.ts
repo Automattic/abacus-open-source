@@ -148,6 +148,7 @@ export const getUrlParamsFromGridState = (gridState: GridState): UrlParams => {
 // TODO: add comment explaining this algorithm
 const getPrefix = (endings: string[], str: string) => {
   const match = endings.find((ending) => str.endsWith(ending))
+  // istanbul ignore next; shouldn't be possible in current cases since keys are always filtered first
   if (!match) {
     throw new Error(`String ${str} does not end with any of the endings in: ${JSON.stringify(endings)}`)
   }
@@ -162,10 +163,12 @@ const getSearchTextFromUrlParams = (params: UrlParams): string => {
 const getSortStateFromUrlParams = (params: UrlParams): ColumnState[] => {
   const endings = ['S', 'Si']
 
-  const state = Object.keys(params)
+  const colIds = Object.keys(params)
     .filter((key) => endings.some((ending) => key.endsWith(ending)))
-    .map((sortKey) => {
-      const colId = getPrefix(endings, sortKey)
+    .map((sortKey) => getPrefix(endings, sortKey))
+  const uniqueColIds = [...new Set(colIds)]
+  const state = uniqueColIds
+    .map((colId) => {
       return [
         {
           colId: colId,
@@ -184,16 +187,17 @@ const getSortStateFromUrlParams = (params: UrlParams): ColumnState[] => {
 const getFilterStateFromUrlParams = (params: UrlParams): ColumnFilter => {
   const endings = ['Df', 'Dt', 'F', 'T', 'Op', 'C1df', 'C2df', 'C1dt', 'C2dt', 'C1f', 'C2f', 'C1t', 'C2t']
 
-  const state = Object.keys(params)
+  const colIds = Object.keys(params)
     .filter((key) => endings.some((ending) => key.endsWith(ending)))
-    .map((filterKey) => {
-      const colId = getPrefix(endings, filterKey)
-
+    .map((filterKey) => getPrefix(endings, filterKey))
+  const uniqueColIds = [...new Set(colIds)]
+  const state = uniqueColIds
+    .map((colId) => {
       let filterType = ''
       let singleFilter = {}
       let condition1 = {}
       let condition2 = {}
-      if (colId.endsWith('Datetime')) {
+      if (`${colId}Df` in params || `${colId}C1df` in params) {
         filterType = 'date'
         singleFilter = { dateFrom: params[`${colId}Df`], dateTo: params[`${colId}Dt`] }
         condition1 = { dateFrom: params[`${colId}C1df`], dateTo: params[`${colId}C1dt`] }
@@ -264,11 +268,16 @@ export const getGridStateFromUrlParams = (params: UrlParams): GridState => {
  *
  * @param initialGridState TODO comments
  */
-export const useGridState = (initialGridState: GridState): UseGridStateProps => {
-  const searchTextRef = useRef<string>(initialGridState.searchText)
-  const columnStateRef = useRef<ColumnState[]>(initialGridState.columnState)
-  const filterModelRef = useRef<ColumnFilter>(initialGridState.filterModel)
-  const [gridState, setGridState] = useState<GridState>(initialGridState)
+export const useGridState = (initialGridState?: GridState): UseGridStateProps => {
+  const initialState = initialGridState || {
+    searchText: '',
+    columnState: [],
+    filterModel: {},
+  }
+  const searchTextRef = useRef<string>(initialState.searchText || '')
+  const columnStateRef = useRef<ColumnState[]>(initialState.columnState)
+  const filterModelRef = useRef<ColumnFilter>(initialState.filterModel)
+  const [gridState, setGridState] = useState<GridState>(initialState)
 
   const updateGridState = useCallback(
     (gridState: OptionalGridState, callbackIfChanged?: (newState: GridState) => void): void => {
