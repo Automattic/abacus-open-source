@@ -14,7 +14,7 @@ import {
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
 import _ from 'lodash'
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
 import DatetimeText from 'src/components/general/DatetimeText'
@@ -139,40 +139,40 @@ const ExperimentsTable = ({
     gridApiRef.current.sizeColumnsToFit()
   }
 
+  const applyGridState = useCallback(
+    (gridApi: GridApi, columnApi: ColumnApi) => {
+      gridApi.setQuickFilter(gridState.searchText)
+      columnApi.applyColumnState({
+        state: gridState.columnState,
+        defaultState: { sort: null },
+      })
+      gridApi.setFilterModel(gridState.filterModel)
+    },
+    [gridState],
+  )
+
   const onFirstDataRendered = () => {
     // istanbul ignore next; trivial and shouldn't occur
     if (!gridApiRef.current || !gridColumnApiRef.current) {
       return
     }
-
-    // TODO: only update grid states if they're different from prev values?
-    gridApiRef.current.setQuickFilter(gridState.searchText)
-    gridColumnApiRef.current.applyColumnState({
-      state: gridState.columnState,
-      defaultState: { sort: null },
-    })
-    gridApiRef.current.setFilterModel(gridState.filterModel)
+    applyGridState(gridApiRef.current, gridColumnApiRef.current)
   }
 
   useEffect(() => {
     if (!gridApiRef.current || !gridColumnApiRef.current) {
       return
     }
-
-    // TODO: only update grid states if they're different from prev values?
-    gridApiRef.current.setQuickFilter(gridState.searchText)
-    gridColumnApiRef.current.applyColumnState({
-      state: gridState.columnState,
-      defaultState: { sort: null },
-    })
-    gridApiRef.current.setFilterModel(gridState.filterModel)
-  }, [gridState])
+    applyGridState(gridApiRef.current, gridColumnApiRef.current)
+  }, [applyGridState, gridState])
 
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const searchValue = event.target.value
     // istanbul ignore else; trivial
     if (gridState.searchText !== searchValue) {
-      actions.updateGridSearchText(searchValue)
+      actions.onGridStateChange({
+        searchText: searchValue,
+      })
     }
   }
 
@@ -180,7 +180,9 @@ const ExperimentsTable = ({
     const columnsWithSortState = event.columnApi.getColumnState().filter((value: ColumnState) => value.sort !== null)
     // istanbul ignore else; trivial
     if (!_.isEqual(gridState.columnState, columnsWithSortState)) {
-      actions.updateGridSortState(columnsWithSortState)
+      actions.onGridStateChange({
+        columnState: columnsWithSortState,
+      })
     }
   }
 
@@ -188,7 +190,9 @@ const ExperimentsTable = ({
     const filterModel = event.api.getFilterModel() as ColumnFilter
     // istanbul ignore else; trivial
     if (!_.isEqual(gridState.filterModel, filterModel)) {
-      actions.updateGridFilterModel(filterModel)
+      actions.onGridStateChange({
+        filterModel,
+      })
     }
   }
 

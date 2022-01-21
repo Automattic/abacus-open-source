@@ -1,8 +1,7 @@
 import { ColumnState } from 'ag-grid-community'
 import _ from 'lodash'
-import { useCallback, useRef, useState } from 'react'
 
-import { UrlParams } from './url-params'
+import { UrlSearchParams } from './url-params'
 
 type FilterType = 'text' | 'date'
 type FilterOption =
@@ -42,30 +41,15 @@ export interface GridState {
   filterModel: ColumnFilter
 }
 
-interface OptionalGridState {
-  searchText?: string
-  columnState?: ColumnState[]
-  filterModel?: ColumnFilter
-}
-
-interface UseGridStateProps {
-  gridState: GridState
-  updateGridState: (gridState: OptionalGridState, callbackIfChanged?: (newState: GridState) => void) => void
-}
-
-export type UpdateGridSearchTextFunction = (searchText: string) => void
-export type UpdateGridSortStateFunction = (sortState: ColumnState[]) => void
-export type UpdateGridFilterModelFunction = (filterModel: ColumnFilter) => void
+export type OnGridStateChangeFunction = (gridState: Partial<GridState>) => void
 export type ResetGridStateFunction = () => void
 
 export interface GridActions {
-  updateGridSearchText: UpdateGridSearchTextFunction
-  updateGridSortState: UpdateGridSortStateFunction
-  updateGridFilterModel: UpdateGridFilterModelFunction
+  onGridStateChange: OnGridStateChangeFunction
   resetGridState: ResetGridStateFunction
 }
 
-const getSortParamsFromGridState = (gridState: GridState): UrlParams => {
+const gridStateToSortParams = (gridState: GridState): UrlSearchParams => {
   return gridState.columnState
     .filter((value: ColumnState) => value.sort !== null)
     .map((value: ColumnState) => {
@@ -77,17 +61,17 @@ const getSortParamsFromGridState = (gridState: GridState): UrlParams => {
       return {
         [`${value.colId}S`]: value.sort,
         [`${value.colId}Si`]: String(value.sortIndex),
-      } as UrlParams
+      } as UrlSearchParams
     })
-    .reduce((prevValue: UrlParams, currentValue: UrlParams) => {
+    .reduce((prevValue, currentValue) => {
       return {
         ...prevValue,
         ...currentValue,
-      } as UrlParams
+      } as UrlSearchParams
     }, {})
 }
 
-const getFilterParamsFromGridState = (gridState: GridState): UrlParams => {
+const gridStateToFilterParams = (gridState: GridState): UrlSearchParams => {
   return Object.entries(gridState.filterModel)
     .map(([colId, filter]) => {
       if ('operator' in filter) {
@@ -100,7 +84,7 @@ const getFilterParamsFromGridState = (gridState: GridState): UrlParams => {
             [`${colId}C2df`]: filter.condition2.dateFrom,
             [`${colId}C2dt`]: filter.condition2.dateTo,
             [`${colId}C2t`]: filter.condition2.type,
-          } as UrlParams
+          } as UrlSearchParams
         } else {
           return {
             [`${colId}Op`]: filter.operator,
@@ -108,7 +92,7 @@ const getFilterParamsFromGridState = (gridState: GridState): UrlParams => {
             [`${colId}C1t`]: filter.condition1.type,
             [`${colId}C2f`]: filter.condition2.filter,
             [`${colId}C2t`]: filter.condition2.type,
-          } as UrlParams
+          } as UrlSearchParams
         }
       } else {
         if ('dateFrom' in filter) {
@@ -116,12 +100,12 @@ const getFilterParamsFromGridState = (gridState: GridState): UrlParams => {
             [`${colId}Df`]: filter.dateFrom,
             [`${colId}Dt`]: filter.dateTo,
             [`${colId}T`]: filter.type,
-          } as UrlParams
+          } as UrlSearchParams
         } else {
           return {
             [`${colId}F`]: filter.filter,
             [`${colId}T`]: filter.type,
-          } as UrlParams
+          } as UrlSearchParams
         }
       }
     })
@@ -129,43 +113,47 @@ const getFilterParamsFromGridState = (gridState: GridState): UrlParams => {
       return {
         ...prevValue,
         ...currentValue,
-      } as UrlParams
+      } as UrlSearchParams
     }, {})
 }
 
 /**
- * TODO comments
- * @param gridState
+ * Converts a GridState object to the corresponding UrlSearchParams object.
+ *
+ * @param gridState the GridState to convert
  */
-export const getUrlParamsFromGridState = (gridState: GridState): UrlParams => {
-  return {
+export const gridStateToUrlSearchParams = (gridState: GridState): UrlSearchParams => {
+  const urlParams = {
     ...(gridState.searchText.length > 0 ? { search: gridState.searchText } : {}),
-    ...getSortParamsFromGridState(gridState),
-    ...getFilterParamsFromGridState(gridState),
+    ...gridStateToSortParams(gridState),
+    ...gridStateToFilterParams(gridState),
   }
+
+  return _.isEmpty(urlParams) ? { null: 'true' } : urlParams
 }
 
-// TODO: add comment explaining this algorithm
-const getPrefix = (endings: string[], str: string) => {
+// Takes an array of potential endings and finds the first ending that is an actual suffix of str.
+// Then it returns the substring of str that does not contain that ending.
+const prefixFromEndings = (endings: string[], str: string) => {
   const match = endings.find((ending) => str.endsWith(ending))
   // istanbul ignore next; shouldn't be possible in current cases since keys are always filtered first
   if (!match) {
     throw new Error(`String ${str} does not end with any of the endings in: ${JSON.stringify(endings)}`)
   }
-  // Slice string from [start, ending substring begins)
+  // Slice string from [start, ending substring)
   return str.slice(0, -match.length)
 }
 
-const getSearchTextFromUrlParams = (params: UrlParams): string => {
+const urlSearchParamsToSearchText = (params: UrlSearchParams): string => {
   return params.search || ''
 }
 
-const getSortStateFromUrlParams = (params: UrlParams): ColumnState[] => {
+const urlSearchParamsToSortState = (params: UrlSearchParams): ColumnState[] => {
   const endings = ['S', 'Si']
 
   const colIds = Object.keys(params)
     .filter((key) => endings.some((ending) => key.endsWith(ending)))
-    .map((sortKey) => getPrefix(endings, sortKey))
+    .map((sortKey) => prefixFromEndings(endings, sortKey))
   const uniqueColIds = [...new Set(colIds)]
   const state = uniqueColIds
     .map((colId) => {
@@ -184,12 +172,12 @@ const getSortStateFromUrlParams = (params: UrlParams): ColumnState[] => {
   return state
 }
 
-const getFilterStateFromUrlParams = (params: UrlParams): ColumnFilter => {
+const urlSearchParamsToFilterState = (params: UrlSearchParams): ColumnFilter => {
   const endings = ['Df', 'Dt', 'F', 'T', 'Op', 'C1df', 'C2df', 'C1dt', 'C2dt', 'C1f', 'C2f', 'C1t', 'C2t']
 
   const colIds = Object.keys(params)
     .filter((key) => endings.some((ending) => key.endsWith(ending)))
-    .map((filterKey) => getPrefix(endings, filterKey))
+    .map((filterKey) => prefixFromEndings(endings, filterKey))
   const uniqueColIds = [...new Set(colIds)]
   const state = uniqueColIds
     .map((colId) => {
@@ -251,74 +239,14 @@ const getFilterStateFromUrlParams = (params: UrlParams): ColumnFilter => {
 }
 
 /**
- * TODO comments
+ * Converts a UrlSearchParams object into the corresponding Grid State.
  *
- * @param params TODO
+ * @param params the UrlSearchParams object to convert
  */
-export const getGridStateFromUrlParams = (params: UrlParams): GridState => {
+export const urlSearchParamsToGridState = (params: UrlSearchParams): GridState => {
   return {
-    searchText: getSearchTextFromUrlParams(params),
-    columnState: getSortStateFromUrlParams(params),
-    filterModel: getFilterStateFromUrlParams(params),
-  }
-}
-
-/**
- * TODO comments
- *
- * @param initialGridState TODO comments
- */
-export const useGridState = (initialGridState?: GridState): UseGridStateProps => {
-  const initialState = initialGridState || {
-    searchText: '',
-    columnState: [],
-    filterModel: {},
-  }
-  const searchTextRef = useRef<string>(initialState.searchText || '')
-  const columnStateRef = useRef<ColumnState[]>(initialState.columnState)
-  const filterModelRef = useRef<ColumnFilter>(initialState.filterModel)
-  const [gridState, setGridState] = useState<GridState>(initialState)
-
-  const updateGridState = useCallback(
-    (gridState: OptionalGridState, callbackIfChanged?: (newState: GridState) => void): void => {
-      // TODO: refactor this ==> probably a cleaner/easier way to do this part??
-      let changed = false
-
-      if (typeof gridState.searchText !== 'undefined' && gridState.searchText !== searchTextRef.current) {
-        changed = true
-        searchTextRef.current = gridState.searchText
-      }
-
-      if (typeof gridState.columnState !== 'undefined' && gridState.columnState !== columnStateRef.current) {
-        changed = true
-        columnStateRef.current = gridState.columnState
-      }
-
-      if (typeof gridState.filterModel !== 'undefined' && gridState.filterModel !== filterModelRef.current) {
-        changed = true
-        filterModelRef.current = gridState.filterModel
-      }
-
-      const newState = {
-        searchText: searchTextRef.current,
-        columnState: columnStateRef.current,
-        filterModel: filterModelRef.current,
-      }
-
-      if (changed) {
-        setGridState(newState)
-
-        if (!callbackIfChanged) {
-          return
-        }
-        callbackIfChanged(newState)
-      }
-    },
-    [],
-  )
-
-  return {
-    gridState,
-    updateGridState,
+    searchText: urlSearchParamsToSearchText(params),
+    columnState: urlSearchParamsToSortState(params),
+    filterModel: urlSearchParamsToFilterState(params),
   }
 }

@@ -1,77 +1,71 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 
-export interface UrlParams {
+export interface UrlSearchParams {
   [key: string]: string
 }
 
-interface UsePageParamsProps {
-  pageParams: UrlParams
-  setPageParams: (params: UrlParams) => void
-  replacePageParams: (newParams: UrlParams) => void
+interface UseUrlSearchParamsResult {
+  urlSearchParams: UrlSearchParams
+  pushUrlSearchParams: (newParams: UrlSearchParams) => void
 }
 
 /**
- * TODO comments
+ * Convert a UrlSearchParams object to a url params search string. Excludes the beginning '?' character.
  *
- * @param paramsObj TODO
+ * @param searchParams the UrlSearchParams object to convert to a search params string
  */
-export const getParamsStringFromObj = (paramsObj: UrlParams): string => {
+export const urlSearchParamsToSearchString = (searchParams: UrlSearchParams): string => {
   // istanbul ignore next; extra precaution, shouldn't occur
-  if (paramsObj.search?.length === 0) {
-    delete paramsObj.search
+  if (searchParams.search?.length === 0) {
+    delete searchParams.search
   }
 
-  const noNullVals = Object.entries(paramsObj).filter(([_key, value]) => value !== null && value !== undefined)
-  const filteredParams = Object.fromEntries(noNullVals)
+  const noNullValues = Object.entries(searchParams).filter(([_key, value]) => value !== null && value !== undefined)
+  const filteredParams = Object.fromEntries(noNullValues)
   return new URLSearchParams(filteredParams).toString()
 }
 
 /**
- * TODO comments
+ * Convert a url params search string to a UrlSearchParams object.
  *
- * @param search TODO
+ * @param search the url search params string to convert
  */
-export const getParamsObjFromSearchString = (search: string): UrlParams => {
-  return Object.fromEntries(new URLSearchParams(search).entries()) as UrlParams
+export const searchStringToUrlSearchParams = (search: string): UrlSearchParams => {
+  return Object.fromEntries(new URLSearchParams(search).entries()) as UrlSearchParams
 }
 
 /**
- * TODO comments
+ * Provides access to the current page's URL search params.
  *
- * @param initialParams TODO
+ * @param defaultParams optional initial search params
  */
-export const usePageParams = (initialParams?: UrlParams): UsePageParamsProps => {
+export const useUrlSearchParams = (defaultParams?: UrlSearchParams): UseUrlSearchParamsResult => {
   const history = useHistory()
   const location = useLocation()
 
-  const params = initialParams || getParamsObjFromSearchString(location.search)
-  const [pageParams, setPageParams] = useState<UrlParams>(params)
+  const params = defaultParams || searchStringToUrlSearchParams(location.search)
 
   useEffect(() => {
-    replacePageParams(params)
-    // TODO: comment why you only need to do this once
+    pushUrlSearchParams(params)
+    // Only needed on initialization so don't need other dependencies
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    setPageParams(getParamsObjFromSearchString(location.search))
-  }, [location])
-
-  const replacePageParams = useCallback(
-    (newParams: UrlParams) => {
-      setPageParams(newParams)
+  const pushUrlSearchParams = useCallback(
+    (newParams: UrlSearchParams) => {
       history.push({
         pathname: location.pathname,
-        search: `?${getParamsStringFromObj(newParams)}`,
+        search: `?${urlSearchParamsToSearchString(newParams)}`,
       })
     },
     [history, location.pathname],
   )
 
+  const urlSearchParams = searchStringToUrlSearchParams(location.search)
+
   return {
-    pageParams,
-    setPageParams,
-    replacePageParams,
+    urlSearchParams,
+    pushUrlSearchParams,
   }
 }

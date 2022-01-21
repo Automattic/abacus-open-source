@@ -1,26 +1,18 @@
 import { LinearProgress } from '@material-ui/core'
-import { ColumnState } from 'ag-grid-community'
 import debugFactory from 'debug'
 import _ from 'lodash'
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
 
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import ExperimentsTableAgGrid from 'src/components/experiments/multi-view/ExperimentsTableAgGrid'
 import Layout from 'src/components/page-parts/Layout'
-import {
-  ColumnFilter,
-  getGridStateFromUrlParams,
-  getUrlParamsFromGridState,
-  GridState,
-  useGridState,
-} from 'src/utils/ag-grid'
+import { GridState, gridStateToUrlSearchParams, urlSearchParamsToGridState } from 'src/utils/ag-grid'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
-import { usePageParams } from 'src/utils/url-params'
+import { useUrlSearchParams } from 'src/utils/url-params'
 
 const debug = debugFactory('abacus:pages/experiments/Experiments.tsx')
 
-// Exported for testing purposes
-export const defaultGridState: GridState = {
+const defaultGridState: GridState = {
   searchText: '',
   columnState: [
     {
@@ -44,43 +36,18 @@ const Experiments = function (): JSX.Element {
 
   useDataLoadingError(error, 'Experiment')
 
-  const { gridState, updateGridState } = useGridState(defaultGridState)
-  const { pageParams, replacePageParams } = usePageParams()
+  const { urlSearchParams, pushUrlSearchParams } = useUrlSearchParams()
+  const gridStateRef = useRef<GridState>(urlSearchParamsToGridState(urlSearchParams))
 
-  useEffect(() => {
-    if (_.isEmpty(pageParams)) {
-      updateGridState(defaultGridState)
-    } else {
-      updateGridState(getGridStateFromUrlParams(pageParams))
-    }
-  }, [pageParams, updateGridState])
+  const resetGridState = () => pushUrlSearchParams(gridStateToUrlSearchParams(defaultGridState))
+  const onGridStateChange = (newGridState: Partial<GridState>) =>
+    pushUrlSearchParams(gridStateToUrlSearchParams({ ...gridStateRef.current, ...newGridState }))
 
-  const updateParamsFromGridState = (newState: GridState) => {
-    let params = getUrlParamsFromGridState(newState)
-
-    // TODO: comment reasoning for this
-    if (_.isEmpty(params)) {
-      params = { null: 'true' }
-    }
-
-    replacePageParams(params)
+  if (_.isEmpty(urlSearchParams)) {
+    resetGridState()
   }
 
-  const updateGridSearchText = (searchText: string) => {
-    updateGridState({ searchText: searchText }, updateParamsFromGridState)
-  }
-
-  const updateGridSortState = (sortState: ColumnState[]) => {
-    updateGridState({ columnState: sortState }, updateParamsFromGridState)
-  }
-
-  const updateGridFilterModel = (filterModel: ColumnFilter) => {
-    updateGridState({ filterModel: filterModel }, updateParamsFromGridState)
-  }
-
-  const resetGridState = () => {
-    updateGridState(defaultGridState, updateParamsFromGridState)
-  }
+  gridStateRef.current = urlSearchParamsToGridState(urlSearchParams)
 
   return (
     <Layout headTitle='Experiments' flexContent>
@@ -89,8 +56,8 @@ const Experiments = function (): JSX.Element {
       ) : (
         <ExperimentsTableAgGrid
           experiments={experiments || []}
-          gridState={gridState}
-          actions={{ updateGridSearchText, updateGridSortState, updateGridFilterModel, resetGridState }}
+          gridState={gridStateRef.current}
+          actions={{ onGridStateChange, resetGridState }}
         />
       )}
     </Layout>
