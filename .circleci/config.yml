@@ -35,7 +35,7 @@ jobs:
           command: |
             joinByStr() { local separator="\", \""; local first="$1"; shift; printf "%s" \""$first" "${@/#/$separator}"\"; }
             TESTFILES=$(circleci tests glob "src/**/*.test.tsx" | circleci tests split --split-by=timings)
-            IFS=' ' && read -a filesarr \<<< "$TESTFILES"
+            IFS=' ' && read -a filesarr \<<< "${TESTFILES//[$'\t\r\n']}"
             echo $TESTFILES
             FILES=$(joinByStr "${filesarr[@]}")
             echo $FILES
