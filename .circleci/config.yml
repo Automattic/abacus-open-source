@@ -35,7 +35,7 @@ jobs:
           command: |
             joinByStr() { local separator="\", \""; local first="$1"; shift; printf "%s" \""$first" "${@/#/$separator}"\"; }
             TESTFILES=$(circleci tests glob "src/**/*.test.tsx" | circleci tests split --split-by=timings)
-            IFS='\n\r\t' && read -a filesarr \<<< "${TESTFILES}"
+            IFS=$'\n' && read -a filesarr \<<< "${TESTFILES}"
             FILES=$(joinByStr "${filesarr[@]}")
             npm run test:unit -- -- $TESTFILES --collectCoverageFrom="[${FILES}]" --ci --maxWorkers 2 --reporters=default --reporters=jest-junit
           environment:
