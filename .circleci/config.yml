@@ -39,7 +39,7 @@ jobs:
             echo $TESTFILES
             FILES=$(joinByStr "${filesarr[@]}")
             echo $FILES
-          #            npm run test:unit -- -- $TESTFILES --collectCoverageFrom="[${FILES}]" --ci --maxWorkers 2 --reporters=default --reporters=jest-junit
+            npm run test:unit -- -- $TESTFILES --collectCoverageFrom="[${FILES}]" --ci --maxWorkers 2 --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT_DIR: ./reports/
       - store_test_results:
