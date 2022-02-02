@@ -1,5 +1,3 @@
-import { formatIsoDate } from 'src/utils/time'
-
 import {
   Event,
   ExperimentFull,
@@ -73,15 +71,14 @@ function exposureEventToFormData(exposureEvent: Event): ExposureEventFormData {
 export function experimentToFormData(
   experiment: Partial<ExperimentFull>,
 ): {
-  startDatetime: string
   variations: VariationFormData[]
   segmentAssignments: SegmentAssignmentFormData[]
   name: string
   description: string
+  duration: number
   metricAssignments: MetricAssignmentFormData[]
   exposureEvents: ExposureEventFormData[]
   existingUsersAllowed: 'true' | 'false'
-  endDatetime: string
   platform: string
   p2Url: string
   ownerLogin: string
@@ -91,8 +88,7 @@ export function experimentToFormData(
     p2Url: experiment.p2Url ?? '',
     name: experiment.name ?? '',
     description: experiment.description ?? '',
-    startDatetime: experiment.startDatetime ? formatIsoDate(experiment.startDatetime) : '',
-    endDatetime: experiment.endDatetime ? formatIsoDate(experiment.endDatetime) : '',
+    duration: experiment.duration ?? 0,
     ownerLogin: experiment.ownerLogin ?? '',
     existingUsersAllowed:
       experiment.existingUsersAllowed === undefined

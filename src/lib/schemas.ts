@@ -362,6 +362,7 @@ export const experimentBareSchema = yup
   .object({
     experimentId: idSchema.defined(),
     name: nameSchema.defined(),
+    duration: yup.number().defined(),
     startDatetime: dateSchema.defined(),
     endDatetime: dateSchema
       .defined()

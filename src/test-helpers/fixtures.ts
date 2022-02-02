@@ -263,6 +263,7 @@ function createExperimentFullNew(fieldOverrides: Partial<ExperimentFullNew> = {}
   const endDatetime = new Date(new Date(new Date().setMonth(now.getMonth() + 4)).setUTCHours(0, 0, 0, 0))
   return {
     name: 'experiment_1',
+    duration: 2,
     startDatetime,
     endDatetime,
     platform: Platform.Calypso,
