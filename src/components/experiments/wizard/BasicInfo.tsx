@@ -1,17 +1,20 @@
-import { InputAdornment, TextField as MuiTextField, Typography } from '@material-ui/core'
+import {
+  FormControl,
+  FormLabel,
+  InputAdornment,
+  Link,
+  MenuItem,
+  TextField as MuiTextField,
+  Typography,
+} from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Alert, AutocompleteRenderInputParams } from '@material-ui/lab'
-import * as dateFns from 'date-fns'
-import { Field, useField } from 'formik'
-import { TextField } from 'formik-material-ui'
+import { AutocompleteRenderInputParams } from '@material-ui/lab'
+import { Field } from 'formik'
+import { Select, TextField } from 'formik-material-ui'
 import React from 'react'
 
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
-import {
-  MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS,
-  MAX_DISTANCE_BETWEEN_START_AND_END_DATE_IN_MONTHS,
-} from 'src/lib/schemas'
-import { formatIsoDate } from 'src/utils/time'
+import CollapsibleAlert from 'src/components/general/CollapsibleAlert'
 
 import { ExperimentFormCompletionBag } from './ExperimentForm'
 
@@ -38,13 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(2, 2),
       },
     },
-    datePicker: {
-      flex: 1,
-      '& input:invalid': {
-        // Fix the native date-picker placeholder text colour
-        color: theme.palette.text.hint,
-      },
-    },
   }),
 )
 
@@ -54,15 +50,6 @@ const BasicInfo = ({
   completionBag: ExperimentFormCompletionBag
 }): JSX.Element => {
   const classes = useStyles()
-
-  const [startDateField] = useField('experiment.startDatetime')
-  const minStartDate = new Date()
-  const maxStartDate = dateFns.addMonths(new Date(), MAX_DISTANCE_BETWEEN_NOW_AND_START_DATE_IN_MONTHS)
-  const minEndDate = startDateField.value && new Date(startDateField.value)
-  const maxEndDate =
-    startDateField.value &&
-    dateFns.addMonths(new Date(startDateField.value), MAX_DISTANCE_BETWEEN_START_AND_END_DATE_IN_MONTHS)
-  const formatDateForInput = (date: Date) => (date ? formatIsoDate(date) : undefined)
 
   return (
     <div className={classes.root}>
@@ -107,45 +94,41 @@ const BasicInfo = ({
       </div>
 
       <div className={classes.row}>
-        <Field
-          component={TextField}
-          className={classes.datePicker}
-          name='experiment.startDatetime'
-          id='experiment.startDatetime'
-          label='Start date (UTC)'
-          type='date'
-          variant='outlined'
-          required
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            min: formatDateForInput(minStartDate),
-            max: formatDateForInput(maxStartDate),
-          }}
-        />
-        <span className={classes.through}> through </span>
-        <Field
-          component={TextField}
-          className={classes.datePicker}
-          name='experiment.endDatetime'
-          id='experiment.endDatetime'
-          label='End date (UTC)'
-          type='date'
-          variant='outlined'
-          required
-          InputLabelProps={{
-            shrink: true,
-          }}
-          inputProps={{
-            min: formatDateForInput(minEndDate),
-            max: formatDateForInput(maxEndDate),
-          }}
-        />
+        <FormControl component='fieldset'>
+          <FormLabel required>Duration (in weeks)</FormLabel>
+          <Field component={Select} name='experiment.duration'>
+            <MenuItem value={0} disabled>
+              Set the experiment duration
+            </MenuItem>
+            <MenuItem value={1}>1 week</MenuItem>
+            {Array.from({ length: 5 }, (v, k) => k + 2).map((durationInWeeks) => (
+              <MenuItem key={durationInWeeks} value={durationInWeeks}>
+                {durationInWeeks} weeks
+              </MenuItem>
+            ))}
+          </Field>
+        </FormControl>
       </div>
-      <Alert severity='info'>
-        The experiment will <strong>start and end automatically</strong> around 00:10 UTC on these dates.
-      </Alert>
+
+      <CollapsibleAlert
+        id='duration-warning-panel'
+        severity='info'
+        summary='How do I calculate the duration for the experiment?'
+      >
+        <Link
+          underline='always'
+          href='https://www.optimizely.com/sample-size-calculator/?conversion=3&effect=20&significance=95'
+          target='_blank'
+        >
+          Use this calculator
+        </Link>{' '}
+        to determine the required experiment sample size and divide it by the actual weekly volume of the exposure event
+        as calculated in{' '}
+        <Link underline='always' href='https://mc.a8c.com/tracks/' target='_blank'>
+          Tracks
+        </Link>
+        <br />
+      </CollapsibleAlert>
 
       <div className={classes.row}>
         <Field
