@@ -362,7 +362,7 @@ export const experimentBareSchema = yup
   .object({
     experimentId: idSchema.defined(),
     name: nameSchema.defined(),
-    duration: yup.number().defined(),
+    duration: yup.number().notRequired(),
     startDatetime: dateSchema.defined(),
     endDatetime: dateSchema
       .defined()
@@ -415,6 +415,7 @@ const yupUndefined = yup.mixed().oneOf([]).notRequired()
 export const experimentFullNewSchema = experimentFullSchema.shape({
   experimentId: idSchema.nullable(),
   status: yupUndefined,
+  duration: yup.number().required(),
   assignmentCacheStatus: yupUndefined,
   startDatetime: dateSchema
     .defined()
