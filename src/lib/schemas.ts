@@ -597,8 +597,8 @@ function ensureMetricEstimatesPrevious(
 ): MetricEstimatesPrevious {
   // Check if we have a new metrics estimate object
   if (isMetricEstimatesNext(metricEstimates)) {
-    // We can assume that the lower variation id is the default variation.
-    const [defaultVariationId, otherVariationId] = Object.keys(metricEstimates.variations)
+    // We can assume that the higher variation id is the default variation?
+    const [otherVariationId, defaultVariationId] = Object.keys(metricEstimates.variations)
       .map((x) => parseInt(x, 10))
       .sort()
     return {
