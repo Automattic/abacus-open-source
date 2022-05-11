@@ -28,7 +28,6 @@ import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { createIdSlug, createUnresolvingPromise, or } from 'src/utils/general'
 
 import ExperimentRunButton from './ExperimentRunButton'
-import ExperimentDebug from './results/ExperimentDebug'
 import ExperimentResults from './results/ExperimentResults'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -215,9 +214,6 @@ export default function ExperimentPageView({
               <ExperimentDetails {...{ experiment, metrics, segments, tags, experimentReloadRef }} />
             )}
             {view === ExperimentView.Results && <ExperimentResults {...{ experiment, metrics, analyses, debugMode }} />}
-            {view === ExperimentView.Debug && debugMode && (
-              <ExperimentDebug {...{ experiment, metrics, analyses, debugMode }} />
-            )}
             {view === ExperimentView.CodeSetup && <ExperimentCodeSetup />}
           </>
         )}
