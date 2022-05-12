@@ -87,7 +87,7 @@ exports[`should render a table with experiments, allow searching and resetting 1
                     
             <!--AG-GRID-COMP-->
             <div
-              aria-colcount="6"
+              aria-colcount="7"
               aria-rowcount="2"
               class="ag-root ag-unselectable ag-layout-normal"
               ref="gridPanel"
@@ -1723,7 +1723,7 @@ exports[`should render a table with experiments, allow searching and resetting 2
                     
             <!--AG-GRID-COMP-->
             <div
-              aria-colcount="6"
+              aria-colcount="7"
               aria-rowcount="2"
               class="ag-root ag-unselectable ag-layout-normal"
               ref="gridPanel"
@@ -3359,7 +3359,7 @@ exports[`should render a table with experiments, allow searching and resetting 3
                     
             <!--AG-GRID-COMP-->
             <div
-              aria-colcount="6"
+              aria-colcount="7"
               aria-rowcount="2"
               class="ag-root ag-unselectable ag-layout-normal"
               ref="gridPanel"
@@ -4995,7 +4995,7 @@ exports[`should render an empty table 1`] = `
                     
             <!--AG-GRID-COMP-->
             <div
-              aria-colcount="6"
+              aria-colcount="7"
               aria-rowcount="1"
               class="ag-root ag-unselectable ag-layout-normal"
               ref="gridPanel"

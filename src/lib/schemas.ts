@@ -379,6 +379,7 @@ export const experimentBareSchema = yup
     status: yup.string().oneOf(Object.values(Status)).defined(),
     platform: yup.string().oneOf(Object.values(Platform)).defined(),
     ownerLogin: yup.string().defined(),
+    description: yup.string().defined(),
   })
   .defined()
   .camelCase()
@@ -391,7 +392,6 @@ export const experimentSummaryResponse = yup
 
 export const experimentFullSchema = experimentBareSchema
   .shape({
-    description: yup.string().defined(),
     existingUsersAllowed: yup.boolean().defined(),
     p2Url: yup.string().url().defined(),
     endReason: yup.string().nullable(),

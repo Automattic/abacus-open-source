@@ -23,6 +23,7 @@ it('should render a table with experiments, allow searching and resetting', asyn
       platform: Platform.Wpcom,
       startDatetime: new Date(),
       status: Status.Staging,
+      description: 'hidden description text',
     },
   ]
   const { container } = render(<ExperimentsTableAgGrid experiments={experiments} />)

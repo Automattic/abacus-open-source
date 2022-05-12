@@ -242,6 +242,10 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentBare[] }): J
               filter: 'agDateColumnFilter',
               resizable: true,
             },
+            {
+              field: 'description',
+              hide: true,
+            },
           ]}
           rowData={experiments}
           containerStyle={{ flex: 1, height: 'auto' }}
