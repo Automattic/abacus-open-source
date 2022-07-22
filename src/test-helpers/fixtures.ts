@@ -361,6 +361,7 @@ function createExperimentFullNew(fieldOverrides: Partial<ExperimentFullNew> = {}
     description: 'Experiment with things. Change stuff. Profit.',
     existingUsersAllowed: false,
     p2Url: 'https://wordpress.com/experiment_1',
+    platformSegments: [],
     variations: [
       {
         name: 'test',
@@ -462,6 +463,7 @@ function createExperimentFull(fieldOverrides: Partial<ExperimentFull> = {}): Exp
     endReason: null,
     conclusionUrl: null,
     deployedVariationId: null,
+    platformSegments: [],
     variations: [
       createVariation({
         variationId: 2,

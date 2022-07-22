@@ -123,12 +123,14 @@ const ExperimentForm = ({
   onSubmit,
   completionBag,
   formSubmissionError,
+  platformSegmentFields,
 }: {
   indexedMetrics: Record<number, Metric>
   indexedSegments: Record<number, Segment>
   initialExperiment: ExperimentFormData
   completionBag: ExperimentFormCompletionBag
   onSubmit: (formData: unknown) => Promise<void>
+  platformSegmentFields: string[]
   formSubmissionError?: Error
 }): JSX.Element => {
   const classes = useStyles()
@@ -274,7 +276,7 @@ const ExperimentForm = ({
                 {currentStageId === StageId.Audience && (
                   <div className={classes.formPart}>
                     <Paper className={classes.paper}>
-                      <Audience {...{ formikProps, indexedSegments, completionBag }} />
+                      <Audience {...{ formikProps, indexedSegments, completionBag, platformSegmentFields }} />
                     </Paper>
                     <div className={classes.formPartActions}>
                       <Button onClick={prevStage}>Previous</Button>

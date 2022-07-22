@@ -8,6 +8,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { getEventNameCompletions, getUserCompletions } from 'src/api/AutocompleteApi'
 import ExperimentsApi from 'src/api/ExperimentsApi'
 import MetricsApi from 'src/api/MetricsApi'
+import PlatformSegmentsApi from 'src/api/PlatformSegmentsApi'
 import SegmentsApi from 'src/api/SegmentsApi'
 import TagsApi from 'src/api/TagsApi'
 import ExperimentForm from 'src/components/experiments/wizard/ExperimentForm'
@@ -73,6 +74,11 @@ export default function WizardEdit({
   } = useDataSource(async () => Normalizers.indexSegments(await SegmentsApi.findAll()), [])
   useDataLoadingError(segmentsError, 'Segments')
 
+  const { isLoading: platformSegmentFieldsIsLoading, data: platformSegmentFields } = useDataSource(
+    () => PlatformSegmentsApi.getPlatformSegmentFields(),
+    [],
+  )
+
   const exclusionGroupCompletionDataSource = useDataSource(async () => {
     const tags = await TagsApi.findAll()
     const exclusionGroupTags = tags.filter((tag) => tag.namespace === TagNamespace.ExclusionGroup)
@@ -94,6 +100,7 @@ export default function WizardEdit({
     experimentIsLoading,
     metricsIsLoading,
     segmentsIsLoading,
+    platformSegmentFieldsIsLoading,
     ...Object.values(completionBag).map((dataSource) => dataSource.isLoading),
   )
 
@@ -164,7 +171,15 @@ export default function WizardEdit({
       {isLoading && <LinearProgress className={classes.progress} />}
       {!isLoading && initialExperiment && indexedMetrics && indexedSegments && (
         <ExperimentForm
-          {...{ indexedMetrics, indexedSegments, initialExperiment, onSubmit, completionBag, formSubmissionError }}
+          {...{
+            indexedMetrics,
+            indexedSegments,
+            initialExperiment,
+            onSubmit,
+            completionBag,
+            formSubmissionError,
+            platformSegmentFields: platformSegmentFields || [],
+          }}
         />
       )}
     </Layout>

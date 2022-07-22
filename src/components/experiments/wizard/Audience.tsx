@@ -135,10 +135,12 @@ const Audience = ({
   indexedSegments,
   formikProps,
   completionBag,
+  platformSegmentFields,
 }: {
   indexedSegments: Record<number, Segment>
   formikProps: FormikProps<{ experiment: ExperimentFormData }>
   completionBag: ExperimentFormCompletionBag
+  platformSegmentFields: string[]
 }): JSX.Element => {
   const classes = useStyles()
 
@@ -269,6 +271,9 @@ const Audience = ({
       </div>
       {formikProps.values.experiment.platform &&
         (PlatformAudienceFields[formikProps.values.experiment.platform as Platform] || []).map((audienceField) => {
+          if (!platformSegmentFields.includes(audienceField.name)) {
+            return null
+          }
           return <audienceField.field key={audienceField.name} />
         })}
       <div className={classes.row}>

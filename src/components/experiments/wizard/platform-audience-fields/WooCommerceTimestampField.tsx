@@ -93,6 +93,6 @@ const WooCommerceTimestampField: React.FC = () => {
 }
 
 export const timestampAudienceField = {
-  name: 'woocommerce_audience_field',
+  name: 'woocommerce_installed_after_timestamp',
   field: WooCommerceTimestampField,
 }

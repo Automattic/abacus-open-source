@@ -29,6 +29,7 @@ export const Form = (): JSX.Element => {
       initialExperiment={experimentToFormData({})}
       onSubmit={async (formData: unknown) => alert(JSON.stringify(formData, null, 2))}
       completionBag={completionBag}
+      platformSegmentFields={[]}
     />
   )
 }
@@ -80,6 +81,7 @@ export const FormWithExistingExperiment = (): JSX.Element => {
       })}
       onSubmit={async (formData: unknown) => alert(JSON.stringify(formData, null, 2))}
       completionBag={completionBag}
+      platformSegmentFields={[]}
     />
   )
 }
