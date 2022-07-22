@@ -36,6 +36,8 @@ import { AutocompleteItem, Platform, Segment, SegmentAssignmentNew } from 'src/l
 import { SegmentTypeToHuman } from 'src/lib/segments'
 import { isDebugMode } from 'src/utils/general'
 
+import { PlatformAudienceFields } from './platform-audience-fields'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
@@ -265,6 +267,10 @@ const Audience = ({
           />
         </FormControl>
       </div>
+      {formikProps.values.experiment.platform &&
+        (PlatformAudienceFields[formikProps.values.experiment.platform as Platform] || []).map((audienceField) => {
+          return <audienceField.field key={audienceField.name} />
+        })}
       <div className={classes.row}>
         <FormControl component='fieldset' className={classes.segmentationFieldSet}>
           <FormLabel htmlFor='variations-select'>Variations</FormLabel>

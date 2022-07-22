@@ -114,6 +114,18 @@ export const extendedNumberSchema = yup
   // eslint-disable-next-line no-template-curly-in-string
   .test('is-number', '${path} is not a number', (value: unknown) => value === undefined || typeof value === 'number')
 
+export const platformSegmentSchema = yup
+  .object({
+    name: yup.string().defined(),
+    value: yup.mixed().notRequired(),
+  })
+  .defined()
+export interface PlatformSegment extends yup.InferType<typeof platformSegmentSchema> {}
+
+export const platformSegmentNewSchema = yup.object().defined().snakeCase()
+export interface PlatformSegmentNew extends yup.InferType<typeof platformSegmentNewSchema> {}
+export const platformSegmentNewOutboundSchema = platformSegmentNewSchema.snakeCase()
+
 export const eventSchema = yup
   .object({
     event: yup.string().defined(),
@@ -459,6 +471,7 @@ export const experimentFullSchema = experimentBareSchema
     variations: yup.array<Variation>(variationSchema).defined().min(2),
     exclusionGroupTagIds: yup.array(idSchema.defined()),
     assignmentCacheStatus: yup.string().oneOf(Object.values(AssignmentCacheStatus)).defined(),
+    platformSegments: yup.array<PlatformSegment>(platformSegmentSchema).nullable(),
   })
   .defined()
   .camelCase()
@@ -523,6 +536,7 @@ export const experimentFullNewSchema = experimentFullSchema.shape({
       'Variation names must be unique.',
       (variations: VariationNew[]) => variations && new Set(variations.map((x) => x.name)).size === variations.length,
     ),
+  platformSegments: platformSegmentNewSchema.nullable(),
 })
 export interface ExperimentFullNew extends yup.InferType<typeof experimentFullNewSchema> {}
 /**
@@ -562,6 +576,14 @@ export const experimentFullNewOutboundSchema = experimentFullNewSchema
               : undefined,
         }),
       ),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+      platform_segments: Object.keys(currentValue.platform_segments || {}).map((key) => {
+        return {
+          name: key,
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+          value: currentValue.platform_segments[key],
+        }
+      }),
     }),
   )
 

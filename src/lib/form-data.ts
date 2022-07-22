@@ -84,6 +84,7 @@ export function experimentToFormData(experiment: Partial<ExperimentFull>): {
   p2Url: string
   ownerLogin: string
   exclusionGroupTagIds?: number[]
+  platformSegments: Record<string, string>
 } {
   return {
     p2Url: experiment.p2Url ?? '',
@@ -109,6 +110,12 @@ export function experimentToFormData(experiment: Partial<ExperimentFull>): {
         ],
     exposureEvents: experiment.exposureEvents ? experiment.exposureEvents.map(exposureEventToFormData) : [],
     exclusionGroupTagIds: experiment.exclusionGroupTagIds ?? [],
+    platformSegments: (experiment.platformSegments || []).reduce((segments, platformSegment) => {
+      return {
+        ...segments,
+        [platformSegment.name]: platformSegment.value,
+      }
+    }, {}),
   }
 }
 export type ExperimentFormData = ReturnType<typeof experimentToFormData>
