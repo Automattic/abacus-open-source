@@ -26,7 +26,7 @@ import { Field, FieldArray, FormikProps, useField } from 'formik'
 import { RadioGroup as FormikMuiRadioGroup, Select, TextField as FormikMuiTextField } from 'formik-material-ui'
 import { AutocompleteProps, AutocompleteRenderInputParams, fieldToAutocomplete } from 'formik-material-ui-lab'
 import _ from 'lodash'
-import React, { useCallback, useState } from 'react'
+import React, { createElement, useCallback, useState } from 'react'
 
 import { ExperimentFormCompletionBag } from 'src/components/experiments/wizard/ExperimentForm'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
@@ -274,7 +274,7 @@ const Audience = ({
           if (!platformSegmentFields.includes(audienceField.name)) {
             return null
           }
-          return <audienceField.field key={audienceField.name} />
+          return createElement(audienceField.field, { key: audienceField.name })
         })}
       <div className={classes.row}>
         <FormControl component='fieldset' className={classes.segmentationFieldSet}>

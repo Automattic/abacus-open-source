@@ -51,7 +51,8 @@ const WooCommerceTimestampField: React.FC = () => {
     if (!checked) {
       formikContext.setFieldValue('experiment.platformSegments.woocommerce_installed_after_timestamp', null)
     }
-  }, [checked, formikContext])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checked])
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked)
