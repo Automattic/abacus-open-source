@@ -3,7 +3,7 @@
 exports[`MetricAssignmentResults renders an appropriate message with no analyses 1`] = `
 <div>
   <div
-    class="makeStyles-root-19"
+    class="makeStyles-root-21"
   >
     <h5
       class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"

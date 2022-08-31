@@ -26,7 +26,6 @@ import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import Plot from 'react-plotly.js'
 
 import Attribute from 'src/components/general/Attribute'
-import MetricValue from 'src/components/general/MetricValue'
 import * as Analyses from 'src/lib/analyses'
 import * as Experiments from 'src/lib/experiments'
 import * as MetricAssignments from 'src/lib/metric-assignments'
@@ -168,20 +167,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     metricAssignmentNameSubtitle: {
       color: theme.palette.grey.A700,
-    },
-    relativeChange: {
-      display: 'flex',
-    },
-    relativeChangeLabel: {
-      flex: 1,
-      textAlign: 'left',
-      '&:first-child': {
-        textAlign: 'right',
-        marginRight: theme.spacing(1),
-      },
-      '&:last-child': {
-        marginLeft: theme.spacing(1),
-      },
     },
   }),
 )
@@ -392,11 +377,13 @@ export default function ExperimentResults({
       title: 'Absolute change',
       render: ({
         metric,
+        metricAssignment,
         strategy,
         analysesByStrategyDateAsc,
         recommendation,
       }: {
         metric: Metric
+        metricAssignment: MetricAssignment
         strategy: AnalysisStrategy
         analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
         recommendation: Recommendations.Recommendation
@@ -411,29 +398,40 @@ export default function ExperimentResults({
         }
 
         return (
-          <MetricValueInterval
-            intervalName={'the absolute change between variations'}
-            isDifference={true}
-            metricParameterType={metric.parameterType}
-            bottomValue={latestEstimates.diffs[variationDiffKey].bottom_95}
-            topValue={latestEstimates.diffs[variationDiffKey].top_95}
-            displayTooltipHint={false}
-          />
+          <>
+            <CredibleIntervalVisualization
+              top={latestEstimates.diffs[variationDiffKey].top_95}
+              bottom={latestEstimates.diffs[variationDiffKey].bottom_95}
+              minDifference={metricAssignment.minDifference}
+            />
+            <MetricValueInterval
+              intervalName={'the absolute change between variations'}
+              isDifference={true}
+              metricParameterType={metric.parameterType}
+              bottomValue={latestEstimates.diffs[variationDiffKey].bottom_95}
+              topValue={latestEstimates.diffs[variationDiffKey].top_95}
+              displayTooltipHint={false}
+              alignToCenter
+            />
+          </>
         )
       },
       cellStyle: {
         fontFamily: theme.custom.fonts.monospace,
-      },
+        textAlign: 'center',
+        minWidth: 180,
+      } as React.CSSProperties,
+      headerStyle: {
+        textAlign: 'center',
+      } as React.CSSProperties,
     },
     {
       title: 'Relative change (lift)',
       render: ({
-        metricAssignment,
         strategy,
         analysesByStrategyDateAsc,
         recommendation,
       }: {
-        metricAssignment: MetricAssignment
         strategy: AnalysisStrategy
         analysesByStrategyDateAsc: Record<AnalysisStrategy, Analysis[]>
         recommendation: Recommendations.Recommendation
@@ -448,40 +446,18 @@ export default function ExperimentResults({
         }
 
         return (
-          <>
-            <CredibleIntervalVisualization
-              top={latestEstimates.diffs[variationDiffKey].top_95}
-              bottom={latestEstimates.diffs[variationDiffKey].bottom_95}
-              minDifference={metricAssignment.minDifference}
-            />
-            <div className={classes.relativeChange}>
-              <span className={classes.relativeChangeLabel}>
-                <MetricValue
-                  value={Analyses.ratioToDifferenceRatio(latestEstimates.ratios[variationDiffKey].bottom_95)}
-                  metricParameterType={MetricParameterType.Conversion}
-                  isDifference={false}
-                  displayPositiveSign
-                />
-              </span>{' '}
-              to
-              <span className={classes.relativeChangeLabel}>
-                <MetricValue
-                  value={Analyses.ratioToDifferenceRatio(latestEstimates.ratios[variationDiffKey].top_95)}
-                  metricParameterType={MetricParameterType.Conversion}
-                  isDifference={false}
-                  displayPositiveSign
-                />
-              </span>
-            </div>
-          </>
+          <MetricValueInterval
+            intervalName={'the relative change between variations'}
+            metricParameterType={MetricParameterType.Conversion}
+            bottomValue={Analyses.ratioToDifferenceRatio(latestEstimates.ratios[variationDiffKey].bottom_95)}
+            topValue={Analyses.ratioToDifferenceRatio(latestEstimates.ratios[variationDiffKey].top_95)}
+            displayTooltipHint={false}
+          />
         )
       },
       cellStyle: {
         fontFamily: theme.custom.fonts.monospace,
-        textAlign: 'center',
-      } as React.CSSProperties,
-      headerStyle: {
-        textAlign: 'center',
+        minWidth: 180,
       } as React.CSSProperties,
     },
     {
