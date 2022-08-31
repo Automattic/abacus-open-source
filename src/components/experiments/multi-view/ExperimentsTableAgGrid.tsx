@@ -4,10 +4,23 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css'
 
 import { Button, createStyles, fade, InputBase, Link, makeStyles, Theme, Typography, useTheme } from '@material-ui/core'
 import { Search as SearchIcon } from '@material-ui/icons'
-import { ColumnApi, GridApi, GridReadyEvent } from 'ag-grid-community'
+import {
+  DateFilterModel,
+  FilterChangedEvent,
+  FirstDataRenderedEvent,
+  GridApi,
+  GridReadyEvent,
+  GridSizeChangedEvent,
+  NumberFilterModel,
+  SortChangedEvent,
+  SortModelItem,
+  TextFilterModel,
+} from 'ag-grid-community'
 import { AgGridReact } from 'ag-grid-react'
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
+import _ from 'lodash'
+import { useSnackbar } from 'notistack'
+import React, { useRef, useState } from 'react'
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
 import DatetimeText from 'src/components/general/DatetimeText'
@@ -86,82 +99,118 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
+const defaultSortState = [
+  {
+    colId: 'status',
+    sort: 'asc',
+  },
+  {
+    colId: 'startDatetime',
+    sort: 'desc',
+  },
+]
+
 /**
  * Renders a table of "bare" experiment information.
  */
 const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] }): JSX.Element => {
   const theme = useTheme()
   const classes = useStyles()
-
-  const gridApiRef = useRef<GridApi | null>(null)
-  const gridColumnApiRef = useRef<ColumnApi | null>(null)
-
-  const onGridReady = (event: GridReadyEvent) => {
-    gridApiRef.current = event.api
-    gridColumnApiRef.current = gridColumnApiRef.current = event.columnApi
-
-    event.api.sizeColumnsToFit()
-
-    searchQuery && setSearchState(searchQuery)
-  }
-
-  const onGridResize = () => {
-    if (!gridApiRef.current) {
-      return
-    }
-
-    gridApiRef.current.sizeColumnsToFit()
-  }
+  const { enqueueSnackbar } = useSnackbar()
 
   const history = useHistory()
   const { pathname, search } = useLocation()
-  const searchQuery = Object.fromEntries(new URLSearchParams(search).entries())?.search
+  const queryParams = new URLSearchParams(search)
+  const {
+    search: searchFromUrl = '',
+    sort: sortFromUrl,
+    ...filtersFromUrl
+  } = Object.fromEntries(new URLSearchParams(search).entries())
 
-  const [searchState, setSearchState] = useState<string>('')
-  const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchState(event.target.value)
-    event.target.value ? history.replace(`${pathname}?search=${event.target.value}`) : history.replace(pathname)
+  // The gridApiRef is needed to imperatively handle search and reset that are external from the grid
+  const gridApiRef = useRef<GridApi | null>(null)
+  const onGridReady = (event: GridReadyEvent) => {
+    const { api } = event
+    gridApiRef.current = api
   }
 
-  useEffect(() => {
+  const [searchState, setSearchState] = useState<string>(searchFromUrl)
+  const onSearchChange = (searchQuery: string) => {
+    setSearchState(searchQuery)
+    searchQuery ? queryParams.set('search', searchQuery) : queryParams.delete('search')
+    history.replace(`${pathname}?${queryParams.toString()}`)
+
     // istanbul ignore next; trivial and shouldn't occur
     if (!gridApiRef.current) {
       return
     }
+    gridApiRef.current.setQuickFilter(searchQuery)
+  }
 
-    gridApiRef.current?.setQuickFilter(searchState)
-  }, [searchState])
+  const onFilterChange = (event: FilterChangedEvent) => {
+    const filterState = event.api.getFilterModel()
+    Object.keys(filtersFromUrl).forEach(
+      (filter) => !Object.keys(filterState).includes(filter) && queryParams.delete(filter),
+    )
+    Object.keys(filterState).forEach((key) => key && queryParams.set(key, JSON.stringify(filterState[key])))
+    history.replace(`${pathname}?${queryParams.toString()}`)
+  }
 
-  const onNewDataRender = () => {
-    // istanbul ignore next; trivial and shouldn't occur
-    if (!gridApiRef.current || !gridColumnApiRef.current) {
-      return
+  const onSortChange = (event: SortChangedEvent) => {
+    const sortState = event.api.getSortModel()
+    if (!sortState.length || _.isEqual(sortState, defaultSortState)) {
+      queryParams.delete('sort')
+    } else {
+      queryParams.set('sort', JSON.stringify(sortState))
     }
+    history.replace(`${pathname}?${queryParams.toString()}`)
+  }
 
-    gridColumnApiRef.current.autoSizeAllColumns()
-    gridColumnApiRef.current.resetColumnState()
-    gridApiRef.current.setFilterModel(null)
-    gridColumnApiRef.current.applyColumnState({
-      state: [
-        {
-          colId: 'status',
-          sort: 'asc',
-          sortIndex: 0,
-        },
-        {
-          colId: 'startDatetime',
-          sort: 'desc',
-          sortIndex: 1,
-        },
-      ],
-      defaultState: { sort: null },
-    })
+  const onGridResize = (event: GridSizeChangedEvent) => {
+    event.api.sizeColumnsToFit()
+  }
+
+  const parseQueryParam = (key: string, value: string) => {
+    try {
+      return JSON.parse(value) as unknown
+    } catch {
+      enqueueSnackbar(`query param '${key}=${value}' is not valid`, {
+        variant: 'warning',
+      })
+    }
+  }
+
+  const onFirstDataRender = (event: FirstDataRenderedEvent) => {
+    const { api, columnApi } = event
+    columnApi.autoSizeAllColumns()
+    columnApi.resetColumnState()
+
+    api.setQuickFilter(searchFromUrl)
+
+    const filterStateFromUrl = Object.keys(filtersFromUrl).reduce(
+      (filters, key) => ({
+        ...filters,
+        [key]: parseQueryParam(key, filtersFromUrl[key]) as TextFilterModel | DateFilterModel | NumberFilterModel,
+      }),
+      {},
+    )
+    api.setFilterModel(filterStateFromUrl)
+
+    const sortStateFromUrl = sortFromUrl?.length && (parseQueryParam('sort', sortFromUrl) as SortModelItem[])
+    api.setSortModel(sortStateFromUrl || defaultSortState)
+
+    api.sizeColumnsToFit()
   }
 
   const onReset = () => {
-    setSearchState('')
-    history.push(pathname)
-    onNewDataRender()
+    onSearchChange('')
+
+    // istanbul ignore next; trivial and shouldn't occur
+    if (!gridApiRef.current) {
+      return
+    }
+    gridApiRef.current.setFilterModel({})
+    gridApiRef.current.setSortModel(defaultSortState)
   }
 
   return (
@@ -181,7 +230,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] })
               }}
               inputProps={{ 'aria-label': 'Search' }}
               value={searchState}
-              onChange={onSearchChange}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => onSearchChange(event.target.value)}
             />
           </div>
           <Button onClick={onReset}> Reset </Button>
@@ -262,6 +311,7 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] })
             },
             {
               headerName: 'Participants',
+              field: 'participants',
               valueGetter: (params: { data: { analyses: Analysis[] } }) =>
                 params.data.analyses[0]?.participantStats.total || 0,
               cellRendererFramework: ({ value: participants }: { value: number }) => {
@@ -275,9 +325,11 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] })
           ]}
           rowData={experiments}
           containerStyle={{ flex: 1, height: 'auto' }}
-          onFirstDataRendered={onNewDataRender}
           onGridReady={onGridReady}
           onGridSizeChanged={onGridResize}
+          onFirstDataRendered={onFirstDataRender}
+          onFilterChanged={onFilterChange}
+          onSortChanged={onSortChange}
         />
       </div>
     </div>
