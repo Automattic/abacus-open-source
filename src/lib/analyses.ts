@@ -469,6 +469,10 @@ export const runtimeWhitelistedPlatforms = [Platform.Email, Platform.Pipe, Platf
  * Get experiment health indicators for a experiment.
  */
 export function getExperimentHealthIndicators(experiment: ExperimentFull): HealthIndicator[] {
+  if (runtimeWhitelistedPlatforms.includes(experiment.platform)) {
+    return []
+  }
+
   const indicatorDefinitions = [
     {
       name: 'Experiment run time',
