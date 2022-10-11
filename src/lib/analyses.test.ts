@@ -583,6 +583,25 @@ describe('getExperimentHealthIndicators', () => {
       ]
     `)
   })
+
+  it('should take into consideration runtimeWhitelistedPlatforms', () => {
+    const experimentRunTimeDays = 1
+    const startDatetime = subDays(new Date(), experimentRunTimeDays)
+
+    expect(
+      Analyses.getExperimentHealthIndicators(
+        Fixtures.createExperimentFull({
+          startDatetime,
+          status: Status.Running,
+          platform: Analyses.runtimeWhitelistedPlatforms[0],
+          variations: [
+            { variationId: 1, allocatedPercentage: 50, isDefault: true, name: 'variation_name_1' },
+            { variationId: 2, allocatedPercentage: 50, isDefault: false, name: 'variation_name_2' },
+          ],
+        }),
+      ),
+    ).toMatchInlineSnapshot(`Array []`)
+  })
 })
 
 describe('estimateTotalParticipantsInPeriod', () => {
