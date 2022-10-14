@@ -236,6 +236,7 @@ export interface HealthIndicator {
   unit: HealthIndicatorUnit
   link?: string
   indication: HealthIndication
+  isDisabled?: boolean
 }
 
 interface IndicationBracket {
@@ -469,10 +470,6 @@ export const runtimeWhitelistedPlatforms = [Platform.Email, Platform.Pipe, Platf
  * Get experiment health indicators for a experiment.
  */
 export function getExperimentHealthIndicators(experiment: ExperimentFull): HealthIndicator[] {
-  if (runtimeWhitelistedPlatforms.includes(experiment.platform)) {
-    return []
-  }
-
   const indicatorDefinitions = [
     {
       name: 'Experiment run time',
@@ -520,6 +517,7 @@ export function getExperimentHealthIndicators(experiment: ExperimentFull): Healt
           },
         },
       ],
+      isDisabled: runtimeWhitelistedPlatforms.includes(experiment.platform),
     },
   ]
 

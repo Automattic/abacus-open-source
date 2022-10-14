@@ -364,6 +364,7 @@ export default function ExperimentResults({
   ]
 
   const maxIndicationSeverity = experimentHealthIndicators
+    .filter(({ isDisabled }) => !isDisabled)
     .map(({ indication: { severity } }) => severity)
     .sort(
       (severityA, severityB) =>
