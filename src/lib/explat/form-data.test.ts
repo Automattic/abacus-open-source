@@ -44,7 +44,7 @@ describe('lib/form-data.test.ts module', () => {
       expect(experimentToFormData(experiment)).toMatchInlineSnapshot(`
         Object {
           "description": "Experiment with things. Change stuff. Profit.",
-          "endDatetime": "2020-12-13",
+          "endDatetime": "2023-04-29",
           "exclusionGroupTagIds": Array [
             1,
           ],
@@ -112,7 +112,7 @@ describe('lib/form-data.test.ts module', () => {
               "segmentId": 1,
             },
           ],
-          "startDatetime": "2020-10-13",
+          "startDatetime": "2023-03-01",
           "variations": Array [
             Object {
               "allocatedPercentage": "40",
