@@ -4,6 +4,7 @@ import debugFactory from 'debug'
 import _ from 'lodash'
 import MaterialTable from 'material-table'
 import React, { forwardRef, useEffect, useMemo } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import MetricsApi from 'src/api/explat/MetricsApi'
 import { stringifyMetricParams } from 'src/lib/explat/metrics'
@@ -52,6 +53,14 @@ const MetricsTable = ({
   onEditMetric?: (metricId: number) => void
 }): JSX.Element => {
   debug('MetricsTable#render')
+
+  const history = useHistory()
+  const { pathname, search } = useLocation()
+  const searchQuery = Object.fromEntries(new URLSearchParams(search).entries())?.search
+
+  const onSearchChange = (searchText: string) => {
+    searchText ? history.replace(`${pathname}?search=${searchText}`) : history.replace(pathname)
+  }
 
   const processedMetrics = useMemo(
     () =>
@@ -124,11 +133,13 @@ const MetricsTable = ({
       options={{
         ...defaultTableOptions,
         actionsColumnIndex: 3,
+        searchText: searchQuery,
       }}
       detailPanel={(rowData) => <MetricDetailPanel metric={rowData} />}
       icons={{
         DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} onClick={onRowClick} />),
       }}
+      onSearchChange={onSearchChange}
     />
   )
 }
