@@ -3181,34 +3181,30 @@ exports[`sections should be browsable by the section buttons and show validation
                         >
                           metric_10
                         </span>
-                        <a
-                          href="/metrics/10-metric-10"
-                          target="_blank"
+                        <button
+                          aria-label="Open metric details"
+                          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                          tabindex="0"
+                          type="button"
                         >
-                          <button
-                            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
-                            tabindex="0"
-                            type="button"
+                          <span
+                            class="MuiIconButton-label"
                           >
-                            <span
-                              class="MuiIconButton-label"
+                            <svg
+                              aria-hidden="true"
+                              class="MuiSvgIcon-root"
+                              focusable="false"
+                              viewBox="0 0 24 24"
                             >
-                              <svg
-                                aria-hidden="true"
-                                class="MuiSvgIcon-root"
-                                focusable="false"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
-                                />
-                              </svg>
-                            </span>
-                            <span
-                              class="MuiTouchRipple-root"
-                            />
-                          </button>
-                        </a>
+                              <path
+                                d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
+                              />
+                            </svg>
+                          </span>
+                          <span
+                            class="MuiTouchRipple-root"
+                          />
+                        </button>
                         <br />
                         <span
                           class="makeStyles-root-199 makeStyles-monospaced-170"

@@ -45,6 +45,7 @@ export const PlatformToHuman: Record<Platform, string> = {
   [Platform.Akismet]: 'Spam protection for WordPress',
   [Platform.Calypso]: 'Calypso front-end',
   [Platform.Dayone]: 'Day One',
+  [Platform.Dsp]: 'The Automattic DSP (Demand Side Platform)',
   [Platform.Email]: 'Guides and other email systems',
   [Platform.Jetpack]: 'Jetpack front-end',
   [Platform.Lohp]: 'WordPress.com logged out homepage',

@@ -122,6 +122,15 @@ test('allows adding, editing and removing a Metric Assignment', async () => {
 
   expect(container).toMatchSnapshot()
 
+  // Open Metric Details modal and then close it
+  const metricDetailsButton = screen.getByRole('button', { name: /Open metric details/ })
+  fireEvent.click(metricDetailsButton)
+  const closeModal = screen.getByRole('button', { name: /Close metric details/ })
+  // eslint-disable-next-line @typescript-eslint/require-await
+  await act(async () => {
+    fireEvent.click(closeModal)
+  })
+
   fireEvent.click(moreMenu)
   const remove = screen.getByRole('menuitem', { name: /Remove/ })
   // eslint-disable-next-line @typescript-eslint/require-await

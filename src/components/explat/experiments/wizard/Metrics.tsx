@@ -22,10 +22,10 @@ import { Field, FieldArray, FormikProps, useField } from 'formik'
 import { Select, Switch, TextField } from 'formik-material-ui'
 import _ from 'lodash'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import { getPropNameCompletions } from 'src/api/explat/AutocompleteApi'
 import MinDiffCalculator from 'src/components/explat/experiments/MinDiffCalculator'
+import MetricDetailsModal from 'src/components/explat/metrics/single-view/MetricDetailsModal'
 import Attribute from 'src/components/general/Attribute'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
 import CollapsibleAlert from 'src/components/general/CollapsibleAlert'
@@ -38,7 +38,6 @@ import { AttributionWindowSecondsToHuman } from 'src/lib/explat/metric-assignmen
 import { EventNew, Metric, MetricAssignment } from 'src/lib/explat/schemas'
 import { useDecorationStyles } from 'src/styles/styles'
 import { useDataSource } from 'src/utils/data-loading'
-import { createIdSlug } from 'src/utils/general'
 
 import { ExperimentFormCompletionBag } from './ExperimentForm'
 import { ReactComponent as AttributionWindowDiagram } from './img/attribution_window.svg'
@@ -141,6 +140,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     metricsTable: {
       tableLayout: 'fixed',
+      minWidth: 800,
     },
   }),
 )
@@ -408,6 +408,9 @@ const Metrics = ({
       )
   }
 
+  const [expandedMetricId, setExpandedMetricId] = useState<number | undefined>()
+  const handleMetricDetailsClose = () => setExpandedMetricId(undefined)
+
   return (
     <div className={classes.root}>
       <Typography variant='h4' gutterBottom>
@@ -472,17 +475,13 @@ const Metrics = ({
                                   {indexedMetrics[metricAssignment.metricId].name}
                                 </span>
                               </Tooltip>
-                              <Link
-                                to={`/metrics/${createIdSlug(
-                                  metricAssignment.metricId,
-                                  indexedMetrics[metricAssignment.metricId].name,
-                                )}`}
-                                target='_blank'
+                              <IconButton
+                                aria-label='Open metric details'
+                                size='small'
+                                onClick={() => setExpandedMetricId(metricAssignment.metricId)}
                               >
-                                <IconButton size='small'>
-                                  <OpenInNew />
-                                </IconButton>
-                              </Link>
+                                <OpenInNew />
+                              </IconButton>
                               <br />
                               {metricAssignment.isPrimary && (
                                 <Attribute name='primary' className={classes.monospaced} />
@@ -736,6 +735,9 @@ const Metrics = ({
         If you have multiple exposure events, then participants will be considered exposed if they trigger{' '}
         <strong>any</strong> of the exposure events.
       </Alert>
+      {expandedMetricId && (
+        <MetricDetailsModal metric={indexedMetrics[expandedMetricId]} onClose={handleMetricDetailsClose} />
+      )}
     </div>
   )
 }

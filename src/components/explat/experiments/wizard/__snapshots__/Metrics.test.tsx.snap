@@ -1243,34 +1243,30 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
               >
                 registration_start
               </span>
-              <a
-                href="/metrics/2-registration-start"
-                target="_blank"
+              <button
+                aria-label="Open metric details"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                tabindex="0"
+                type="button"
               >
-                <button
-                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
-                  tabindex="0"
-                  type="button"
+                <span
+                  class="MuiIconButton-label"
                 >
-                  <span
-                    class="MuiIconButton-label"
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
-                </button>
-              </a>
+                    <path
+                      d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
               <br />
               <span
                 class="makeStyles-root-71 makeStyles-monospaced-40"
@@ -2531,34 +2527,30 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
               >
                 registration_start
               </span>
-              <a
-                href="/metrics/2-registration-start"
-                target="_blank"
+              <button
+                aria-label="Open metric details"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                tabindex="0"
+                type="button"
               >
-                <button
-                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
-                  tabindex="0"
-                  type="button"
+                <span
+                  class="MuiIconButton-label"
                 >
-                  <span
-                    class="MuiIconButton-label"
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
-                </button>
-              </a>
+                    <path
+                      d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
               <br />
               <span
                 class="makeStyles-root-71 makeStyles-monospaced-40"
@@ -3817,34 +3809,30 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
               >
                 registration_start
               </span>
-              <a
-                href="/metrics/2-registration-start"
-                target="_blank"
+              <button
+                aria-label="Open metric details"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                tabindex="0"
+                type="button"
               >
-                <button
-                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
-                  tabindex="0"
-                  type="button"
+                <span
+                  class="MuiIconButton-label"
                 >
-                  <span
-                    class="MuiIconButton-label"
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
-                </button>
-              </a>
+                    <path
+                      d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
               <br />
               <span
                 class="makeStyles-root-71 makeStyles-monospaced-40"
@@ -5691,37 +5679,33 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
               >
                 registration_start
               </span>
-              <a
-                href="/metrics/2-registration-start"
-                target="_blank"
+              <button
+                aria-label="Open metric details"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+                tabindex="0"
+                type="button"
               >
-                <button
-                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
-                  tabindex="0"
-                  type="button"
+                <span
+                  class="MuiIconButton-label"
                 >
-                  <span
-                    class="MuiIconButton-label"
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root"
+                    focusable="false"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="MuiSvgIcon-root"
-                      focusable="false"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="MuiTouchRipple-root"
-                  />
-                </button>
-              </a>
+                    <path
+                      d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"
+                    />
+                  </svg>
+                </span>
+                <span
+                  class="MuiTouchRipple-root"
+                />
+              </button>
               <br />
               <span
-                class="makeStyles-root-89 makeStyles-monospaced-40"
+                class="makeStyles-root-94 makeStyles-monospaced-40"
               >
                 primary
               </span>
@@ -5762,11 +5746,11 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                 </svg>
                 <fieldset
                   aria-hidden="true"
-                  class="PrivateNotchedOutline-root-90 MuiOutlinedInput-notchedOutline"
+                  class="PrivateNotchedOutline-root-95 MuiOutlinedInput-notchedOutline"
                   style="padding-left: 8px;"
                 >
                   <legend
-                    class="PrivateNotchedOutline-legend-91"
+                    class="PrivateNotchedOutline-legend-96"
                     style="width: 0.01px;"
                   >
                     <span>
@@ -5785,7 +5769,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                 <span
                   aria-disabled="false"
                   aria-label="Change Expected"
-                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-94 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-95 Mui-checked"
+                  class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-99 MuiSwitch-switchBase MuiSwitch-colorSecondary PrivateSwitchBase-checked-100 Mui-checked"
                   variant="outlined"
                 >
                   <span
@@ -5793,7 +5777,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                   >
                     <input
                       checked=""
-                      class="PrivateSwitchBase-input-97 MuiSwitch-input"
+                      class="PrivateSwitchBase-input-102 MuiSwitch-input"
                       id="experiment.metricAssignments[0].changeExpected"
                       name="experiment.metricAssignments[0].changeExpected"
                       type="checkbox"
@@ -5819,7 +5803,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                 class="makeStyles-minDifferenceFieldWrapper-44"
               >
                 <div
-                  class="MuiFormControl-root MuiTextField-root makeStyles-root-98 makeStyles-minDifferenceField-43"
+                  class="MuiFormControl-root MuiTextField-root makeStyles-root-103 makeStyles-minDifferenceField-43"
                 >
                   <div
                     class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
@@ -5838,7 +5822,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                       value="0"
                     />
                     <div
-                      class="MuiInputAdornment-root makeStyles-adornment-99 MuiInputAdornment-positionEnd"
+                      class="MuiInputAdornment-root makeStyles-adornment-104 MuiInputAdornment-positionEnd"
                     >
                       <p
                         class="MuiTypography-root makeStyles-tooltipped-68 MuiTypography-body1 MuiTypography-colorTextSecondary"
@@ -5849,11 +5833,11 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                     </div>
                     <fieldset
                       aria-hidden="true"
-                      class="PrivateNotchedOutline-root-90 MuiOutlinedInput-notchedOutline"
+                      class="PrivateNotchedOutline-root-95 MuiOutlinedInput-notchedOutline"
                       style="padding-left: 8px;"
                     >
                       <legend
-                        class="PrivateNotchedOutline-legend-91"
+                        class="PrivateNotchedOutline-legend-96"
                         style="width: 0.01px;"
                       >
                         <span>
@@ -5935,7 +5919,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
               colspan="4"
             >
               <div
-                class="makeStyles-root-100"
+                class="makeStyles-root-105"
               >
                 <h5
                   class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
@@ -5944,10 +5928,10 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                 </h5>
                 <br />
                 <div
-                  class="makeStyles-sideBySide-102"
+                  class="makeStyles-sideBySide-107"
                 >
                   <div
-                    class="MuiPaper-root MuiStepper-root MuiStepper-vertical makeStyles-stepper-101 MuiPaper-elevation0"
+                    class="MuiPaper-root MuiStepper-root MuiStepper-vertical makeStyles-stepper-106 MuiPaper-elevation0"
                   >
                     <div
                       class="MuiStep-root MuiStep-vertical"
@@ -6009,8 +5993,8 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                 <label
                                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-filled Mui-required Mui-required"
                                   data-shrink="true"
-                                  for="samples-per-month-18"
-                                  id="samples-per-month-18-label"
+                                  for="samples-per-month-20"
+                                  id="samples-per-month-20-label"
                                 >
                                   Users / month
                                   <span
@@ -6027,7 +6011,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                   <input
                                     aria-invalid="false"
                                     class="MuiInputBase-input MuiOutlinedInput-input"
-                                    id="samples-per-month-18"
+                                    id="samples-per-month-20"
                                     placeholder="15000"
                                     required=""
                                     type="number"
@@ -6035,10 +6019,10 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                   />
                                   <fieldset
                                     aria-hidden="true"
-                                    class="PrivateNotchedOutline-root-90 MuiOutlinedInput-notchedOutline"
+                                    class="PrivateNotchedOutline-root-95 MuiOutlinedInput-notchedOutline"
                                   >
                                     <legend
-                                      class="PrivateNotchedOutline-legendLabelled-92 PrivateNotchedOutline-legendNotched-93"
+                                      class="PrivateNotchedOutline-legendLabelled-97 PrivateNotchedOutline-legendNotched-98"
                                     >
                                       <span>
                                         Users / month
@@ -6120,8 +6104,8 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                 <label
                                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-filled Mui-required Mui-required"
                                   data-shrink="true"
-                                  for="baseline-conversion-rate-18"
-                                  id="baseline-conversion-rate-18-label"
+                                  for="baseline-conversion-rate-20"
+                                  id="baseline-conversion-rate-20-label"
                                 >
                                   Baseline conversion rate
                                   <span
@@ -6136,10 +6120,10 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
                                 >
                                   <input
-                                    aria-describedby="baseline-conversion-rate-18-helper-text"
+                                    aria-describedby="baseline-conversion-rate-20-helper-text"
                                     aria-invalid="false"
                                     class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
-                                    id="baseline-conversion-rate-18"
+                                    id="baseline-conversion-rate-20"
                                     max="100"
                                     min="0"
                                     placeholder="27.5"
@@ -6148,7 +6132,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                     value="0"
                                   />
                                   <div
-                                    class="MuiInputAdornment-root makeStyles-adornment-104 MuiInputAdornment-positionEnd"
+                                    class="MuiInputAdornment-root makeStyles-adornment-109 MuiInputAdornment-positionEnd"
                                   >
                                     <p
                                       class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary"
@@ -6158,10 +6142,10 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                   </div>
                                   <fieldset
                                     aria-hidden="true"
-                                    class="PrivateNotchedOutline-root-90 MuiOutlinedInput-notchedOutline"
+                                    class="PrivateNotchedOutline-root-95 MuiOutlinedInput-notchedOutline"
                                   >
                                     <legend
-                                      class="PrivateNotchedOutline-legendLabelled-92 PrivateNotchedOutline-legendNotched-93"
+                                      class="PrivateNotchedOutline-legendLabelled-97 PrivateNotchedOutline-legendNotched-98"
                                     >
                                       <span>
                                         Baseline conversion rate
@@ -6172,7 +6156,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                 </div>
                                 <p
                                   class="MuiFormHelperText-root MuiFormHelperText-contained MuiFormHelperText-filled Mui-required"
-                                  id="baseline-conversion-rate-18-helper-text"
+                                  id="baseline-conversion-rate-20-helper-text"
                                 >
                                   = 0 conversions per month
                                 </p>
@@ -6249,8 +6233,8 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                 <label
                                   class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-filled Mui-required Mui-required"
                                   data-shrink="true"
-                                  for="extra-conversions-per-month-18"
-                                  id="extra-conversions-per-month-18-label"
+                                  for="extra-conversions-per-month-20"
+                                  id="extra-conversions-per-month-20-label"
                                 >
                                   Extra conversions / month
                                   <span
@@ -6265,10 +6249,10 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl"
                                 >
                                   <input
-                                    aria-describedby="extra-conversions-per-month-18-helper-text"
+                                    aria-describedby="extra-conversions-per-month-20-helper-text"
                                     aria-invalid="false"
                                     class="MuiInputBase-input MuiOutlinedInput-input"
-                                    id="extra-conversions-per-month-18"
+                                    id="extra-conversions-per-month-20"
                                     min="0"
                                     placeholder="100"
                                     required=""
@@ -6277,10 +6261,10 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                   />
                                   <fieldset
                                     aria-hidden="true"
-                                    class="PrivateNotchedOutline-root-90 MuiOutlinedInput-notchedOutline"
+                                    class="PrivateNotchedOutline-root-95 MuiOutlinedInput-notchedOutline"
                                   >
                                     <legend
-                                      class="PrivateNotchedOutline-legendLabelled-92 PrivateNotchedOutline-legendNotched-93"
+                                      class="PrivateNotchedOutline-legendLabelled-97 PrivateNotchedOutline-legendNotched-98"
                                     >
                                       <span>
                                         Extra conversions / month
@@ -6291,7 +6275,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                                 </div>
                                 <p
                                   class="MuiFormHelperText-root MuiFormHelperText-contained MuiFormHelperText-filled Mui-required"
-                                  id="extra-conversions-per-month-18-helper-text"
+                                  id="extra-conversions-per-month-20-helper-text"
                                 >
                                   = 0% lift
                                 </p>
@@ -6303,7 +6287,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                     </div>
                   </div>
                   <div
-                    class="makeStyles-results-103"
+                    class="makeStyles-results-108"
                   >
                     <h5
                       class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom"
@@ -6327,17 +6311,17 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
                     </strong>
                     <br />
                     <div
-                      class="makeStyles-liability-105"
+                      class="makeStyles-liability-110"
                     >
                       <span
                         aria-disabled="false"
-                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-94 MuiCheckbox-root MuiCheckbox-colorSecondary makeStyles-liabilityCheckbox-106 MuiIconButton-colorSecondary"
+                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-99 MuiCheckbox-root MuiCheckbox-colorSecondary makeStyles-liabilityCheckbox-111 MuiIconButton-colorSecondary"
                       >
                         <span
                           class="MuiIconButton-label"
                         >
                           <input
-                            class="PrivateSwitchBase-input-97"
+                            class="PrivateSwitchBase-input-102"
                             data-indeterminate="false"
                             id="liability-checkbox"
                             type="checkbox"

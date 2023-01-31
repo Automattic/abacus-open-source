@@ -330,6 +330,7 @@ export enum Platform {
   Akismet = 'akismet',
   Calypso = 'calypso',
   Dayone = 'dayone',
+  Dsp = 'dsp',
   Email = 'email',
   Jetpack = 'jetpack',
   Lohp = 'lohp',

@@ -48,7 +48,7 @@ export default function MetricDetails({
   metric,
   isCompact,
 }: {
-  isLoading: boolean
+  isLoading?: boolean
   metric?: Metric
   isCompact?: boolean
 }): JSX.Element {
