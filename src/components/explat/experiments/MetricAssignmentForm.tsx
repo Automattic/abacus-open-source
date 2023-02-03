@@ -110,9 +110,6 @@ function MetricAssignmentForm({
           (formikProps.values.metricAssignment.metricId &&
             indexedMetrics[formikProps.values.metricAssignment.metricId as unknown as number]) ||
           undefined
-        const parameterType =
-          formikProps.values.metricAssignment.metricId &&
-          indexedMetrics[formikProps.values.metricAssignment.metricId as unknown as number].parameterType
         const metricAssignmentsError =
           formikProps.touched.metricAssignment?.metricId && formikProps.errors.metricAssignment?.metricId
         const onMetricChange = (_event: unknown, metric: Metric | null) => {
@@ -214,7 +211,7 @@ function MetricAssignmentForm({
                 </FormControl>
                 <ToggleButton
                   value='check'
-                  disabled={!parameterType}
+                  disabled={!metric}
                   selected={isActiveMinDiffCalculator}
                   onChange={handleMinDiffCalculatorToggle}
                   className={classes.minDifferenceCalculatorToggle}
@@ -225,14 +222,14 @@ function MetricAssignmentForm({
                 </ToggleButton>
               </div>
               <div className={clsx(classes.row, !isActiveMinDiffCalculator && classes.minDiffCalculatorCollapsed)}>
-                {parameterType && (
+                {metric && (
                   <MinDiffCalculator
                     setMinPracticalDiff={(newMinDiff) => handleMinPracticalDiffUpdate(newMinDiff)}
                     {...{
                       samplesPerMonth,
                       setSamplesPerMonth,
                       experiment: experimentToFormData(experiment),
-                      metricParameterType: parameterType,
+                      metric: metric,
                     }}
                   />
                 )}

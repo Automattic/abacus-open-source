@@ -567,7 +567,7 @@ const Metrics = ({
                                   samplesPerMonth,
                                   setSamplesPerMonth,
                                   experiment: formikProps.values.experiment,
-                                  metricParameterType: indexedMetrics[metricAssignment.metricId].parameterType,
+                                  metric: indexedMetrics[metricAssignment.metricId],
                                 }}
                               />
                             </TableCell>

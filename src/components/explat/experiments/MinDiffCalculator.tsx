@@ -16,7 +16,8 @@ import React, { useState } from 'react'
 import DebugOutput from 'src/components/general/DebugOutput'
 import PrivateLink from 'src/components/general/PrivateLink'
 import { ExperimentFormData } from 'src/lib/explat/form-data'
-import { MetricParameterType } from 'src/lib/explat/schemas'
+import { getUnitInfo, UnitType } from 'src/lib/explat/metrics'
+import { Metric } from 'src/lib/explat/schemas'
 import { isDebugMode } from 'src/utils/general'
 import {
   defaultStatisticalPower,
@@ -63,16 +64,20 @@ const MinDiffCalculator = ({
   setSamplesPerMonth,
   setMinPracticalDiff,
   experiment,
-  metricParameterType,
+  metric,
 }: {
   samplesPerMonth: number
   setSamplesPerMonth: (n: number) => void
   setMinPracticalDiff: (n: number) => void
   experiment: ExperimentFormData
-  metricParameterType: MetricParameterType
+  metric: Metric
 }): JSX.Element => {
   const classes = useStyles()
-  const isConversion = metricParameterType === MetricParameterType.Conversion
+  const isConversion = getUnitInfo(metric).unitType === UnitType.Ratio
+  // istanbul ignore next; shouldn't occur
+  if (![UnitType.Ratio, UnitType.Usd].includes(getUnitInfo(metric).unitType)) {
+    throw new Error('Unsupported unitType for MinDiffCalculator')
+  }
 
   const onChangeSamplesPerMonth = (event: React.ChangeEvent<{ value: unknown }>) => {
     setSamplesPerMonth(event.target.value as number)
