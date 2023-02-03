@@ -24,7 +24,7 @@ import MetricValueInterval from 'src/components/general/MetricValueInterval'
 import PrivateLink from 'src/components/general/PrivateLink'
 import * as Analyses from 'src/lib/explat/analyses'
 import { getChosenVariation, getExperimentRunHours, isOneTimeExperiment } from 'src/lib/explat/experiments'
-import { getUnitInfo, UnitDerivationType, UnitInfo, UnitType } from 'src/lib/explat/metrics'
+import { getUnitInfo, metricParameterTypeName, UnitDerivationType, UnitInfo, UnitType } from 'src/lib/explat/metrics'
 import * as Recommendations from 'src/lib/explat/recommendations'
 import {
   Analysis,
@@ -33,7 +33,6 @@ import {
   ExperimentFull,
   Metric,
   MetricAssignment,
-  MetricParameterType,
   Variation,
 } from 'src/lib/explat/schemas'
 import * as Visualizations from 'src/lib/explat/visualizations'
@@ -122,6 +121,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     warningAsterisk: {
       color: theme.palette.error.main,
+    },
+    unitName: {
+      '&::first-letter': {
+        textTransform: 'capitalize',
+      },
     },
   }),
 )
@@ -244,10 +248,28 @@ export default function MetricAssignmentResults({
     setIsShowAllCredibleIntervals((isShowAllCredibleIntervals) => !isShowAllCredibleIntervals)
   }
 
-  const isConversion = metric.parameterType === MetricParameterType.Conversion
-  const estimateTransform: (estimate: number | null) => number | null = isConversion
-    ? (estimate: number | null) => estimate && estimate * 100
-    : identity
+  let estimateTransform: (estimate: number | null) => number | null = identity
+  let unitName = ''
+  let metricValuePlotTitle = ''
+  let metricValueAbsoluteDifferencePlotTitle = ''
+  // Some of the information here should eventually be moved to UnitInfo
+  switch (getUnitInfo(metric).unitType) {
+    case UnitType.Ratio:
+      estimateTransform = (estimate: number | null) => estimate && estimate * 100
+      unitName = 'conversion rate'
+      metricValuePlotTitle = `Conversion rate estimates by variation (%)`
+      metricValueAbsoluteDifferencePlotTitle = `Conversion rate difference estimates (percentage points)`
+      break
+    case UnitType.Usd:
+      unitName = 'average cash per user (ACPU)'
+      metricValuePlotTitle = `Cash sales estimates by variation (USD)`
+      metricValueAbsoluteDifferencePlotTitle = `Cash sales difference estimates (USD)`
+      break
+    // istanbul ignore next; shouldn't occur
+    default:
+      throw new Error('Unknown unitType')
+  }
+
   const analyses = analysesByStrategyDateAsc[strategy]
   const latestAnalysis = _.last(analyses)
   const latestEstimates = latestAnalysis?.metricEstimates
@@ -479,7 +501,7 @@ export default function MetricAssignmentResults({
             <TableRow>
               <TableCell>
                 <Typography variant='body1' gutterBottom>
-                  The absolute change in the {isConversion ? 'conversion rate' : 'ACPU'} of{' '}
+                  The absolute change in the {unitName} of{' '}
                   <MetricValueInterval
                     intervalName={'the absolute change'}
                     unit={getUnitInfo(metric, [UnitDerivationType.AbsoluteDifference])}
@@ -557,10 +579,8 @@ export default function MetricAssignmentResults({
           <TableHead>
             <TableRow>
               <TableCell>Variant</TableCell>
-              <TableCell align='right'>
-                {metric.parameterType === MetricParameterType.Revenue
-                  ? 'Average cash per user (ACPU) interval'
-                  : 'Conversion rate interval'}
+              <TableCell align='right' className={classes.unitName}>
+                {unitName}
               </TableCell>
               <TableCell align='right'>Absolute change</TableCell>
               <TableCell align='right'>Relative change (lift)</TableCell>
@@ -638,9 +658,7 @@ export default function MetricAssignmentResults({
           <Plot
             layout={{
               ...Visualizations.plotlyLayoutDefault,
-              title: isConversion
-                ? `Conversion rate estimates by variation (%)`
-                : `Cash sales estimates by variation (USD)`,
+              title: metricValuePlotTitle,
             }}
             data={plotlyDataVariationGraph}
             className={classes.metricEstimatePlot}
@@ -648,9 +666,7 @@ export default function MetricAssignmentResults({
           <Plot
             layout={{
               ...Visualizations.plotlyLayoutDefault,
-              title: isConversion
-                ? `Conversion rate difference estimates (percentage points)`
-                : `Cash sales difference estimates (USD)`,
+              title: metricValueAbsoluteDifferencePlotTitle,
             }}
             data={plotlyDataDifferenceGraph}
             className={classes.metricEstimatePlot}
@@ -682,13 +698,11 @@ export default function MetricAssignmentResults({
                   <TableCell>Variant</TableCell>
                   <TableCell align='right'>Users</TableCell>
                   <TableCell align='right'>
-                    {metric.parameterType === MetricParameterType.Revenue ? 'Cash Sales' : 'Conversions'}
+                    {metricParameterTypeName[metric.parameterType]}
                     <WarningAsterisk />
                   </TableCell>
-                  <TableCell align='right'>
-                    {metric.parameterType === MetricParameterType.Revenue
-                      ? 'Average cash per user (ACPU)'
-                      : 'Conversion rate'}
+                  <TableCell align='right' className={classes.unitName}>
+                    {unitName}
                     <WarningAsterisk />
                   </TableCell>
                 </TableRow>
