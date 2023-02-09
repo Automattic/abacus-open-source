@@ -24,7 +24,7 @@ import MetricValueInterval from 'src/components/general/MetricValueInterval'
 import PrivateLink from 'src/components/general/PrivateLink'
 import * as Analyses from 'src/lib/explat/analyses'
 import { getChosenVariation, getExperimentRunHours, isOneTimeExperiment } from 'src/lib/explat/experiments'
-import { getUnitInfo, metricParameterTypeName, UnitDerivationType, UnitInfo, UnitType } from 'src/lib/explat/metrics'
+import { getUnitInfo, UnitDerivationType, UnitInfo, UnitType } from 'src/lib/explat/metrics'
 import * as Recommendations from 'src/lib/explat/recommendations'
 import {
   Analysis,
@@ -250,6 +250,7 @@ export default function MetricAssignmentResults({
 
   let estimateTransform: (estimate: number | null) => number | null = identity
   let unitName = ''
+  let countName = ''
   let metricValuePlotTitle = ''
   let metricValueAbsoluteDifferencePlotTitle = ''
   // Some of the information here should eventually be moved to UnitInfo
@@ -257,11 +258,13 @@ export default function MetricAssignmentResults({
     case UnitType.Ratio:
       estimateTransform = (estimate: number | null) => estimate && estimate * 100
       unitName = 'conversion rate'
+      countName = 'Conversions'
       metricValuePlotTitle = `Conversion rate estimates by variation (%)`
       metricValueAbsoluteDifferencePlotTitle = `Conversion rate difference estimates (percentage points)`
       break
     case UnitType.Usd:
       unitName = 'average cash per user (ACPU)'
+      countName = 'Cash Sales'
       metricValuePlotTitle = `Cash sales estimates by variation (USD)`
       metricValueAbsoluteDifferencePlotTitle = `Cash sales difference estimates (USD)`
       break
@@ -698,7 +701,7 @@ export default function MetricAssignmentResults({
                   <TableCell>Variant</TableCell>
                   <TableCell align='right'>Users</TableCell>
                   <TableCell align='right'>
-                    {metricParameterTypeName[metric.parameterType]}
+                    {countName}
                     <WarningAsterisk />
                   </TableCell>
                   <TableCell align='right' className={classes.unitName}>
