@@ -7,7 +7,7 @@ import React, { forwardRef, useEffect, useMemo } from 'react'
 
 import MetricsApi from 'src/api/explat/MetricsApi'
 import { metricParameterTypeName, stringifyMetricParams } from 'src/lib/explat/metrics'
-import { Metric, MetricParameterType } from 'src/lib/explat/schemas'
+import { Metric, MetricParameterType, TagBare } from 'src/lib/explat/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { createIdSlug } from 'src/utils/general'
 import { defaultTableOptions } from 'src/utils/material-table'
@@ -87,6 +87,11 @@ const MetricsTable = ({
       cellStyle: {
         fontFamily: theme.custom.fonts.monospace,
       },
+    },
+    {
+      title: 'Tags',
+      field: 'tags',
+      render: ({ tags }: { tags: TagBare[] }) => tags?.map((tag) => tag.name).join(', '),
     },
     {
       field: 'stringifiedParamsForSearch',
