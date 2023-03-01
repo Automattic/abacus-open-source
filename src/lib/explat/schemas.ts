@@ -114,6 +114,29 @@ export const extendedNumberSchema = yup
   // eslint-disable-next-line no-template-curly-in-string
   .test('is-number', '${path} is not a number', (value: unknown) => value === undefined || typeof value === 'number')
 
+export enum TagNamespace {
+  ExclusionGroup = 'exclusion_group',
+}
+
+export const tagBareSchema = yup
+  .object({
+    tagId: idSchema.defined(),
+    namespace: nameSchema.defined(),
+    name: nameSchema.defined(),
+    description: yup.string().defined(),
+  })
+  .defined()
+  .camelCase()
+export interface TagBare extends yup.InferType<typeof tagBareSchema> {}
+// For consistency and openness:
+export const tagFullSchema = tagBareSchema
+export interface TagFull extends yup.InferType<typeof tagFullSchema> {}
+export const tagFullNewSchema = tagFullSchema.shape({
+  tagId: idSchema.nullable(),
+})
+export interface TagFullNew extends yup.InferType<typeof tagFullNewSchema> {}
+export const tagFullNewOutboundSchema = tagFullNewSchema.snakeCase()
+
 export const eventSchema = yup
   .object({
     event: yup.string().defined(),
@@ -209,6 +232,7 @@ const noTestMetricSchema = yup
       then: metricPipeParamsSchema.defined(),
       otherwise: yup.mixed().oneOf([null]),
     }),
+    tags: yup.array(tagBareSchema),
   })
   .defined()
   .camelCase()
@@ -296,29 +320,6 @@ export const metricAssignmentSchema = metricAssignmentNewSchema
   .defined()
   .camelCase()
 export interface MetricAssignment extends yup.InferType<typeof metricAssignmentSchema> {}
-
-export enum TagNamespace {
-  ExclusionGroup = 'exclusion_group',
-}
-
-export const tagBareSchema = yup
-  .object({
-    tagId: idSchema.defined(),
-    namespace: nameSchema.defined(),
-    name: nameSchema.defined(),
-    description: yup.string().defined(),
-  })
-  .defined()
-  .camelCase()
-export interface TagBare extends yup.InferType<typeof tagBareSchema> {}
-// For consistency and openness:
-export const tagFullSchema = tagBareSchema
-export interface TagFull extends yup.InferType<typeof tagFullSchema> {}
-export const tagFullNewSchema = tagFullSchema.shape({
-  tagId: idSchema.nullable(),
-})
-export interface TagFullNew extends yup.InferType<typeof tagFullNewSchema> {}
-export const tagFullNewOutboundSchema = tagFullNewSchema.snakeCase()
 
 export enum SegmentType {
   Country = 'country',
