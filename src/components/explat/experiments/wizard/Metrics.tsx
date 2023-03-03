@@ -698,7 +698,9 @@ const Metrics = ({
                             {}
                             <br />
                             {}
-                            We strongly suggest considering adding one to improve the accuracy of your metrics.
+                            Use them carefully, if you want to preload the experiment and then narrow down the
+                            participants, or if you intend the participant to experience something multiple times, and
+                            you want the metric attribution window to reset each time they perform an initial action.
                           </Typography>
                         </TableCell>
                       </TableRow>

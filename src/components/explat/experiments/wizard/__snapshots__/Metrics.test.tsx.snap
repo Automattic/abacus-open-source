@@ -486,7 +486,7 @@ exports[`allows adding, editing and removing a Metric Assignment 1`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
@@ -1074,7 +1074,7 @@ exports[`allows adding, editing and removing a Metric Assignment 2`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
@@ -2356,7 +2356,7 @@ exports[`allows adding, editing and removing a Metric Assignment 3`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
@@ -3640,7 +3640,7 @@ exports[`allows adding, editing and removing a Metric Assignment 4`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
@@ -4922,7 +4922,7 @@ exports[`allows adding, editing and removing a Metric Assignment 5`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
@@ -5510,7 +5510,7 @@ exports[`allows adding, editing and removing a Metric Assignment 6`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
@@ -6790,7 +6790,7 @@ exports[`allows adding, editing and removing a Metric Assignment 7`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
@@ -7378,7 +7378,7 @@ exports[`renders as expected 1`] = `
               >
                 You don't have any exposure events.
                 <br />
-                We strongly suggest considering adding one to improve the accuracy of your metrics.
+                Use them carefully, if you want to preload the experiment and then narrow down the participants, or if you intend the participant to experience something multiple times, and you want the metric attribution window to reset each time they perform an initial action.
               </p>
             </td>
           </tr>
