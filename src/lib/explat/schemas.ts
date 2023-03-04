@@ -232,7 +232,7 @@ const noTestMetricSchema = yup
       then: metricPipeParamsSchema.defined(),
       otherwise: yup.mixed().oneOf([null]),
     }),
-    tags: yup.array(tagBareSchema),
+    tags: yup.array(tagBareSchema).defined(),
   })
   .defined()
   .camelCase()

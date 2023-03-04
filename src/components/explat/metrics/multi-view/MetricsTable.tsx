@@ -9,7 +9,7 @@ import MetricsApi from 'src/api/explat/MetricsApi'
 import { metricParameterTypeName, stringifyMetricParams } from 'src/lib/explat/metrics'
 import { Metric, MetricParameterType, TagBare } from 'src/lib/explat/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
-import { createIdSlug } from 'src/utils/general'
+import { createIdSlug, isDebugMode } from 'src/utils/general'
 import { defaultTableOptions } from 'src/utils/material-table'
 
 import MetricDetails from './../MetricDetails'
@@ -92,6 +92,8 @@ const MetricsTable = ({
       title: 'Tags',
       field: 'tags',
       render: ({ tags }: { tags: TagBare[] }) => tags?.map((tag) => tag.name).join(', '),
+      hidden: !isDebugMode(),
+      width: !isDebugMode() ? 0 : undefined,
     },
     {
       field: 'stringifiedParamsForSearch',
@@ -127,7 +129,7 @@ const MetricsTable = ({
       }}
       options={{
         ...defaultTableOptions,
-        actionsColumnIndex: 3,
+        actionsColumnIndex: 4,
       }}
       detailPanel={(rowData) => <MetricDetailPanel metric={rowData} />}
       icons={{
