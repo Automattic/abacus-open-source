@@ -403,7 +403,7 @@ const Metrics = ({
       metricAssignmentsFieldHelperProps.setValue(
         metricAssignmentsField.value.map((metricAssignment, index) => ({
           ...metricAssignment,
-          ...(index === indexToSet && { minDifference: newMinDiff / 100 }),
+          ...(index === indexToSet && { minDifference: newMinDiff }),
         })),
       )
   }

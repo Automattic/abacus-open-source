@@ -3879,10 +3879,12 @@ exports[`sections should be browsable by the section buttons and show validation
                                   I understand that ACPU (Average cash per user) between
                                    
                                   0.00
-                                   USD and
+                                   
+                                  USD and
                                    
                                   0.00
-                                   USD will be regarded as having no change.
+                                   
+                                  USD will be regarded as having no change.
                                 </label>
                               </div>
                               <br />

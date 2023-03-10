@@ -117,7 +117,7 @@ function MetricAssignmentForm({
           metric === null && setIsActiveMinDiffCalculator(false)
         }
         const handleMinPracticalDiffUpdate = (newMinDiff: number) => {
-          newMinDiff && formikProps.setFieldValue('metricAssignment.minDifference', newMinDiff / 100)
+          newMinDiff && formikProps.setFieldValue('metricAssignment.minDifference', newMinDiff)
         }
         const handleMinDiffCalculatorToggle = () => {
           setIsActiveMinDiffCalculator(!isActiveMinDiffCalculator)
@@ -224,7 +224,7 @@ function MetricAssignmentForm({
               <div className={clsx(classes.row, !isActiveMinDiffCalculator && classes.minDiffCalculatorCollapsed)}>
                 {metric && (
                   <MinDiffCalculator
-                    setMinPracticalDiff={(newMinDiff) => handleMinPracticalDiffUpdate(newMinDiff)}
+                    setMinPracticalDiff={handleMinPracticalDiffUpdate}
                     {...{
                       samplesPerMonth,
                       setSamplesPerMonth,

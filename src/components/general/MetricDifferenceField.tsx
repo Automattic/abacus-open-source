@@ -2,6 +2,7 @@ import { createStyles, InputAdornment, makeStyles, Tooltip, Typography } from '@
 import clsx from 'clsx'
 import { Field } from 'formik'
 import { TextField } from 'formik-material-ui'
+import _ from 'lodash'
 import React from 'react'
 
 import { getUnitInfo, UnitDerivationType, UnitType } from 'src/lib/explat/metrics'
@@ -11,7 +12,7 @@ import { formikFieldTransformer } from 'src/utils/formik'
 
 const ConversionMetricTextField = formikFieldTransformer(
   TextField,
-  (outer: string) => String((Number(outer) || 0) * 100),
+  (outer: string) => String(_.round((Number(outer) || 0) * 100, 2)),
   (inner: string) => String((Number(inner) || 0) / 100),
 )
 

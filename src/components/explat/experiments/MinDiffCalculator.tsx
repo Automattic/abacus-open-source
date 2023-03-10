@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { uniqueId } from 'lodash'
+import _ from 'lodash'
 import React, { useState } from 'react'
 
 import DebugOutput from 'src/components/general/DebugOutput'
@@ -20,6 +20,7 @@ import { getUnitInfo, UnitType } from 'src/lib/explat/metrics'
 import { Metric } from 'src/lib/explat/schemas'
 import { isDebugMode } from 'src/utils/general'
 import {
+  coerceNonFiniteToZero,
   defaultStatisticalPower,
   defaultStatisticalSignificance,
   samplesRequiredPerVariationForConversion,
@@ -50,14 +51,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
-
-function nanToZero(x: number): number {
-  return isNaN(x) ? 0 : x
-}
-
-function roundToNumPlaces(x: number, nPlaces: number): number {
-  return Math.round(x * Math.pow(10, nPlaces)) / Math.pow(10, nPlaces)
-}
 
 const MinDiffCalculator = ({
   samplesPerMonth,
@@ -108,12 +101,13 @@ const MinDiffCalculator = ({
     setMetricRevenuePerMonthMinPracticalDiff(event.target.value as number)
   }
 
-  const metricMinimumPracticalDifference = parseFloat(
-    (isConversion
+  const metricMinimumPracticalDifference = _.round(
+    isConversion
       ? (metricConversionsPerMonthMinPracticalDiff / samplesPerMonth) * 100
-      : metricRevenuePerMonthMinPracticalDiff / samplesPerMonth
-    ).toFixed(2),
+      : metricRevenuePerMonthMinPracticalDiff / samplesPerMonth,
+    2,
   )
+
   const metricMinimumPracticalDifferenceLift = isConversion
     ? metricMinimumPracticalDifference / metricBaselineConversionRate
     : (metricRevenuePerMonthMinPracticalDiff / metricBaselineRevenue) * 100
@@ -138,12 +132,12 @@ const MinDiffCalculator = ({
 
   const onApplyMinDiff = () => {
     isConversion
-      ? setMinPracticalDiff(metricMinimumPracticalDifference)
-      : setMinPracticalDiff(metricMinimumPracticalDifference * 100)
+      ? setMinPracticalDiff(_.round(metricMinimumPracticalDifference / 100, 4))
+      : setMinPracticalDiff(metricMinimumPracticalDifference)
   }
 
   // For unique form field ids
-  const calculatorUniqueId = uniqueId()
+  const calculatorUniqueId = _.uniqueId()
 
   const debugMode = isDebugMode()
 
@@ -184,7 +178,9 @@ const MinDiffCalculator = ({
                   onChange={onChangeMetricBaselineConversionRatePercentage}
                   label='Baseline conversion rate'
                   placeholder='27.5'
-                  helperText={`= ${Math.round(nanToZero(metricBaselineConversionsPerMonth))} conversions per month`}
+                  helperText={`= ${Math.round(
+                    coerceNonFiniteToZero(metricBaselineConversionsPerMonth),
+                  )} conversions per month`}
                   variant='outlined'
                   fullWidth
                   required
@@ -226,7 +222,7 @@ const MinDiffCalculator = ({
                   onChange={onChangeMetricBaselineRevenue}
                   label='Baseline cash sales / month'
                   placeholder='9800'
-                  helperText={`= ${roundToNumPlaces(nanToZero(metricBaselineRevenuePerUser), 4)} USD ACPU`}
+                  helperText={`= ${_.round(coerceNonFiniteToZero(metricBaselineRevenuePerUser), 4)} USD ACPU`}
                   variant='outlined'
                   fullWidth
                   required
@@ -263,7 +259,7 @@ const MinDiffCalculator = ({
                   fullWidth
                   required
                   type='number'
-                  helperText={`= ${roundToNumPlaces(nanToZero(metricMinimumPracticalDifferenceLift), 2)}% lift`}
+                  helperText={`= ${_.round(coerceNonFiniteToZero(metricMinimumPracticalDifferenceLift), 2)}% lift`}
                   inputProps={{
                     min: 0,
                   }}
@@ -287,7 +283,7 @@ const MinDiffCalculator = ({
                   fullWidth
                   required
                   type='number'
-                  helperText={`= ${roundToNumPlaces(nanToZero(metricMinimumPracticalDifferenceLift), 2)}% lift`}
+                  helperText={`= ${_.round(coerceNonFiniteToZero(metricMinimumPracticalDifferenceLift), 2)}% lift`}
                   inputProps={{
                     min: 0,
                   }}
@@ -326,7 +322,7 @@ const MinDiffCalculator = ({
           </Typography>
           <strong>
             <pre>
-              {nanToZero(metricMinimumPracticalDifference)} {isConversion ? 'pp' : 'USD ACPU'}
+              {coerceNonFiniteToZero(metricMinimumPracticalDifference)} {isConversion ? 'pp' : 'USD ACPU'}
             </pre>
           </strong>
           <br />
@@ -362,16 +358,22 @@ const MinDiffCalculator = ({
               {isConversion ? (
                 <>
                   I understand that a conversion rate between{' '}
-                  {nanToZero(metricBaselineConversionRate * 100 - metricMinimumPracticalDifference).toFixed(2)}% and{' '}
-                  {nanToZero(metricBaselineConversionRate * 100 + metricMinimumPracticalDifference).toFixed(2)}% will be
-                  regarded as having no change.
+                  {coerceNonFiniteToZero(metricBaselineConversionRate * 100 - metricMinimumPracticalDifference).toFixed(
+                    2,
+                  )}
+                  % and{' '}
+                  {coerceNonFiniteToZero(metricBaselineConversionRate * 100 + metricMinimumPracticalDifference).toFixed(
+                    2,
+                  )}
+                  % will be regarded as having no change.
                 </>
               ) : (
                 <>
                   I understand that ACPU (Average cash per user) between{' '}
-                  {nanToZero(metricBaselineRevenuePerUser - metricMinimumPracticalDifference).toFixed(2)} USD and{' '}
-                  {nanToZero(metricBaselineRevenuePerUser + metricMinimumPracticalDifference).toFixed(2)} USD will be
-                  regarded as having no change.
+                  {coerceNonFiniteToZero(metricBaselineRevenuePerUser - metricMinimumPracticalDifference).toFixed(2)}{' '}
+                  USD and{' '}
+                  {coerceNonFiniteToZero(metricBaselineRevenuePerUser + metricMinimumPracticalDifference).toFixed(2)}{' '}
+                  USD will be regarded as having no change.
                 </>
               )}
             </Typography>
@@ -379,7 +381,11 @@ const MinDiffCalculator = ({
 
           <br />
 
-          <Button onClick={onApplyMinDiff} variant='contained' disabled={!liabilityChecked}>
+          <Button
+            onClick={onApplyMinDiff}
+            variant='contained'
+            disabled={!liabilityChecked || !metricMinimumPracticalDifference}
+          >
             Apply min diff
           </Button>
         </div>

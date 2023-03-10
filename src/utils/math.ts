@@ -1,4 +1,5 @@
 import chiSquaredTest from 'chi-squared-test'
+import _ from 'lodash'
 import { abs, erf } from 'mathjs'
 
 /**
@@ -87,4 +88,11 @@ export function samplesRequiredPerVariationForConversion(
   // FIXME: Dummy zScore until we have norm-inv working
   const zScore = 2.5
   return Math.ceil(Math.pow(zScore / delta, 2) * variance)
+}
+
+/**
+ * Return 0 if a number is Infinity, -Infinity or NaN, otherwise return the number
+ */
+export function coerceNonFiniteToZero(x: number): number {
+  return isFinite(x) ? x : 0
 }
