@@ -15,6 +15,7 @@ import React from 'react'
 import { metricParameterTypeName, stringifyMetricParams } from 'src/lib/explat/metrics'
 import { Metric } from 'src/lib/explat/schemas'
 import { formatBoolean } from 'src/utils/formatters'
+import { isDebugMode } from 'src/utils/general'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,6 +72,14 @@ export default function MetricDetails({
                     <TableCell className={classes.headerCell}>Parameter Type:</TableCell>
                     <TableCell className={classes.dataCell}>{metricParameterTypeName[metric.parameterType]}</TableCell>
                   </TableRow>
+                  {isDebugMode() && (
+                    <TableRow>
+                      <TableCell className={classes.headerCell}>Tags:</TableCell>
+                      <TableCell className={classes.dataCell}>
+                        {metric.tags?.map((tag) => tag?.name).join(',')}
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </>
               )}
               <TableRow>
