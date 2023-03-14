@@ -232,7 +232,7 @@ const noTestMetricSchema = yup
       then: metricPipeParamsSchema.defined(),
       otherwise: yup.mixed().oneOf([null]),
     }),
-    tags: yup.array(tagBareSchema),
+    tags: yup.array(tagFullSchema),
   })
   .defined()
   .camelCase()
@@ -264,24 +264,29 @@ export const metricNewSchema = metricSchema.shape({
   metricId: idSchema.nullable(),
 })
 export interface MetricNew extends yup.InferType<typeof metricNewSchema> {}
-export const metricNewOutboundSchema = metricNewSchema.snakeCase().transform(
-  // istanbul ignore next; Tested by integration
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  (currentValue) => ({
-    ...currentValue,
-    revenueParams: undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    revenue_params: currentValue.revenue_params
-      ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        metricRevenueParamsSchema.snakeCase().cast(currentValue.revenue_params)
-      : undefined,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    pipe_params: currentValue.pipe_params
-      ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        metricPipeParamsSchema.snakeCase().cast(currentValue.pipe_params)
-      : undefined,
-  }),
-)
+export const metricNewOutboundSchema = metricNewSchema
+  .snakeCase()
+  .transform(
+    // istanbul ignore next; Tested by integration
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    (currentValue) => ({
+      ...currentValue,
+      revenueParams: undefined,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      revenue_params: currentValue.revenue_params
+        ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          metricRevenueParamsSchema.snakeCase().cast(currentValue.revenue_params)
+        : undefined,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      pipe_params: currentValue.pipe_params
+        ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          metricPipeParamsSchema.snakeCase().cast(currentValue.pipe_params)
+        : undefined,
+    }),
+  )
+  .shape({
+    tags: yup.array(tagFullSchema.snakeCase()),
+  })
 
 export enum AttributionWindowSeconds {
   OneHour = 3600,

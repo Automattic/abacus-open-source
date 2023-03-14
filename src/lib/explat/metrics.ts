@@ -14,6 +14,8 @@ import {
 export const stringifyMetricParams = (metric: Metric): string =>
   JSON.stringify(metric[metricParameterTypeToParameterField[metric.parameterType]], null, 4)
 
+export const ELIGIBLE_METRIC_TAG_NAMESPACES: string[] = ['internal']
+
 export enum UnitType {
   Ratio = 'ratio',
   RatioPoints = 'ratio_points',
