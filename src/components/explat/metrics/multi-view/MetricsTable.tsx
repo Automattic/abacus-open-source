@@ -1,11 +1,13 @@
-import { useTheme } from '@material-ui/core'
+import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core'
 import { ChevronRight } from '@material-ui/icons'
 import debugFactory from 'debug'
 import _ from 'lodash'
-import MaterialTable from 'material-table'
-import React, { forwardRef, useEffect, useMemo } from 'react'
+import MaterialTable, { MTableToolbar } from 'material-table'
+import React, { forwardRef, useEffect, useMemo, useState } from 'react'
 
 import MetricsApi from 'src/api/explat/MetricsApi'
+import TagsApi from 'src/api/explat/TagsApi'
+import TagAutocomplete from 'src/components/general/TagAutocomplete'
 import { metricParameterTypeName, stringifyMetricParams } from 'src/lib/explat/metrics'
 import { Metric, MetricParameterType, TagFull } from 'src/lib/explat/schemas'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
@@ -15,6 +17,25 @@ import { defaultTableOptions } from 'src/utils/material-table'
 import MetricDetails from './../MetricDetails'
 
 const debug = debugFactory('abacus:components/MetricsTable.tsx')
+
+const ELIGIBLE_TAG_NAMESPACES = ['internal']
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    metricsTableHeader: {
+      marginTop: theme.spacing(2),
+      display: 'flex',
+    },
+    metricsTableTagsFilter: {
+      margin: theme.spacing(2),
+      justifyContent: 'flex-end',
+      flex: 1,
+    },
+    metricsTableTagsFilterLabel: {
+      lineHeight: `${theme.spacing(4)}px`,
+    },
+  }),
+)
 
 /**
  * Renders details for one metric within the metric table.
@@ -53,13 +74,28 @@ const MetricsTable = ({
 }): JSX.Element => {
   debug('MetricsTable#render')
 
+  const classes = useStyles()
+
+  const [selectedTagOption, setSelectedTagOption] = useState<TagFull | null>(null)
+  const onChangeSelectedTagOption = (_event: unknown, value: TagFull | null) => {
+    setSelectedTagOption(value)
+  }
+  const { isLoading: tagIsLoading, data: tags, error: tagsError } = useDataSource(() => TagsApi.findAll(), [])
+  useDataLoadingError(tagsError, 'Tags')
+  const eligibleTagsForFilter = useMemo(
+    () => tags?.filter((tag) => ELIGIBLE_TAG_NAMESPACES.includes(tag.namespace)) || [],
+    [tags],
+  )
+
   const processedMetrics = useMemo(
     () =>
-      metrics.map((metric) => ({
-        ...metric,
-        stringifiedParamsForSearch: stringifyMetricParams(metric),
-      })),
-    [metrics],
+      metrics
+        .filter((metric) => (selectedTagOption ? _.map(metric.tags, 'tagId').includes(selectedTagOption?.tagId) : true))
+        .map((metric) => ({
+          ...metric,
+          stringifiedParamsForSearch: stringifyMetricParams(metric),
+        })),
+    [metrics, selectedTagOption],
   )
 
   const theme = useTheme()
@@ -134,6 +170,29 @@ const MetricsTable = ({
       detailPanel={(rowData) => <MetricDetailPanel metric={rowData} />}
       icons={{
         DetailPanel: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} onClick={onRowClick} />),
+      }}
+      components={{
+        //eslint-disable-next-line @typescript-eslint/naming-convention
+        Toolbar: (props) => (
+          <div className={classes.metricsTableHeader}>
+            <MTableToolbar {...props} />
+            {isDebugMode() && (
+              <>
+                <h4 className={classes.metricsTableTagsFilterLabel}>Filter by tag: </h4>
+                <div className={classes.metricsTableTagsFilter}>
+                  <TagAutocomplete
+                    id='filter-tag-select'
+                    value={selectedTagOption}
+                    onChange={onChangeSelectedTagOption}
+                    options={eligibleTagsForFilter}
+                    error={tagsError?.message}
+                    loading={tagIsLoading}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+        ),
       }}
     />
   )
