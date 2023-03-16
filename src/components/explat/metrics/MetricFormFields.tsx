@@ -9,8 +9,9 @@ import React, { useEffect } from 'react'
 import TagsApi from 'src/api/explat/TagsApi'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
 import { MetricFormData } from 'src/lib/explat/form-data'
-import { ELIGIBLE_METRIC_TAG_NAMESPACES, metricParameterTypeName } from 'src/lib/explat/metrics'
+import { metricParameterTypeName } from 'src/lib/explat/metrics'
 import { AutocompleteItem, metricParameterTypeToParameterField, TagFull } from 'src/lib/explat/schemas'
+import { DIVISION_KPI_TAG_NAMESPACES } from 'src/lib/explat/tags'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { isDebugMode } from 'src/utils/general'
 
@@ -107,7 +108,7 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
   } = useDataSource(async () => {
     const tags = await TagsApi.findAll()
     return tags
-      .filter((tag) => ELIGIBLE_METRIC_TAG_NAMESPACES.includes(tag.namespace))
+      .filter((tag) => DIVISION_KPI_TAG_NAMESPACES.includes(tag.namespace))
       .map((tag) => ({
         name: tag.name,
         value: tag.tagId,
