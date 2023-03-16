@@ -88,7 +88,6 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
       .map((tag) => ({
         name: tag.name,
         value: tag.tagId,
-        data: tag,
       }))
   }, [])
   useDataLoadingError(tagOptionsError, 'Tags')

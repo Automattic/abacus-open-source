@@ -17,6 +17,7 @@ import {
   Metric,
   MetricAssignment,
   MetricEstimates,
+  MetricNew,
   MetricParameterType,
   Platform,
   Segment,
@@ -551,8 +552,14 @@ function createMetric(id: number, override?: Partial<Metric>): Metric {
     higherIsBetter: id % 3 === 0,
     eventParams: parameterType === MetricParameterType.Conversion ? eventParams : undefined,
     revenueParams: parameterType === MetricParameterType.Revenue ? revenueParams : undefined,
+    tags: [],
     ...override,
   }
+}
+
+function createMetricNew(id: number, override?: Partial<Metric>): MetricNew {
+  const metric = createMetric(id, override)
+  return { ...metric, tags: metric.tags?.map((tag) => tag.tagId) || [] }
 }
 
 function createMetrics(numMetrics = 3): Metric[] {
@@ -609,6 +616,7 @@ const Fixtures = {
   createMetricEstimates,
   createMetric,
   createMetrics,
+  createMetricNew,
   createTagBares,
   createTagFull,
   createSegmentAssignment,

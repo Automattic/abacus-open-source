@@ -30,6 +30,7 @@ describe('MetricsApi.ts module', () => {
         name: 'metric_1',
         parameter_type: 'conversion',
         revenue_params: undefined,
+        tags: [],
       })
 
       expect(metricNewOutboundSchema.cast(Fixtures.createMetric(2))).toEqual({
@@ -44,20 +45,21 @@ describe('MetricsApi.ts module', () => {
           product_slugs: ['xx-bundles'],
           transaction_types: [TransactionTypes.NewPurchase],
         },
+        tags: [],
       })
     })
   })
 
   describe('create', () => {
     it(`should create a new metric`, async () => {
-      const returnedMetric = await validationErrorDisplayer(MetricsApi.create(Fixtures.createMetric(1)))
+      const returnedMetric = await validationErrorDisplayer(MetricsApi.create(Fixtures.createMetricNew(1)))
       expect(returnedMetric.metricId).toBeGreaterThan(0)
     })
   })
 
   describe('put', () => {
     it(`should put a metric`, async () => {
-      const returnedMetric = await validationErrorDisplayer(MetricsApi.put(1, Fixtures.createMetric(1)))
+      const returnedMetric = await validationErrorDisplayer(MetricsApi.put(1, Fixtures.createMetricNew(1)))
       expect(returnedMetric.metricId).toBeGreaterThan(0)
     })
   })
