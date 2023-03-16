@@ -22,7 +22,7 @@ function MetricTagsAutocomplete<Multiple extends boolean>(
 ): JSX.Element {
   const initialValue = (props.field.value as unknown as TagFull[]) || []
   const options = props.options as unknown as Array<{
-    meta: TagFull
+    data: TagFull
     tagId: number
   }>
 
@@ -35,7 +35,7 @@ function MetricTagsAutocomplete<Multiple extends boolean>(
     setFieldValue: (name: string, value: number[]) =>
       props.form.setFieldValue(
         name,
-        value.map((tagId) => options.find((option) => option.meta.tagId === tagId)?.meta),
+        value.map((tagId) => options.find((option) => option.data.tagId === tagId)?.data),
       ),
   }
   return <AbacusAutocomplete {...props} field={field} form={form} />
@@ -112,7 +112,7 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
       .map((tag) => ({
         name: tag.name,
         value: tag.tagId,
-        meta: tag,
+        data: tag,
       }))
   }, [])
   useDataLoadingError(tagOptionsError, 'Tags')
