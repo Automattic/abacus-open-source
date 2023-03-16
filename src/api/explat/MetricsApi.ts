@@ -13,7 +13,11 @@ import { fetchApi } from './utils'
  */
 async function create(newMetric: MetricNew): Promise<Metric> {
   const validatedNewMetric = await metricNewSchema.validate(newMetric, { abortEarly: false })
-  const outboundNewMetric = metricNewOutboundSchema.cast(validatedNewMetric)
+  const metricDataForRequest = {
+    ...validatedNewMetric,
+    tags: validatedNewMetric.tags?.map((tagId) => ({ tagId })),
+  }
+  const outboundNewMetric = metricNewOutboundSchema.cast(metricDataForRequest)
   return await metricSchema.validate(await fetchApi('POST', '/metrics', outboundNewMetric))
 }
 
@@ -28,7 +32,11 @@ async function put(metricId: number, newMetric: MetricNew): Promise<Metric> {
     throw new Error('Invalid metricId.')
   }
   const validatedNewMetric = await metricNewSchema.validate(newMetric, { abortEarly: false })
-  const outboundNewMetric = metricNewOutboundSchema.cast(validatedNewMetric)
+  const metricDataForRequest = {
+    ...validatedNewMetric,
+    tags: validatedNewMetric.tags?.map((tagId) => ({ tagId })),
+  }
+  const outboundNewMetric = metricNewOutboundSchema.cast(metricDataForRequest)
   return await metricSchema.validate(await fetchApi('PUT', `/metrics/${metricId}`, outboundNewMetric))
 }
 

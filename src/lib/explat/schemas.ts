@@ -262,6 +262,8 @@ export const metricSchema = noTestMetricSchema
   })
 export const metricNewSchema = metricSchema.shape({
   metricId: idSchema.nullable(),
+  // Used by Formik and AbacusAutocomplete when editing assigned tags.
+  tags: yup.array(idSchema.defined()).defined(),
 })
 export interface MetricNew extends yup.InferType<typeof metricNewSchema> {}
 export const metricNewOutboundSchema = metricNewSchema
@@ -285,7 +287,7 @@ export const metricNewOutboundSchema = metricNewSchema
     }),
   )
   .shape({
-    tags: yup.array(tagFullSchema.snakeCase()),
+    tags: yup.array(yupPick(tagFullSchema, ['tagId']).snakeCase()),
   })
 
 export enum AttributionWindowSeconds {

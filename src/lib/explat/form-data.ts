@@ -8,7 +8,6 @@ import {
   MetricParameterType,
   SegmentAssignment,
   TagBare,
-  TagFull,
   Variation,
 } from './schemas'
 
@@ -125,7 +124,7 @@ export const metricToFormData: (metric: Partial<Metric>) => {
   revenueParams: string | undefined
   pipeParams: string | undefined
   higherIsBetter: boolean
-  tags: TagFull[] | undefined
+  tags: number[] | undefined
 } = (metric: Partial<Metric>) => ({
   name: metric.name ?? '',
   description: metric.description ?? '',
@@ -134,7 +133,7 @@ export const metricToFormData: (metric: Partial<Metric>) => {
   eventParams: metric.eventParams ? JSON.stringify(metric.eventParams, null, 2) : undefined,
   revenueParams: metric.revenueParams ? JSON.stringify(metric.revenueParams, null, 2) : undefined,
   pipeParams: metric.pipeParams ? JSON.stringify(metric.pipeParams, null, 2) : undefined,
-  tags: metric.tags || [],
+  tags: metric.tags?.map((tag) => tag.tagId) || [],
 })
 export type MetricFormData = ReturnType<typeof metricToFormData>
 

@@ -2,7 +2,7 @@ import { Chip, FormControl, FormControlLabel, FormLabel, Radio, TextField as Mui
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Field, FormikProps } from 'formik'
 import { fieldToTextField, RadioGroup, Switch, TextField, TextFieldProps } from 'formik-material-ui'
-import { AutocompleteProps, AutocompleteRenderInputParams } from 'formik-material-ui-lab'
+import { AutocompleteRenderInputParams } from 'formik-material-ui-lab'
 import _ from 'lodash'
 import React, { useEffect } from 'react'
 
@@ -10,36 +10,12 @@ import TagsApi from 'src/api/explat/TagsApi'
 import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/general/Autocomplete'
 import { MetricFormData } from 'src/lib/explat/form-data'
 import { metricParameterTypeName } from 'src/lib/explat/metrics'
-import { AutocompleteItem, metricParameterTypeToParameterField, TagFull } from 'src/lib/explat/schemas'
+import { AutocompleteItem, metricParameterTypeToParameterField } from 'src/lib/explat/schemas'
 import { DIVISION_KPI_TAG_NAMESPACES } from 'src/lib/explat/tags'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { isDebugMode } from 'src/utils/general'
 
 import DebugOutput from '../../general/DebugOutput'
-
-function MetricTagsAutocomplete<Multiple extends boolean>(
-  props: AutocompleteProps<AutocompleteItem, Multiple, false, false>,
-): JSX.Element {
-  const initialValue = (props.field.value as unknown as TagFull[]) || []
-  const options = props.options as unknown as Array<{
-    data: TagFull
-    tagId: number
-  }>
-
-  const field = {
-    ...props.field,
-    value: initialValue.map((tag) => tag?.tagId),
-  }
-  const form = {
-    ...props.form,
-    setFieldValue: (name: string, value: number[]) =>
-      props.form.setFieldValue(
-        name,
-        value.map((tagId) => options.find((option) => option.data.tagId === tagId)?.data),
-      ),
-  }
-  return <AbacusAutocomplete {...props} field={field} form={form} />
-}
 
 const useJsonTextFieldStyles = makeStyles((_theme: Theme) =>
   createStyles({
@@ -155,7 +131,7 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
       {isDebugMode() && (
         <div className={classes.row}>
           <Field
-            component={MetricTagsAutocomplete}
+            component={AbacusAutocomplete}
             name='metric.tags'
             id='metric.tags'
             fullWidth
