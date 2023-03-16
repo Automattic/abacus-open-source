@@ -89,9 +89,9 @@ function GeneralPanel({
       label: 'Dates',
       value: (
         <>
-          <DatetimeText datetime={experiment.startDatetime} excludeTime />
+          {experiment.startDatetime ? <DatetimeText datetime={experiment.startDatetime} excludeTime /> : '-'}
           <span className={classes.to}>to</span>
-          <DatetimeText datetime={experiment.endDatetime} excludeTime />
+          {experiment.endDatetime ? <DatetimeText datetime={experiment.endDatetime} excludeTime /> : '-'}
         </>
       ),
     },
@@ -129,7 +129,7 @@ function GeneralPanel({
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const generalEditInitialExperiment = {
     ..._.pick(experiment, ['description', 'ownerLogin']),
-    endDatetime: formatIsoDate(experiment.endDatetime),
+    endDatetime: experiment.endDatetime ? formatIsoDate(experiment.endDatetime) : '',
     // Needed for endDatetime validation
     startDatetime: experiment.startDatetime,
   }

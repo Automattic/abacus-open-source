@@ -557,6 +557,11 @@ function utcStartOfDay(date: Date): Date {
  * Returns the total run hours being analysed in the provided analysis.
  */
 export function getAnalysisRunHours(analysis: Analysis, experiment: ExperimentFull): number {
+  // istanbul ignore next; shouldn't occur
+  if (!experiment.startDatetime) {
+    throw new Error('Missing experiment startDatetime, this experiment should be running')
+  }
+
   // Analysis datetimes represents days not datetimes so the time of the day should be 00:00.0000.
   if (analysis.analysisDatetime.getTime() !== utcStartOfDay(analysis.analysisDatetime).getTime()) {
     throw new Error('Expected analysisDatetime at start of the day.')

@@ -13,7 +13,7 @@ import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 import DatetimeText from 'src/components/general/DatetimeText'
 import MetricValue from 'src/components/general/MetricValue'
 import { UnitType } from 'src/lib/explat/metrics'
-import { Analysis, ExperimentSummary, Status } from 'src/lib/explat/schemas'
+import { Analysis, ExperimentBare, ExperimentSummary, Status } from 'src/lib/explat/schemas'
 import { createIdSlug } from 'src/utils/general'
 
 import ExperimentStatus from '../ExperimentStatus'
@@ -198,9 +198,9 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] })
                 fontFamily: theme.custom.fonts.monospace,
                 fontWeight: 600,
               },
-              cellRendererFramework: ({ value: name, data }: { value: Status; data: ExperimentSummary }) => (
+              cellRendererFramework: ({ data }: { data: ExperimentSummary }) => (
                 <Link component={RouterLink} to={`/experiments/${createIdSlug(data.experimentId, data.name)}`}>
-                  {name}
+                  {data.name}
                 </Link>
               ),
               sortable: true,
@@ -240,8 +240,8 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] })
             {
               headerName: 'Start',
               field: 'startDatetime',
-              cellRendererFramework: ({ value: startDatetime }: { value: Date }) => {
-                return <DatetimeText datetime={startDatetime} excludeTime />
+              cellRendererFramework: ({ value: startDatetime }: { value: ExperimentBare['startDatetime'] }) => {
+                return startDatetime && <DatetimeText datetime={startDatetime} excludeTime />
               },
               sortable: true,
               filter: 'agDateColumnFilter',
@@ -250,8 +250,8 @@ const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] })
             {
               headerName: 'End',
               field: 'endDatetime',
-              cellRendererFramework: ({ value: endDatetime }: { value: Date }) => {
-                return <DatetimeText datetime={endDatetime} excludeTime />
+              cellRendererFramework: ({ value: endDatetime }: { value: ExperimentBare['endDatetime'] }) => {
+                return endDatetime && <DatetimeText datetime={endDatetime} excludeTime />
               },
               sortable: true,
               filter: 'agDateColumnFilter',

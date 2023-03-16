@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders as expected for experiment with null datetimes 1`] = `
+<div>
+  <div
+    class="MuiPaper-root MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      class="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+    >
+      <h3
+        class="MuiTypography-root makeStyles-title-14 MuiTypography-h3 MuiTypography-colorTextPrimary"
+      >
+        General
+      </h3>
+      <div
+        class=""
+        title="Use \\"Edit in Wizard\\" for staging experiments."
+      >
+        <button
+          aria-label="Edit Experiment General Data"
+          class="MuiButtonBase-root MuiButton-root MuiButton-outlined Mui-disabled Mui-disabled"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+              />
+            </svg>
+            Edit
+          </span>
+        </button>
+      </div>
+    </div>
+    <table
+      class="MuiTable-root"
+    >
+      <tbody
+        class="MuiTableBody-root"
+      >
+        <tr
+          class="MuiTableRow-root"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head"
+            role="cell"
+            scope="row"
+          >
+            Status
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <span
+              class="makeStyles-root-18"
+            >
+              <span
+                class="makeStyles-statusDot-23 makeStyles-staging-21"
+              />
+               
+              staging
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head"
+            role="cell"
+            scope="row"
+          >
+            Dates
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            -
+            <span
+              class="makeStyles-to-13"
+            >
+              to
+            </span>
+            -
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head"
+            role="cell"
+            scope="row"
+          >
+            Description
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <span
+              class="makeStyles-monospace-17"
+            >
+              Experiment with things. Change stuff. Profit.
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head"
+            role="cell"
+            scope="row"
+          >
+            Owner
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <span
+              class="makeStyles-monospace-17"
+            >
+              owner-nickname
+            </span>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head"
+            role="cell"
+            scope="row"
+          >
+            P2 Link
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <a
+              class="MuiTypography-root MuiLink-root MuiLink-underlineHover makeStyles-monospace-17 MuiTypography-colorPrimary"
+              href="https://wordpress.com/experiment_1"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              https://wordpress.com/experiment_1
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="MuiTableRow-root"
+        >
+          <th
+            class="MuiTableCell-root MuiTableCell-head"
+            role="cell"
+            scope="row"
+          >
+            Assignment Cache Entry
+          </th>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <span
+              class="makeStyles-monospace-17"
+            >
+              ✅ Fresh: Production cache is up to date, but manual sandbox updates may be needed
+               (
+              <a
+                class="MuiTypography-root MuiLink-root MuiLink-underlineAlways MuiTypography-colorPrimary"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                learn more
+              </a>
+              )
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

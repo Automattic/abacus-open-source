@@ -225,6 +225,18 @@ test('renders as expected', () => {
   `)
 })
 
+test('renders as expected for experiment with null datetimes', () => {
+  const experiment = Fixtures.createExperimentFull()
+  const { container } = render(
+    <GeneralPanel
+      experiment={{ ...experiment, startDatetime: null, endDatetime: null }}
+      experimentReloadRef={experimentReloadRef}
+    />,
+  )
+
+  expect(container).toMatchSnapshot()
+})
+
 test('opens, submits and cancels edit dialog with running experiment', async () => {
   const experiment = Fixtures.createExperimentFull({ status: Status.Running })
   render(<GeneralPanel experiment={experiment} experimentReloadRef={experimentReloadRef} />)

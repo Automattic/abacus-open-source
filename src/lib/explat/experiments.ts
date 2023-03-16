@@ -75,7 +75,18 @@ export function getExperimentRunHours(experiment: ExperimentFull): number {
     return 0
   }
 
+  // istanbul ignore next; shouldn't occur
+  if (!experiment.startDatetime) {
+    throw new Error('Missing experiment startDatetime, this experiment should be running')
+  }
+
   const maybeEndDate = experiment.status === Status.Running ? new Date() : experiment.endDatetime
+
+  // istanbul ignore next; shouldn't occur
+  if (!maybeEndDate) {
+    throw new Error('Missing experiment endDatetime for stopped experiment')
+  }
+
   return differenceInHours(maybeEndDate, experiment.startDatetime)
 }
 
