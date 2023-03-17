@@ -552,7 +552,7 @@ function createMetric(id: number, override?: Partial<Metric>): Metric {
     higherIsBetter: id % 3 === 0,
     eventParams: parameterType === MetricParameterType.Conversion ? eventParams : undefined,
     revenueParams: parameterType === MetricParameterType.Revenue ? revenueParams : undefined,
-    tags: [],
+    tags: [{ tagId: 1, name: 'tag1', namespace: 'namespace1', description: 'description1' }],
     ...override,
   }
 }

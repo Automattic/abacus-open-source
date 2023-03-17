@@ -15,6 +15,12 @@ beforeEach(async () => {
 describe('MetricsApi.ts module', () => {
   describe('outbound form', () => {
     it(`should transform a metric into an outbound form`, () => {
+      const expectedTag = {
+        description: 'description1',
+        name: 'tag1',
+        namespace: 'namespace1',
+        tag_id: 1,
+      }
       expect(metricNewOutboundSchema.cast(Fixtures.createMetric(1))).toEqual({
         description: 'This is metric 1',
         event_params: [
@@ -30,7 +36,7 @@ describe('MetricsApi.ts module', () => {
         name: 'metric_1',
         parameter_type: 'conversion',
         revenue_params: undefined,
-        tags: [],
+        tags: [expectedTag],
       })
 
       expect(metricNewOutboundSchema.cast(Fixtures.createMetric(2))).toEqual({
@@ -45,7 +51,7 @@ describe('MetricsApi.ts module', () => {
           product_slugs: ['xx-bundles'],
           transaction_types: [TransactionTypes.NewPurchase],
         },
-        tags: [],
+        tags: [expectedTag],
       })
     })
   })
