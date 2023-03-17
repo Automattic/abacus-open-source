@@ -142,6 +142,7 @@ describe('lib/form-data.test.ts module', () => {
           "parameterType": "conversion",
           "pipeParams": undefined,
           "revenueParams": undefined,
+          "tags": Array [],
         }
       `)
     })
@@ -163,6 +164,9 @@ describe('lib/form-data.test.ts module', () => {
           "parameterType": "conversion",
           "pipeParams": undefined,
           "revenueParams": undefined,
+          "tags": Array [
+            1,
+          ],
         }
       `)
 
@@ -183,6 +187,9 @@ describe('lib/form-data.test.ts module', () => {
             \\"new purchase\\"
           ]
         }",
+          "tags": Array [
+            1,
+          ],
         }
       `)
 
@@ -214,6 +221,9 @@ describe('lib/form-data.test.ts module', () => {
           \\"extraAnalysisWindowDays\\": 10
         }",
           "revenueParams": undefined,
+          "tags": Array [
+            1,
+          ],
         }
       `)
     })

@@ -13,7 +13,6 @@ import { metricParameterTypeName } from 'src/lib/explat/metrics'
 import { AutocompleteItem, metricParameterTypeToParameterField } from 'src/lib/explat/schemas'
 import { DIVISION_KPI_TAG_NAMESPACES } from 'src/lib/explat/tags'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
-import { isDebugMode } from 'src/utils/general'
 
 import DebugOutput from '../../general/DebugOutput'
 
@@ -127,33 +126,33 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
           }}
         />
       </div>
-      {isDebugMode() && (
-        <div className={classes.row}>
-          <Field
-            component={AbacusAutocomplete}
-            name='metric.tags'
-            id='metric.tags'
-            fullWidth
-            options={
-              // istanbul ignore next; trivial
-              tagOptions ?? []
-            }
-            loading={tagOptionsLoading}
-            multiple
-            renderOption={(option: AutocompleteItem) => <Chip label={option.name} />}
-            renderInput={(params: AutocompleteRenderInputParams) => (
-              <MuiTextField
-                {...params}
-                variant='outlined'
-                InputProps={{
-                  ...autocompleteInputProps(params, tagOptionsLoading),
-                }}
-                label='Tags'
-              />
-            )}
-          />
-        </div>
-      )}
+      <div className={classes.row}>
+        <Field
+          component={AbacusAutocomplete}
+          name='metric.tags'
+          id='metric.tags'
+          fullWidth
+          options={
+            // istanbul ignore next; trivial
+            tagOptions ?? []
+          }
+          loading={tagOptionsLoading}
+          multiple
+          renderOption={(option: AutocompleteItem) => <Chip label={option.name} />}
+          renderInput={(params: AutocompleteRenderInputParams) => (
+            <MuiTextField
+              {...params}
+              variant='outlined'
+              InputProps={{
+                ...autocompleteInputProps(params, tagOptionsLoading),
+              }}
+              label='Tags'
+            />
+          )}
+          noOptionsText='No tags found'
+          openText='Open tags list'
+        />
+      </div>
       <div className={classes.row}>
         <FormControlLabel
           label='Higher is better'

@@ -1,9 +1,10 @@
-import { fireEvent, getByText, getDefaultNormalizer, screen, waitFor } from '@testing-library/react'
+import { fireEvent, getAllByText, getByText, getDefaultNormalizer, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 
 import MetricsApi from 'src/api/explat/MetricsApi'
 import Fixtures from 'src/test-helpers/fixtures'
 import { changeFieldByRole, render } from 'src/test-helpers/test-utils'
+import { toggleDebugMode } from 'src/utils/general'
 
 import MetricsTable from './MetricsTable'
 
@@ -31,6 +32,15 @@ test('with some metrics, renders a table', () => {
   expect(getByText(tBodyElmt, 'This is metric 1', { selector: 'tr > td' })).toBeInTheDocument()
   expect(getByText(tBodyElmt, 'Cash Sales', { selector: 'tr > td' })).toBeInTheDocument()
   expect(getByText(tBodyElmt, 'Conversion', { selector: 'tr > td' })).toBeInTheDocument()
+})
+
+test('with some metrics, in debugMode renders a table with Tags column', () => {
+  toggleDebugMode()
+  const { container } = render(<MetricsTable metrics={Fixtures.createMetrics(2)} />)
+
+  const tBodyElmt = container.querySelector('tbody') as HTMLTableSectionElement
+  expect(getAllByText(tBodyElmt, 'tag_1', { selector: 'tr > td' })[0]).toBeInTheDocument()
+  toggleDebugMode()
 })
 
 test('with some metrics, loads and opens metric details', async () => {

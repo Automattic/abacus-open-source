@@ -5,6 +5,7 @@ import React from 'react'
 import { stringifyMetricParams } from 'src/lib/explat/metrics'
 import Fixtures from 'src/test-helpers/fixtures'
 import { render } from 'src/test-helpers/test-utils'
+import { toggleDebugMode } from 'src/utils/general'
 
 import MetricDetails from './MetricDetails'
 
@@ -36,6 +37,13 @@ describe('MetricDetails', () => {
   it('with a revenue metric, renders full metric details', async () => {
     const metric = Fixtures.createMetric(2)
     render(<MetricDetails metric={metric} isLoading={false} />)
-    screen.getByText(/Cash Sales/)
+    expect(screen.queryByText(/Cash Sales/)).toBeInTheDocument()
+  })
+
+  it('with a metric, renders assigned tags', async () => {
+    toggleDebugMode()
+    const metric = Fixtures.createMetric(1)
+    render(<MetricDetails metric={metric} isLoading={false} />)
+    expect(screen.queryByText(/tag_1/)).toBeInTheDocument()
   })
 })
