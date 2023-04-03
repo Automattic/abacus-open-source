@@ -21,9 +21,10 @@ import clsx from 'clsx'
 import { Field, FieldArray, FormikProps, useField } from 'formik'
 import { Select, Switch, TextField } from 'formik-material-ui'
 import _ from 'lodash'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import { getPropNameCompletions } from 'src/api/explat/AutocompleteApi'
+import TagsApi from 'src/api/explat/TagsApi'
 import MinDiffCalculator from 'src/components/explat/experiments/MinDiffCalculator'
 import MetricDetailsModal from 'src/components/explat/metrics/single-view/MetricDetailsModal'
 import Attribute from 'src/components/general/Attribute'
@@ -33,16 +34,21 @@ import MetricAutocomplete from 'src/components/general/MetricAutocomplete'
 import MetricDifferenceField from 'src/components/general/MetricDifferenceField'
 import MoreMenu from 'src/components/general/MoreMenu'
 import PrivateLink from 'src/components/general/PrivateLink'
+import TagAutocomplete from 'src/components/general/TagAutocomplete'
 import { ExperimentFormData } from 'src/lib/explat/form-data'
 import { AttributionWindowSecondsToHuman } from 'src/lib/explat/metric-assignments'
-import { EventNew, Metric, MetricAssignment } from 'src/lib/explat/schemas'
+import { indexMetrics } from 'src/lib/explat/normalizers'
+import { EventNew, Metric, MetricAssignment, TagFull } from 'src/lib/explat/schemas'
 import { useDecorationStyles } from 'src/styles/styles'
-import { useDataSource } from 'src/utils/data-loading'
+import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
+import { isDebugMode } from 'src/utils/general'
 
 import { ExperimentFormCompletionBag } from './ExperimentForm'
 import { ReactComponent as AttributionWindowDiagram } from './img/attribution_window.svg'
 import { ReactComponent as MinDiffDiagram } from './img/min_diffs.svg'
 import { ReactComponent as RefundWindowDiagram } from './img/refund_window.svg'
+
+const ELIGIBLE_TAG_NAMESPACES = ['internal']
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -141,6 +147,18 @@ const useStyles = makeStyles((theme: Theme) =>
     metricsTable: {
       tableLayout: 'fixed',
       minWidth: 800,
+    },
+    metricTagsFilterWrapper: {
+      display: 'flex',
+      width: 500,
+    },
+    metricTagsFilter: {
+      margin: theme.spacing(2),
+      justifyContent: 'flex-end',
+      flex: 1,
+    },
+    metricTagsFilterLabel: {
+      lineHeight: `${theme.spacing(4)}px`,
     },
   }),
 )
@@ -346,7 +364,7 @@ const EventEditor = ({
 }
 
 const Metrics = ({
-  indexedMetrics,
+  indexedMetrics: allIndexedMetrics,
   completionBag,
   formikProps,
 }: {
@@ -410,6 +428,28 @@ const Metrics = ({
 
   const [expandedMetricId, setExpandedMetricId] = useState<number | undefined>()
   const handleMetricDetailsClose = () => setExpandedMetricId(undefined)
+
+  const [selectedTagOption, setSelectedTagOption] = useState<TagFull | null>(null)
+  const onChangeSelectedTagOption = (_event: unknown, value: TagFull | null) => {
+    setSelectedTagOption(value)
+  }
+  const { isLoading: tagIsLoading, data: tags, error: tagsError } = useDataSource(() => TagsApi.findAll(), [])
+  useDataLoadingError(tagsError, 'Tags')
+  const eligibleTagsForFilter = useMemo(
+    () => tags?.filter((tag) => ELIGIBLE_TAG_NAMESPACES.includes(tag.namespace)) || [],
+    [tags],
+  )
+
+  console.log(allIndexedMetrics, selectedTagOption)
+  const indexedMetrics = useMemo(
+    () =>
+      indexMetrics(
+        Object.values(allIndexedMetrics)?.filter((metric) =>
+          _.map(metric.tags, 'tagId').includes(selectedTagOption?.tagId),
+        ) || allIndexedMetrics,
+      ),
+    [selectedTagOption, allIndexedMetrics],
+  )
 
   return (
     <div className={classes.root}>
@@ -587,6 +627,21 @@ const Metrics = ({
                   </TableBody>
                 </Table>
               </TableContainer>
+              {isDebugMode() && (
+                <div className={classes.metricTagsFilterWrapper}>
+                  <h4 className={classes.metricTagsFilterLabel}>Filter metrics by tag: </h4>
+                  <div className={classes.metricTagsFilter}>
+                    <TagAutocomplete
+                      id='filter-tag-select'
+                      value={selectedTagOption}
+                      onChange={onChangeSelectedTagOption}
+                      options={eligibleTagsForFilter}
+                      error={tagsError?.message}
+                      loading={tagIsLoading}
+                    />
+                  </div>
+                </div>
+              )}
               <div className={metricEditorClasses.addMetric}>
                 <Add className={metricEditorClasses.addMetricAddSymbol} />
                 <FormControl className={classes.addMetricSelect}>
