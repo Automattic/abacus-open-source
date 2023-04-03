@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { Add, ArrowDropDown, Clear, OpenInNew } from '@material-ui/icons'
+import { Add, ArrowDropDown, Clear, FilterList, OpenInNew } from '@material-ui/icons'
 import { Alert, AutocompleteRenderInputParams, ToggleButton } from '@material-ui/lab'
 import clsx from 'clsx'
 import { Field, FieldArray, FormikProps, useField } from 'formik'
@@ -150,15 +150,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     metricTagsFilterWrapper: {
       display: 'flex',
-      width: 500,
+      alignItems: 'center',
+      padding: theme.spacing(1, 2),
+      backgroundColor: theme.palette.grey[50],
+      marginBottom: theme.spacing(1),
     },
     metricTagsFilter: {
-      margin: theme.spacing(2),
-      justifyContent: 'flex-end',
       flex: 1,
+      marginLeft: theme.spacing(1),
     },
     metricTagsFilterLabel: {
-      lineHeight: `${theme.spacing(4)}px`,
+      marginLeft: theme.spacing(1),
     },
   }),
 )
@@ -166,13 +168,13 @@ const useStyles = makeStyles((theme: Theme) =>
 const useMetricEditorStyles = makeStyles((theme) =>
   createStyles({
     root: {},
-    addMetric: {
+    addItem: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'flex-end',
       margin: theme.spacing(3, 0, 2),
     },
-    addMetricAddSymbol: {
+    addSymbol: {
       position: 'relative',
       top: -3,
       marginRight: theme.spacing(2),
@@ -342,8 +344,8 @@ const EventEditor = ({
                       )
                     })}
                 </div>
-                <div className={metricClasses.addMetric}>
-                  <Add className={metricClasses.addMetricAddSymbol} />
+                <div className={metricClasses.addItem}>
+                  <Add className={metricClasses.addSymbol} />
                   <Button
                     variant='contained'
                     onClick={onAddExposureEventProperty}
@@ -364,7 +366,7 @@ const EventEditor = ({
 }
 
 const Metrics = ({
-  indexedMetrics: allIndexedMetrics,
+  indexedMetrics,
   completionBag,
   formikProps,
 }: {
@@ -440,15 +442,16 @@ const Metrics = ({
     [tags],
   )
 
-  console.log(allIndexedMetrics, selectedTagOption)
-  const indexedMetrics = useMemo(
+  const indexedMetricsForSearch = useMemo(
     () =>
-      indexMetrics(
-        Object.values(allIndexedMetrics)?.filter((metric) =>
-          _.map(metric.tags, 'tagId').includes(selectedTagOption?.tagId),
-        ) || allIndexedMetrics,
-      ),
-    [selectedTagOption, allIndexedMetrics],
+      selectedTagOption
+        ? indexMetrics(
+            Object.values(indexedMetrics)?.filter((metric) =>
+              _.map(metric.tags, 'tagId').includes(selectedTagOption.tagId),
+            ),
+          )
+        : indexedMetrics,
+    [selectedTagOption, indexedMetrics],
   )
 
   return (
@@ -627,29 +630,30 @@ const Metrics = ({
                   </TableBody>
                 </Table>
               </TableContainer>
-              {isDebugMode() && (
-                <div className={classes.metricTagsFilterWrapper}>
-                  <h4 className={classes.metricTagsFilterLabel}>Filter metrics by tag: </h4>
-                  <div className={classes.metricTagsFilter}>
-                    <TagAutocomplete
-                      id='filter-tag-select'
-                      value={selectedTagOption}
-                      onChange={onChangeSelectedTagOption}
-                      options={eligibleTagsForFilter}
-                      error={tagsError?.message}
-                      loading={tagIsLoading}
-                    />
-                  </div>
-                </div>
-              )}
-              <div className={metricEditorClasses.addMetric}>
-                <Add className={metricEditorClasses.addMetricAddSymbol} />
+              <div className={clsx(metricEditorClasses.addItem)}>
+                <Add className={metricEditorClasses.addSymbol} />
                 <FormControl className={classes.addMetricSelect}>
+                  {isDebugMode() && (
+                    <div className={classes.metricTagsFilterWrapper}>
+                      <FilterList />
+                      <h4 className={classes.metricTagsFilterLabel}>Filter by tag: </h4>
+                      <div className={classes.metricTagsFilter}>
+                        <TagAutocomplete
+                          id='filter-tag-select'
+                          value={selectedTagOption}
+                          onChange={onChangeSelectedTagOption}
+                          options={eligibleTagsForFilter}
+                          error={tagsError?.message}
+                          loading={tagIsLoading}
+                        />
+                      </div>
+                    </div>
+                  )}
                   <MetricAutocomplete
                     id='add-metric-select'
                     value={selectedMetric}
                     onChange={onChangeSelectedMetricOption}
-                    options={Object.values(indexedMetrics)}
+                    options={Object.values(indexedMetricsForSearch)}
                     error={metricAssignmentsError}
                     fullWidth
                   />
@@ -763,8 +767,8 @@ const Metrics = ({
                   </TableBody>
                 </Table>
               </TableContainer>
-              <div className={metricEditorClasses.addMetric}>
-                <Add className={metricEditorClasses.addMetricAddSymbol} />
+              <div className={metricEditorClasses.addItem}>
+                <Add className={metricEditorClasses.addSymbol} />
                 <Button
                   variant='contained'
                   disableElevation
