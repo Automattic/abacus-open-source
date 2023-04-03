@@ -52,6 +52,8 @@ export default function TagAutocomplete<
           InputLabelProps={{
             shrink: true,
           }}
+          variant='outlined'
+          size='small'
         />
       )}
       {..._.omit(props, ['options', 'error'])}
