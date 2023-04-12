@@ -1,10 +1,29 @@
 import _ from 'lodash'
 import * as yup from 'yup'
 
-import { Metric, MetricNew, metricNewOutboundSchema, metricNewSchema, metricSchema } from 'src/lib/explat/schemas'
+import {
+  Metric,
+  MetricNew,
+  MetricNewOutbound,
+  metricNewOutboundSchema,
+  metricNewSchema,
+  metricSchema,
+} from 'src/lib/explat/schemas'
 import { isDebugMode } from 'src/utils/general'
 
 import { fetchApi } from './utils'
+
+/**
+ * Transforms a metric into an outbound form.
+ */
+
+function outboundTransformMetric(metricNew: MetricNew): MetricNewOutbound {
+  const metricDataForRequest = {
+    ...metricNew,
+    tags: metricNew.tags.map((tagId) => ({ tagId })),
+  }
+  return metricNewOutboundSchema.cast(metricDataForRequest)
+}
 
 /**
  * Attempts to create a new metric.
@@ -13,11 +32,7 @@ import { fetchApi } from './utils'
  */
 async function create(newMetric: MetricNew): Promise<Metric> {
   const validatedNewMetric = await metricNewSchema.validate(newMetric, { abortEarly: false })
-  const metricDataForRequest = {
-    ...validatedNewMetric,
-    tags: validatedNewMetric.tags?.map((tagId) => ({ tagId })),
-  }
-  const outboundNewMetric = metricNewOutboundSchema.cast(metricDataForRequest)
+  const outboundNewMetric = outboundTransformMetric(validatedNewMetric)
   return await metricSchema.validate(await fetchApi('POST', '/metrics', outboundNewMetric))
 }
 
@@ -32,11 +47,7 @@ async function put(metricId: number, newMetric: MetricNew): Promise<Metric> {
     throw new Error('Invalid metricId.')
   }
   const validatedNewMetric = await metricNewSchema.validate(newMetric, { abortEarly: false })
-  const metricDataForRequest = {
-    ...validatedNewMetric,
-    tags: validatedNewMetric.tags?.map((tagId) => ({ tagId })),
-  }
-  const outboundNewMetric = metricNewOutboundSchema.cast(metricDataForRequest)
+  const outboundNewMetric = outboundTransformMetric(validatedNewMetric)
   return await metricSchema.validate(await fetchApi('PUT', `/metrics/${metricId}`, outboundNewMetric))
 }
 

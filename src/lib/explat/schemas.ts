@@ -289,6 +289,7 @@ export const metricNewOutboundSchema = metricNewSchema
   .shape({
     tags: yup.array(yupPick(tagFullSchema, ['tagId']).snakeCase()),
   })
+export interface MetricNewOutbound extends yup.InferType<typeof metricNewOutboundSchema> {}
 
 export enum AttributionWindowSeconds {
   OneHour = 3600,
