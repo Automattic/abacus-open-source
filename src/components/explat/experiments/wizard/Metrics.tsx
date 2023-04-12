@@ -39,6 +39,7 @@ import { ExperimentFormData } from 'src/lib/explat/form-data'
 import { AttributionWindowSecondsToHuman } from 'src/lib/explat/metric-assignments'
 import { indexMetrics } from 'src/lib/explat/normalizers'
 import { EventNew, Metric, MetricAssignment, TagFull } from 'src/lib/explat/schemas'
+import { DIVISION_METRIC_TAG_NAMESPACES } from 'src/lib/explat/tags'
 import { useDecorationStyles } from 'src/styles/styles'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { isDebugMode } from 'src/utils/general'
@@ -47,8 +48,6 @@ import { ExperimentFormCompletionBag } from './ExperimentForm'
 import { ReactComponent as AttributionWindowDiagram } from './img/attribution_window.svg'
 import { ReactComponent as MinDiffDiagram } from './img/min_diffs.svg'
 import { ReactComponent as RefundWindowDiagram } from './img/refund_window.svg'
-
-const ELIGIBLE_TAG_NAMESPACES = ['internal']
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -438,7 +437,7 @@ const Metrics = ({
   const { isLoading: tagIsLoading, data: tags, error: tagsError } = useDataSource(() => TagsApi.findAll(), [])
   useDataLoadingError(tagsError, 'Tags')
   const eligibleTagsForFilter = useMemo(
-    () => tags?.filter((tag) => ELIGIBLE_TAG_NAMESPACES.includes(tag.namespace)) || [],
+    () => tags?.filter((tag) => DIVISION_METRIC_TAG_NAMESPACES.includes(tag.namespace)) || [],
     [tags],
   )
 

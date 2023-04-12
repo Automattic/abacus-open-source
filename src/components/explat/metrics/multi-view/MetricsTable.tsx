@@ -10,6 +10,7 @@ import TagsApi from 'src/api/explat/TagsApi'
 import TagAutocomplete from 'src/components/general/TagAutocomplete'
 import { metricParameterTypeName, stringifyMetricParams } from 'src/lib/explat/metrics'
 import { Metric, MetricParameterType, TagFull } from 'src/lib/explat/schemas'
+import { DIVISION_METRIC_TAG_NAMESPACES } from 'src/lib/explat/tags'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { createIdSlug, isDebugMode } from 'src/utils/general'
 import { defaultTableOptions } from 'src/utils/material-table'
@@ -17,8 +18,6 @@ import { defaultTableOptions } from 'src/utils/material-table'
 import MetricDetails from './../MetricDetails'
 
 const debug = debugFactory('abacus:components/MetricsTable.tsx')
-
-const ELIGIBLE_TAG_NAMESPACES = ['internal']
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,7 +82,7 @@ const MetricsTable = ({
   const { isLoading: tagIsLoading, data: tags, error: tagsError } = useDataSource(() => TagsApi.findAll(), [])
   useDataLoadingError(tagsError, 'Tags')
   const eligibleTagsForFilter = useMemo(
-    () => tags?.filter((tag) => ELIGIBLE_TAG_NAMESPACES.includes(tag.namespace)) || [],
+    () => tags?.filter((tag) => DIVISION_METRIC_TAG_NAMESPACES.includes(tag.namespace)) || [],
     [tags],
   )
 

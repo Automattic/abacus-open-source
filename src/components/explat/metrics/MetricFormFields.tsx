@@ -11,7 +11,7 @@ import AbacusAutocomplete, { autocompleteInputProps } from 'src/components/gener
 import { MetricFormData } from 'src/lib/explat/form-data'
 import { metricParameterTypeName } from 'src/lib/explat/metrics'
 import { AutocompleteItem, metricParameterTypeToParameterField } from 'src/lib/explat/schemas'
-import { DIVISION_KPI_TAG_NAMESPACES } from 'src/lib/explat/tags'
+import { DIVISION_METRIC_TAG_NAMESPACES } from 'src/lib/explat/tags'
 import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 
 import DebugOutput from '../../general/DebugOutput'
@@ -83,7 +83,7 @@ const MetricFormFields = ({ formikProps }: { formikProps: FormikProps<{ metric: 
   } = useDataSource(async () => {
     const tags = await TagsApi.findAll()
     return tags
-      .filter((tag) => DIVISION_KPI_TAG_NAMESPACES.includes(tag.namespace))
+      .filter((tag) => DIVISION_METRIC_TAG_NAMESPACES.includes(tag.namespace))
       .map((tag) => ({
         name: tag.name,
         value: tag.tagId,
