@@ -23,22 +23,12 @@ const Experiments = function (): JSX.Element {
 
   const classes = useStyles()
   const { isLoading, data: experiments, error } = useDataSource(() => ExperimentsApi.findAll(), [])
-  const {
-    isLoading: isLoadingAnalyses,
-    data: experimentsWithAnalyses,
-    error: errorLoadingAnalyses,
-  } = useDataSource(() => ExperimentsApi.findAll(true), [])
 
-  useDataLoadingError(error || errorLoadingAnalyses, 'Experiment')
+  useDataLoadingError(error, 'Experiment')
   return (
     <Layout headTitle='Experiments' flexContent>
       <div className={classes.loadingBarContainer}>{isLoading && <LinearProgress />}</div>
-      {!error && (
-        <ExperimentsTableAgGrid
-          isLoadingAnalyses={isLoadingAnalyses}
-          experiments={experimentsWithAnalyses || experiments || []}
-        />
-      )}
+      {!error && <ExperimentsTableAgGrid experiments={experiments || []} />}
     </Layout>
   )
 }

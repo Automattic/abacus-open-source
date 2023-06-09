@@ -11,10 +11,12 @@ import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
+import ExperimentsApi from 'src/api/explat/ExperimentsApi'
 import DatetimeText from 'src/components/general/DatetimeText'
 import MetricValue from 'src/components/general/MetricValue'
 import { UnitType } from 'src/lib/explat/metrics'
 import { Analysis, ExperimentBare, ExperimentSummary, Status } from 'src/lib/explat/schemas'
+import { useDataLoadingError, useDataSource } from 'src/utils/data-loading'
 import { createIdSlug } from 'src/utils/general'
 
 import ExperimentStatus from '../ExperimentStatus'
@@ -95,13 +97,7 @@ const useStyles = makeStyles((theme: Theme) =>
 /**
  * Renders a table of "bare" experiment information.
  */
-const ExperimentsTable = ({
-  experiments,
-  isLoadingAnalyses,
-}: {
-  experiments: ExperimentSummary[]
-  isLoadingAnalyses?: boolean
-}): JSX.Element => {
+const ExperimentsTable = ({ experiments }: { experiments: ExperimentSummary[] }): JSX.Element => {
   const theme = useTheme()
   const classes = useStyles()
 
@@ -171,6 +167,23 @@ const ExperimentsTable = ({
     history.push(pathname)
     onNewDataRender()
   }
+
+  // Get experiment data with analyses asynchronously
+  const {
+    isLoading: isLoadingAnalyses,
+    data: experimentsWithAnalyses,
+    error: errorLoadingAnalyses,
+  } = useDataSource(() => ExperimentsApi.findAll(true), [])
+  useDataLoadingError(errorLoadingAnalyses, 'Experiment analyses')
+  useEffect(() => {
+    if (!gridApiRef.current) {
+      return
+    }
+
+    if (!isLoadingAnalyses && experimentsWithAnalyses) {
+      gridApiRef.current.setRowData(experimentsWithAnalyses)
+    }
+  }, [isLoadingAnalyses, experimentsWithAnalyses])
 
   return (
     <div className={clsx('ag-theme-alpine', classes.root)}>
